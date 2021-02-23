@@ -1,0 +1,234 @@
+<h3>0 - Page d'accueil :</h3>
+    En tant qu'administrateur, je souhaite avoir une page d'accueil de mon site afin de pouvoir me présenter.
+<details>
+    <h4>Description</h4>
+        Lorse de la connexion au site web, l'utilisateur arrive sur la page d'accueil permettant de me présenter.
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Maquette de la page + CSS</li>
+            <li>L'entièreté du texte de la page doit être stocké sous forme de strings dans un document .XML (afin de faciliter par la suite le multilinguisme)</li>
+        </ul>
+</details>
+***
+
+<h3>Publication recettes 1:</h3>
+En tant qu'administrateur, je souhaite pouvoir publier des recettes sur mon site afin de les promouvoir parmi mon audience.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Affichage recettes 2:</h3>
+En tant que visiteur non-enregistré, je souhaite pouvoir visualiser les recettes proposées par les administrateurs afin de pouvoir les visualiser.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Produits utilisés répertoriés 3:</h3>
+En tant qu'administrateur, je souhaite pouvoir préciser les produits utilisés dans une recette afin que les utilisateurs puissent les retrouver.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Ajout modification produits 4:</h3>
+En tant qu'administrateur, je souhaite pouvoir ajouter ou modifier un produit afin que les utilisateurs puissent en connaître la provenance.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Origine produits 5:</h3>
+En tant qu'utilisateur non-enregistré, je souhaite pouvoir connaître la provenance d'un produit utilisé dans une recette afin de pouvoir m'y fournir.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Affichage liens 6:</h3>
+En tant qu'administrateur, je souhaite pouvoir afficher mes réseaux sociaux et partenaires en bas de page afin de les promouvoir.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Critères saison pour les recettes 7:</h3>
+En tant qu'administrateur, je souhaite pouvoir préciser la saison d'une recette afin que les utilisateurs puissent trouver des recettes de saison.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Création atelier 8:</h3>
+En tant qu'administrateur, je souhaite pouvoir proposer des ateliers de cuisine afin de faire des démonstrations du matériel promu par le site.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Inscription site 9:</h3>
+En tant qu'utilisateur non-inscrit, je souhaite pouvoir m'inscrire sur le site afin de profiter de l'entièreté de ses fonctionnalités.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Confirmation inscription 10:</h3>
+En tant qu'utilisateur s'inscrivant, je souhaite pouvoir recevoir un mail de confirmation afin de m'assurer que le compte est lié à la bonne adresse email.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Inscription atelier 11:</h3>
+En tant qu'utilisateur enregistré, je souhaite pouvoir m'inscrire à un atelier afin de pouvoir y participer.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Formulaire de contact 12:</h3>
+En tant qu'administrateur, je souhaite que le site possède un formulaire de contact afin que les utilisateurs puissent facilement me contacter.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Limite inscription atelier 13:</h3>
+En tant qu'administrateur, je souhaite pouvoir limiter le nombre d'inscriptions à un atelier afin d'éviter la surcharge lors d'un atelier.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Confirmation inscription atelier 14:</h3>
+En tant qu'utilisateur enregistré, je souhaite pouvoir recevoir une confirmation automatique de mon inscription à un atelier afin de pouvoir m'en assurer.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Commentaire recettes 15:</h3>
+En tant que visiteur enregistré, je souhaite pouvoir mettre des commentaires en-dessous des recettes afin d'offrir un retour sur la recette effectuée.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Modération commentaire 16:</h3>
+En tant qu'administrateur, je souhaite pouvoir supprimer un commentaire au-dessous d'une recette afin de gérer les spams ou contenus inappropriés. 
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Réponse commentaire 17:</h3>
+En tant qu'utilisateur enregistré, je souhaite pouvoir répondre aux commentaires postés sous les recettes.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Site anglais 18:</h3>
+En tant qu'utilisateur non-francophone non-enregistré, je souhaite pouvoir en consulter une version traduite en anglais afin de pouvoir en comprendre le contenu.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Moteur de recherche 19:</h3>
+En tant que utilisateur non-enregistré, je souhaite pouvoir rechercher une recette sur base de son ingrédient, son titre, sa saison ou son type de moule afin de pouvoir facilement trouver ou retrouver une recette.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Publication recettes anglais 20:</h3>
+En tant qu'administrateur, je souhaite pouvoir poster les recettes en version traduite en anglais afin d'ouvrir le site au public anglophone.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Intégration jitsi meet 21:</h3>
+En tant qu'administrateur, je souhaite que le site intègre jitsi meet afin de pouvoir proposer des ateliers virtuels de manière simplifiée.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+<h3>Email pro 22:</h3>
+En tant qu'administrateur, je souhaite avoir une adresse email professionnelle sur le domaine de mon site à ma disposition afin que les utilisateurs puissent me contacter.
+<details>
+    <h4>Description</h4>
+    <h4>Tâches techniques</h4>
+        <ul>
+        </ul>
+</details>
+***
+
+
