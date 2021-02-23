@@ -1,4 +1,4 @@
-<h3>0 - Page d'accueil :</h3>
+<h3>0 - Page d'accueil</h3>
     En tant qu'administrateur, je souhaite avoir une page d'accueil de mon site afin de pouvoir me présenter.
 <details>
     <h4>Description</h4>
@@ -9,106 +9,175 @@
             <li>L'entièreté du texte de la page doit être stocké sous forme de strings dans un document .XML (afin de faciliter par la suite le multilinguisme)</li>
         </ul>
 </details>
+
 ***
 
-<h3>Publication recettes 1:</h3>
-En tant qu'administrateur, je souhaite pouvoir publier des recettes sur mon site afin de les promouvoir parmi mon audience.
+<h3>1 - Publication recettes</h3>
+    En tant qu'administrateur, je souhaite pouvoir publier des recettes sur mon site afin de les promouvoir parmi mon audience.
+<details>
+    <h4>Description</h4>
+        Mon site web doit me permettre de publier des recettes, qui possedent: un titre, une illlustration et sont disponibles en plusieurs langues, dans le but de les promouvoir auprès des personnes qui me suivent.
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Maquette de la page + css</li>
+            <li>Page à formulaire pour ajouter la recette</li>
+            <li>Champ "Recette"</li>
+            <li>Champ "Titre"</li>
+            <li>Champ "Illustration de la recette"</li>
+            <li>Créer une table "recette" dans la DB</li>
+            <li>Langue de la recette</li>
+        </ul>
+</details>
+
+***
+
+<h3>2 - Affichage recettes</h3>
+    En tant que visiteur non-enregistré, je souhaite pouvoir visualiser les recettes proposées par les administrateurs.
+<details>
+    <h4>Description</h4>
+        En tant qu'utilisateur, je souhaite pouvoir voir les recettes proposées sur le site web.
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Requète API (get recette)</li>
+            <li>Maquette de la page + css</li>
+            <li>Page de recette</li>
+        </ul>
+</details>
+
+***
+
+<h3>3 - Produits utilisés répertoriés</h3>
+    En tant qu'administrateur, je souhaite pouvoir préciser les produits utilisés dans une recette afin que les utilisateurs puissent les retrouver.
+<details>
+    <h4>Description</h4>
+        <b>TBD</b>
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Créer une table de produits dans la DB</li>
+            <li>Créer une structure de requêtes à la BD pour obtenir les produits répertoriés</li>
+            <li>Ajouter un champ "produits" à la publication de recettes</li>
+            <li>Créer une table dans la DB dont l'identifiant est "tel produit dans telle recette" avec en plus une précision de la quantité</li>
+        </ul>
+</details>
+
+***
+
+<h3>4 - Ajout modification produits</h3>
+    En tant qu'administrateur, je souhaite pouvoir ajouter ou modifier un produit afin que les utilisateurs puissent en connaître la provenance.
+<details>
+    <h4>Description</h4>
+        <b>TBD</b>
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Bouton pop up (sur la page d'ajout de recette )</li>
+            <li>Ajouter un produit dans la DB</li>
+            <li>Mettre a jour un produit</li>
+            <li>Origine produit</li>
+            <li>Saison produit</li>
+        </ul>
+</details>
+
+***
+
+<h3>5 - Origine produits</h3>
+    En tant qu'utilisateur non-enregistré, je souhaite pouvoir connaître la provenance d'un produit utilisé dans une recette.
+<details>
+    <h4>Description</h4>
+        <b>TBD</b> ( dans le but de pouvoir me fournir des memes ingredients)
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Ajouter un champ "origine" ou "lien" dans la table "produits"</li>
+            <li>Transformer les produits des recettes en lien cliquables</li>
+        </ul>
+</details>
+
+***
+
+<h3>6 - Affichage liens</h3>
+    En tant qu'administrateur, je souhaite pouvoir afficher mes réseaux sociaux et partenaires en bas de page afin de les promouvoir.
+<details>
+    <h4>Description</h4>
+    <b>TBD</b>
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Footer statique sur toutes les pages</li>
+            <li>Lien Facebook</li>
+            <li>Lien Instagram</li>
+            <li>Lien YouTube</li>
+            <li>Lien blog Guy Demarle</li>
+            <li>Email</li>
+            <li>Code conseillère + lien affilié si possible</li>
+        </ul>
+</details>
+
+***
+
+<h3>7 - Critères saison pour les recettes</h3>
+    En tant qu'administrateur, je souhaite pouvoir préciser la saison d'une recette afin que les utilisateurs puissent trouver des recettes de saison.
+<details>
+    <h4>Description</h4>
+    <b>TBD</b>
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Ajout de la colone saison recette dans la db</li>
+            <li>Ajout du champ recette dans la page de creation</li>
+        </ul>
+</details>
+
+***
+
+<h3>8 - Création atelier</h3>
+    En tant qu'administrateur, je souhaite pouvoir proposer des ateliers de cuisine afin de faire des démonstrations du matériel promu par le site.
+<details>
+    <h4>Description</h4>
+    <b>TBD</b>
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Créer une table atelier dans la DB</li>
+            <li>Date</li>
+            <li>Heure de début</li>
+            <li>Lieu</li>
+            <li>Lien (si pas de lieu)</li>
+            <li>Description de l'atelier</li>
+            <li>Liste des recettes de l'atelier</li>
+            <li>Lien vers les recettes</li>
+            <li>Nombre d'inscrits</li>
+            <li>Date limite d'inscription</li>
+            <li>Disponibilité</li>
+        </ul>
+</details>
+
+***
+
+<h3>9 - Inscription site</h3>
+    En tant qu'utilisateur non-inscrit, je souhaite pouvoir m'inscrire sur le site afin de profiter de l'entièreté de ses fonctionnalités.
+<details>
+    <h4>Description</h4>
+    <b>TBD</b>
+    <h4>Tâches techniques</h4>
+        <ul>
+            <li>Table "utilisateurs" dans la DB</li>
+            <li>Maquette de la page d'inscription/connexion + CSS</li>
+            <li>Page d'inscription/connexion avec formulaire</li>
+            <li>Champ "email", "nom d'utilisateur", "mot de passe" et "confirmer mot de passe"</li>
+            <li>Requête à la DB pour créer l'utilisateur</li>
+        </ul>
+</details>
+
+***
+
+<h3>10 - Confirmation inscription</h3>
+    En tant qu'utilisateur s'inscrivant, je souhaite pouvoir recevoir un mail de confirmation afin de m'assurer que le compte est lié à la bonne adresse email.
 <details>
     <h4>Description</h4>
     <h4>Tâches techniques</h4>
         <ul>
+            <li>Envoie mail confirmation</li>
+            <li>Validation par lien / code unique du mail</li>
+            <li>Valider le user dans la DB</li>
         </ul>
 </details>
-***
 
-<h3>Affichage recettes 2:</h3>
-En tant que visiteur non-enregistré, je souhaite pouvoir visualiser les recettes proposées par les administrateurs afin de pouvoir les visualiser.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
-***
-
-<h3>Produits utilisés répertoriés 3:</h3>
-En tant qu'administrateur, je souhaite pouvoir préciser les produits utilisés dans une recette afin que les utilisateurs puissent les retrouver.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
-***
-
-<h3>Ajout modification produits 4:</h3>
-En tant qu'administrateur, je souhaite pouvoir ajouter ou modifier un produit afin que les utilisateurs puissent en connaître la provenance.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
-***
-
-<h3>Origine produits 5:</h3>
-En tant qu'utilisateur non-enregistré, je souhaite pouvoir connaître la provenance d'un produit utilisé dans une recette afin de pouvoir m'y fournir.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
-***
-
-<h3>Affichage liens 6:</h3>
-En tant qu'administrateur, je souhaite pouvoir afficher mes réseaux sociaux et partenaires en bas de page afin de les promouvoir.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
-***
-
-<h3>Critères saison pour les recettes 7:</h3>
-En tant qu'administrateur, je souhaite pouvoir préciser la saison d'une recette afin que les utilisateurs puissent trouver des recettes de saison.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
-***
-
-<h3>Création atelier 8:</h3>
-En tant qu'administrateur, je souhaite pouvoir proposer des ateliers de cuisine afin de faire des démonstrations du matériel promu par le site.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
-***
-
-<h3>Inscription site 9:</h3>
-En tant qu'utilisateur non-inscrit, je souhaite pouvoir m'inscrire sur le site afin de profiter de l'entièreté de ses fonctionnalités.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
-***
-
-<h3>Confirmation inscription 10:</h3>
-En tant qu'utilisateur s'inscrivant, je souhaite pouvoir recevoir un mail de confirmation afin de m'assurer que le compte est lié à la bonne adresse email.
-<details>
-    <h4>Description</h4>
-    <h4>Tâches techniques</h4>
-        <ul>
-        </ul>
-</details>
 ***
 
 <h3>Inscription atelier 11:</h3>
