@@ -1,5 +1,5 @@
-module.exports =(sequelize, DataTypes)=>{
-    const Recipe= sequelize.define('Recipe', {
+module.exports = function(sequelize, DataTypes){
+    const Ingredient= sequelize.define('Ingredient', {
 
         name:{
             type :DataTypes.STRING,
@@ -16,36 +16,25 @@ module.exports =(sequelize, DataTypes)=>{
             allowNull :false
         },
 
-        imageNumber:{
-            type: DataTypes.NUMBER,
-            allowNull :false ,
-            defaultValue : 0
-        },
-
         season: {
             type: DataTypes.STRING,
             allowNull :false
         },
 
-        unfolding:{
+        origin:{
             type: DataTypes.TEXT,
             allowNull : false
         },
-
-        timeToPrepare: {
-            type: DataTypes.NUMBER,
-            allowNull: false
+        image :{
+            type: DataTypes.STRING.BINARY,
+            allowNull : true
         }
 
-
     })
-    Recipe.associate = (models) =>{
-        Recipe.hasMany(models.Ingredient)
-        Recipe.hasMany(models.Recipe_Image)
+    Ingredient.associate = (models) =>{
+        Ingredient.belongsToMany(models.Recipe ,{through: models.Recipe_Ingredient})
+        Ingredient.belongsTo(models.Ingredient_Origin)
+
     }
-    return Recipe;
+    return Ingredient
 };
-
-
-
-
