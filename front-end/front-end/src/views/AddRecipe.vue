@@ -1,10 +1,14 @@
 <template>
-
+  <div class="AddRecipe">
+    <FormRecipe ></FormRecipe>
+  </div>
 </template>
 
 <script>
+    import FormRecipe from "../components/FormRecipe";
     export default {
-        name: "AddRecette.vue"
+        name: "AddRecipe",
+      components: {FormRecipe}
     }
 </script>
 
