@@ -5,11 +5,11 @@
 </template>
 
 <script>
-    import FormRecipe from "../components/FormRecipe";
-    export default {
-        name: "AddRecipe",
-      components: {FormRecipe}
-    }
+import FormRecipe from '../components/FormRecipe'
+export default {
+  name: 'AddRecipe',
+  components: { FormRecipe }
+}
 </script>
 
 <style scoped>

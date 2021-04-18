@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <router-link to="/"><translate>Home</translate></router-link> |
-    <router-link to="/about"><translate>About</translate></router-link>
+    <router-link to="/about"><translate>About</translate></router-link> |
+    <router-link to="/addrecipe"><translate>Add recipe</translate></router-link>
   </div>
   <router-view/>
   <div id="footer">
@@ -16,6 +17,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: darkgray;
 }
 
 #nav {

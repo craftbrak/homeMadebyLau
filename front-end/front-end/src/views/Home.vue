@@ -8,12 +8,9 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import FormRecipe from '../components/FormRecipe'
-
 export default {
   name: 'Home',
   components: {
-    FormRecipe,
     HelloWorld
   }
 }

@@ -5,9 +5,9 @@
 </template>
 
 <script>
-    export default {
-        name: "RecipeOverview"
-    }
+export default {
+  name: 'RecipeOverview'
+}
 </script>
 
 <style scoped>

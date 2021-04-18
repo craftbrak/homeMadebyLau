@@ -1,10 +1,15 @@
 import { createApp } from 'vue'
+import { createGettext } from '@jshmrtn/vue3-gettext'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-// import GetTextPlugin from 'vue-gettext'
-// import translations from '../translations.json'
+import translations from '../translations.json'
 
-// Vue.use(GetTextPlugin, {translations: translations})
-// import axios from 'axios';
-createApp(App).use(store).use(router).mount('#app')
+const gettext = createGettext({
+  availableLanguages: {},
+  defaultLanguage: 'en_GB',
+  translations
+})
+const app = createApp(App)
+app.use(store).use(router).mount('#app')
+app.use(gettext)
