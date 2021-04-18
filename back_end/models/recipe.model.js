@@ -35,6 +35,10 @@ module.exports =(sequelize, DataTypes)=>{
         timeToPrepare: {
             type: DataTypes.NUMBER,
             allowNull: false
+        },
+        cookingTime: {
+            type: DataTypes.NUMBER,
+            allowNull: false
         }
 
 

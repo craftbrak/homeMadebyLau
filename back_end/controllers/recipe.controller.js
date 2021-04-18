@@ -8,7 +8,7 @@ exports.create =async (req, res) => {
         name: req.body.recipe_name ,
         description:req.body.recipe_description,
         language:req.body.recipe_language,
-        season:req.body.recipe_language,
+        season:req.body.recipe_season,
         unfolding: req.body.recipe_unfloding,
         timeToPrepare:req.body.recipe_timeToPrepare})
         .then((recipe)=>{

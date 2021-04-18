@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const port = 8080;
 const db = require('./models');
+const cors = require('cors')
 
-
-
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: true }));
 require('./routes/recipe.routes')(app)
