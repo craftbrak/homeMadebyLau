@@ -1,4 +1,5 @@
 const app = require('express')();
+const express = require('express')
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const port = 8080;
@@ -7,7 +8,7 @@ const cors = require('cors')
 
 app.use(cors())
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 require('./routes/recipe.routes')(app)
 require('./routes/ingredient.routes')(app)
 

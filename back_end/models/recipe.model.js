@@ -18,7 +18,7 @@ module.exports =(sequelize, DataTypes)=>{
 
         imageNumber:{
             type: DataTypes.NUMBER,
-            allowNull :false ,
+            allowNull :true ,
             defaultValue : 0
         },
 

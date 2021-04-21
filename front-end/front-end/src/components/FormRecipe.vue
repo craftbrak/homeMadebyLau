@@ -40,7 +40,7 @@
 
 <script>
 import IngredientOption from './IngredientOption'
-import axios from "axios";
+import axios from 'axios'
 export default {
   name: 'FormRecipe',
   data () {
@@ -70,7 +70,7 @@ export default {
       return false
     },
     addRecipe () {
-      let recipe = {
+      const recipe = {
         recipe_name: this.Rname,
         recipe_description: this.Rdescription,
         recipe_language: this.Rlanguage,
@@ -80,7 +80,7 @@ export default {
         recipe_cookingTime: this.Rcooking,
         recipe_Ingredients: this.Ingredients
       }
-      axios.post(process.env.VUE_APP_API_ENDPOINT+'/recipe', recipe)
+      axios.post(process.env.VUE_APP_API_ENDPOINT + '/recipe', recipe)
         .then()
     }
   }

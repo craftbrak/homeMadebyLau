@@ -10,13 +10,13 @@ exports.create =async (req, res) => {
         language:req.body.recipe_language,
         season:req.body.recipe_season,
         unfolding: req.body.recipe_unfloding,
-        timeToPrepare:req.body.recipe_timeToPrepare})
+        timeToPrepare:req.body.recipe_timeToPrepare,
+        cookingTime: req.body.recipe_cookingTime})
         .then((recipe)=>{
             for (ingredient of req.body.ingredients){
                 db.Ingredient.findByPk(ingredient.id).then((ingre)=>{
                     recipe.addIngredients( ingre, {quantity: ingredient.quatity
                     })})
-
             }
             for (image in req.body.recipe_images){
                 db.Recipe_Image.create({
