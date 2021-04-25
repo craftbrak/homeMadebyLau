@@ -9,15 +9,13 @@
   <label ><translate>Language :</translate></label>
 <!--    TO add auto language list generation-->
   <select name="RecipeLanguage" v-model="Rlanguage">
-    <option value="Fr" selected>Fr</option>
-    <option value="En">En</option>
+    <option value="" selected disabled hidden><translate>Select a language</translate></option>
+    <option v-for="option in Loption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
   </select>
     <label ><translate>season</translate> :</label>
   <select name="RecipeSeason" v-model="Rseason">
-    <option value="winter" selected><translate>winter</translate></option>
-    <option value="spring"><translate>spring</translate></option>
-    <option value="sumer"><translate>sumer</translate></option>
-    <option value="autumn"><translate>autumn</translate></option>
+    <option value="" selected disabled hidden><translate>Select a season</translate></option>
+    <option v-for="option in Soption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
   </select>
     <label ><translate>Unfolding</translate> :</label>
   <input type="textarea" name="RecipeUnfolding" v-model="Runfolding" required>
@@ -54,13 +52,15 @@ export default {
       Rlanguage: '',
       Runfolding: '',
       Rcooking: '',
-      Rprepare: ''
+      Rprepare: '',
+      Soption: [],
+      Loption: []
     }
   },
   components: { IngredientOption },
   methods: {
     Ingredientchange (Ing) {
-      this.Ingredients[Ing.IngredientOId] = { ingId: Ing.ingredient, quantity: Ing.quantity }
+      this.Ingredients[Ing.IngredientOId - 1] = { ingId: Ing.ingredient, quantity: Ing.quantity, IUnit: Ing.IngredientUnit }
     },
     addIngredient () {
       this.iNumber++
@@ -80,9 +80,30 @@ export default {
         recipe_cookingTime: this.Rcooking,
         recipe_Ingredients: this.Ingredients
       }
+      console.log(recipe)
       axios.post(process.env.VUE_APP_API_ENDPOINT + '/recipe', recipe)
         .then()
     }
+  },
+  beforeCreate () {
+    axios.get(process.env.VUE_APP_API_ENDPOINT + '/seasons')
+      .then((responce) => {
+        for (const unit in responce.data) {
+          this.Soption.push({
+            text: responce.data[unit].full_name,
+            value: responce.data[unit].code
+          })
+        }
+      })
+    axios.get(process.env.VUE_APP_API_ENDPOINT + '/languages')
+      .then((responce) => {
+        for (const unit in responce.data) {
+          this.Loption.push({
+            text: responce.data[unit].full_name,
+            value: responce.data[unit].code
+          })
+        }
+      })
   }
 }
 </script>
