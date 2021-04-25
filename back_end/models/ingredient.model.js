@@ -11,22 +11,8 @@ module.exports = function(sequelize, DataTypes){
             allowNull : false
         },
 
-        language:{
+        imagePath :{
             type: DataTypes.STRING,
-            allowNull :false
-        },
-
-        season: {
-            type: DataTypes.STRING,
-            allowNull :false
-        },
-
-        origin:{
-            type: DataTypes.TEXT,
-            allowNull : false
-        },
-        image :{
-            type: DataTypes.STRING.BINARY,
             allowNull : true
         }
 
@@ -34,7 +20,8 @@ module.exports = function(sequelize, DataTypes){
     Ingredient.associate = (models) =>{
         Ingredient.belongsToMany(models.Recipe ,{through: models.Recipe_Ingredient})
         Ingredient.belongsTo(models.Ingredient_Origin)
-
+        Ingredient.belongsTo(models.Language)
+        Ingredient.belongsTo(models.Season)
     }
     return Ingredient
 };

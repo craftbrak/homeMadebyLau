@@ -11,12 +11,15 @@ app.use(cors())
 app.use(bodyParser.json());
 require('./routes/recipe.routes')(app)
 require('./routes/ingredient.routes')(app)
+require('./routes/unit.routes')(app)
+require('./routes/season.route')(app)
+require('./routes/language.route')(app)
 
 server=http.listen(port,async ()=>{
     try {
         await db.sequelize.authenticate();
         console.log('Connection has been established successfully.');
-        await db.sequelize.sync();
+        await db.sequelize.sync({ alter: true });
         console.log("listenig to port " + port)
     } catch (error) {
         console.error('Unable to connect to the database:', error);

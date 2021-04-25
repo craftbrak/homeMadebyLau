@@ -5,16 +5,9 @@ module.exports = function(sequelize, DataTypes){
             allowNull :false
         },
 
-        Unit: {
-            type: DataTypes.STRING,
-            allowNull :false
-        }
-
     })
     Recipe_Ingredient.associate = (models) =>{
-        Recipe_Ingredient.hasOne(models.Recipe)
-        Recipe_Ingredient.hasOne(models.Ingredient)
-
+        Recipe_Ingredient.belongsTo(models.Unit)
     }
     return Recipe_Ingredient
 };

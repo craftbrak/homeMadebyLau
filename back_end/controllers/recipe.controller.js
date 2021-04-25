@@ -13,25 +13,26 @@ exports.create =async (req, res) => {
         timeToPrepare:req.body.recipe_timeToPrepare,
         cookingTime: req.body.recipe_cookingTime})
         .then((recipe)=>{
-            for (ingredient of req.body.ingredients){
-                db.Ingredient.findByPk(ingredient.id).then((ingre)=>{
-                    recipe.addIngredients( ingre, {quantity: ingredient.quatity
+           for (ingredient of req.body.recipe_Ingredients){
+               console.log(ingredient)
+                db.Ingredient.findByPk(ingredient.ingId).then((ingre)=>{
+                    recipe.addIngredients( ingre, {quantity: ingredient.quatity, unit: ingredient.Iunit
                     })})
             }
-            for (image in req.body.recipe_images){
-                db.Recipe_Image.create({
-                    img:image.img,
-                    caption : image.caption
-                }).then((imag) => {
-                    recipe.addRecipe_Images(imag)
-                });
-
-            }
-
+            // for (image in req.body.recipe_images){
+            //     db.Recipe_Image.create({
+            //         img:image.img,
+            //         caption : image.caption
+            //     }).then((imag) => {
+            //         recipe.addRecipe_Images(imag)
+            //     });
+            //
+            // }
         }).then(() => {
             res.status(200)
         })
         .catch(err => {
+            console.log(err)
         res.status(500).send({
             message:
                 err.message || "Some error occurred while retrieving Recipies."
@@ -119,7 +120,9 @@ exports.findAllPublished = (req, res) => {
 };
 // Add ingredeint to a Recipe
 exports.addIngredient = (req ,res) => {
-
+    db.Ingredient.findByPk(ingredient.ingId).then((ingre)=>{
+        recipe.addIngredients( ingre, {quantity: ingredient.quatity, unit: ingredient.Iunit
+        })})
 };
 
 

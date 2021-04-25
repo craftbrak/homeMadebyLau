@@ -44,7 +44,7 @@ module.exports =(sequelize, DataTypes)=>{
 
     })
     Recipe.associate = (models) =>{
-        Recipe.hasMany(models.Ingredient,)
+        Recipe.belongsToMany(models.Ingredient,{through: models.Recipe_Ingredient})
         Recipe.hasMany(models.Recipe_Image)
     }
     return Recipe;

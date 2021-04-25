@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes){
     const Recipe_Image= sequelize.define('Recipe_Image', {
-        img :{
-            type: DataTypes.STRING.BINARY,
+        imgpath :{
+            type: DataTypes.STRING,
             allowNull : false
         },
         caption:{
