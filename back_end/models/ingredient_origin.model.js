@@ -11,11 +11,6 @@ module.exports = function(sequelize, DataTypes){
             allowNull : false
         },
 
-        language:{
-            type: DataTypes.STRING,
-            allowNull :false
-        },
-
         address: {
             type: DataTypes.STRING,
             allowNull : true
@@ -25,7 +20,16 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.STRING,
             allowNull : true
         },
+
         phone_number:{
+            type: DataTypes.STRING,
+            allowNull : true
+        },
+        image_path:{
+            type: DataTypes.STRING,
+            allowNull : true
+        },
+        email :{
             type: DataTypes.STRING,
             allowNull : true
         }
@@ -33,7 +37,7 @@ module.exports = function(sequelize, DataTypes){
     })
     Ingredient_Origin.associate = (models) =>{
         Ingredient_Origin.hasMany(models.Ingredient)
-
+        Ingredient_Origin.belongsTo(models.Language)
     }
     return Ingredient_Origin
 };

@@ -18,5 +18,6 @@ module.exports = function(sequelize, DataTypes){
         Unit.hasMany(models.Recipe_Ingredient)
 
     }
+
     return Unit
 };

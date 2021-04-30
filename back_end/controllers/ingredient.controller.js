@@ -4,7 +4,16 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Ingredient
 exports.create = (req, res) => {
-    const recipe = Ingredient.create({name: "test" ,description:"azeetetst",language:'En',season:"automn",unfolding: "edsqdazdqsdzqsd", timeToPrepare: 45})
+    Ingredient.create({name: "test" ,description:"azeetetst",imagePath: "/static/images/ingredient_images/testImage.jpg"})
+     .then((ingre) => {
+         ingre.setIngredient_Origin(1)
+         ingre.setLanguage(1)
+         ingre.setSeason(1)
+         res.status(201)
+     }).catch((err)=>{
+         console.log(err)
+    });
+
 };
 
 // Retrieve all Recipes from the database.
@@ -52,12 +61,12 @@ exports.delete = (req, res) => {
 
 };
 
-// Delete all Ingredient from the database.
-exports.deleteAll = (req, res) => {
+
+// Find the origin of an Ingredient
+exports.findOrigin = (req, res) => {
 
 };
-
-// Find all published Ingredient
-exports.findAllPublished = (req, res) => {
+// Update the origin of an Ingredient
+exports.UpdateOrigin = (req, res) => {
 
 };

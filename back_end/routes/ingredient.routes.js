@@ -3,26 +3,26 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new Tutorial
+    // Create a new Ingredient
     router.post("/", ingredients.create);
 
-    // Retrieve all Tutorials
+    // Retrieve all Ingredient
     router.get("/", ingredients.findAll);
 
-    // Retrieve all published Tutorials
-    router.get("/published", ingredients.findAllPublished);
-
-    // Retrieve a single Tutorial with id
+    // Retrieve a single Ingredient with id
     router.get("/:id", ingredients.findOne);
 
-    // Update a Tutorial with id
+    // Update a Ingredient with id
     router.put("/:id", ingredients.update);
 
-    // Delete a Tutorial with id
+    // Delete a Ingredient with id
     router.delete("/:id", ingredients.delete);
 
-    // Delete all Tutorials
-    router.delete("/", ingredients.deleteAll);
+    // Find the origin of an Ingredient
+    router.get("/:id/origin", ingredients.findOrigin)
+
+    // Update the origin of an Ingredient
+    router.put("/:id/origin", ingredients.UpdateOrigin)
 
     app.use('/api/ingredient', router);
 };

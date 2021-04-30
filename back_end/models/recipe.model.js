@@ -11,20 +11,10 @@ module.exports =(sequelize, DataTypes)=>{
             allowNull : false
         },
 
-        language:{
-            type: DataTypes.STRING,
-            allowNull :false
-        },
-
         imageNumber:{
             type: DataTypes.NUMBER,
             allowNull :true ,
             defaultValue : 0
-        },
-
-        season: {
-            type: DataTypes.STRING,
-            allowNull :false
         },
 
         unfolding:{
@@ -46,6 +36,8 @@ module.exports =(sequelize, DataTypes)=>{
     Recipe.associate = (models) =>{
         Recipe.belongsToMany(models.Ingredient,{through: models.Recipe_Ingredient})
         Recipe.hasMany(models.Recipe_Image)
+        Recipe.belongsTo(models.Language)
+        Recipe.belongsTo(models.Season)
     }
     return Recipe;
 };

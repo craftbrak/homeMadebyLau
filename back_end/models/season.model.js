@@ -15,7 +15,9 @@ module.exports = function(sequelize, DataTypes){
     },{timestamps: false})
     Season.associate = (models) =>{
         Season.hasMany(models.Ingredient)
+        Season.hasMany(models.Recipe)
 
     }
+
     return Season
 };

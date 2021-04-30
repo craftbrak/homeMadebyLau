@@ -7,19 +7,22 @@ const db = require('./models');
 const cors = require('cors')
 
 app.use(cors())
-
+//app.use(bodyParser.urlencoded())
 app.use(bodyParser.json());
 require('./routes/recipe.routes')(app)
 require('./routes/ingredient.routes')(app)
 require('./routes/unit.routes')(app)
 require('./routes/season.route')(app)
 require('./routes/language.route')(app)
+require('./routes/ingredient_origin.router')(app)
 
 server=http.listen(port,async ()=>{
     try {
         await db.sequelize.authenticate();
         console.log('Connection has been established successfully.');
-        await db.sequelize.sync({ alter: true });
+        await db.sequelize.sync({ force: true });
+        await db.initStatic()
+        await db.sequelize.sync({ force: false });
         console.log("listenig to port " + port)
     } catch (error) {
         console.error('Unable to connect to the database:', error);

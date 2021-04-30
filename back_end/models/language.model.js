@@ -14,7 +14,11 @@ module.exports = function(sequelize, DataTypes){
     },{timestamps: false})
     Language.associate = (models) =>{
         Language.hasMany(models.Ingredient)
+        Language.hasMany(models.Recipe)
+        Language.hasMany(models.Ingredient_Origin)
+
 
     }
+
     return Language
 };
