@@ -1,6 +1,6 @@
 <!--This is the component that is used to create and modify a recipe-->
 <template>
-<form class="FormRecipe">
+<form class="FormRecipe container" >
   <fieldset>
   <label ><translate>Name</translate> :</label>
   <input type="text" name="RecipeName" v-model="Rname" required>
@@ -57,6 +57,9 @@ export default {
       Loption: []
     }
   },
+  props: {
+    recipe_Id: Number
+  },
   components: { IngredientOption },
   methods: {
     Ingredientchange (Ing) {
@@ -80,9 +83,11 @@ export default {
         recipe_cookingTime: this.Rcooking,
         recipe_Ingredients: this.Ingredients
       }
-      console.log(recipe)
+
       axios.post(process.env.VUE_APP_API_ENDPOINT + '/recipe', recipe)
-        .then()
+        .then(recipe => {
+          console.log(recipe)
+        })
     }
   },
   beforeCreate () {
@@ -91,7 +96,7 @@ export default {
         for (const unit in responce.data) {
           this.Soption.push({
             text: responce.data[unit].full_name,
-            value: responce.data[unit].code
+            value: responce.data[unit].id
           })
         }
       })
@@ -100,10 +105,18 @@ export default {
         for (const unit in responce.data) {
           this.Loption.push({
             text: responce.data[unit].full_name,
-            value: responce.data[unit].code
+            value: responce.data[unit].id
           })
         }
       })
+  },
+  created () {
+    if (!isNaN(this.recipe_Id)) {
+      axios.get(process.env.VUE_APP_API_ENDPOINT + '/recipe/:' + this.recipe_Id)
+        .then((responce) => {
+          console.log(responce.data)
+        })
+    }
   }
 }
 </script>

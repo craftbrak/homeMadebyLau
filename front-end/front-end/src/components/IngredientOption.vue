@@ -55,7 +55,7 @@ export default {
       .then((response) => {
         this.ingredients = response.data
         for (const ingredient in this.ingredients) {
-          this.options.push({
+          this.Ioptions.push({
             text: this.ingredients[ingredient].name,
             value: this.ingredients[ingredient].id
           })

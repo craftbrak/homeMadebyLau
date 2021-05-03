@@ -20,9 +20,8 @@ server=http.listen(port,async ()=>{
     try {
         await db.sequelize.authenticate();
         console.log('Connection has been established successfully.');
-        await db.sequelize.sync({ force: true });
+        await db.sequelize.sync({ alter: true });
         await db.initStatic()
-        await db.sequelize.sync({ force: false });
         console.log("listenig to port " + port)
     } catch (error) {
         console.error('Unable to connect to the database:', error);
