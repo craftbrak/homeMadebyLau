@@ -29,6 +29,9 @@
                       :key="index" @ichange="Ingredientchange" />
   </div>
 
+    <div class="image-list" >
+      <input type="file" ref="file" multiple="multiple" name="recipeImage">
+    </div>
   <input type="button" value="add Ingredient" @click="addIngredient" v-translate>
   <input type="button" value="new Ingredient" @click="showCreateIngredient" v-translate>
   <input type="button" value="create Recipe" @click="addRecipe" v-translate>
@@ -55,6 +58,7 @@ export default {
       Rprepare: '',
       Soption: [],
       Loption: []
+
     }
   },
   props: {
@@ -73,20 +77,28 @@ export default {
       return false
     },
     addRecipe () {
-      const recipe = {
-        recipe_name: this.Rname,
-        recipe_description: this.Rdescription,
-        recipe_language: this.Rlanguage,
-        recipe_season: this.Rseason,
-        recipe_unfloding: this.Runfolding,
-        recipe_timeToPrepare: this.Rprepare,
-        recipe_cookingTime: this.Rcooking,
-        recipe_Ingredients: this.Ingredients
+      const formData = new FormData()
+      formData.append('recipe_name', this.Rname)
+      formData.append('recipe_description', this.Rdescription)
+      formData.append('recipe_language', this.Rlanguage)
+      formData.append('recipe_season', this.Rseason)
+      formData.append('recipe_unfloding', this.Runfolding)
+      formData.append('recipe_timeToPrepare', this.Rprepare)
+      formData.append('recipe_cookingTime', this.Rcooking)
+      formData.append('recipe_Ingredients', this.Ingredients)
+      for (var i = 0; i < this.$refs.file.files.length; i++) {
+        const file = this.$refs.file.files[i]
+        formData.append('files[' + i + ']', file)
       }
-
-      axios.post(process.env.VUE_APP_API_ENDPOINT + '/recipe', recipe)
+      axios.post(process.env.VUE_APP_API_ENDPOINT + '/recipe', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
         .then(recipe => {
           console.log(recipe)
+        }).catch(err => {
+          alert(err)
         })
     }
   },
