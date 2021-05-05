@@ -17,7 +17,7 @@
     <div id="rightColumn" class="column col-2"></div>
   </div>
   <div id="footer">
-    <div id="networks">Retrouvez-moi sur :
+    <div id="networks"><translate>You can find me on:</translate>
       <a href="https://www.facebook.com/homemadebylau" target="_blank"><img class="network" alt="Facebook" src="./assets/facebook.png"></a>
       <a href="http://instagram.com/homemadebylau/" target="_blank"><img class="network" alt="Instagram" src="./assets/instagram.png"></a>
       <a href="https://www.youtube.com/channel/UCnpGlhJ2xADc8dk5wOEtZ8w/videos" target="_blank"><img class="network" alt="YouTube" src="./assets/youtube.png"></a>
@@ -28,6 +28,7 @@
 </template>
 
 <style>
+
 #app { font-family: Roboto, Helvetica, Arial, sans-serif; }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -40,6 +41,10 @@
 
 body {
   margin: 0px;
+}
+
+img {
+  padding: 0px 5px;
 }
 
 .column {
@@ -88,8 +93,6 @@ body {
 
 .network {
   height: 2em;
-  padding-left: 5px;
-  padding-right: 5px;
 }
 
 #legalMentions {
