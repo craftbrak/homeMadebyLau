@@ -1,5 +1,5 @@
 <template>
-  <div class="AddRecipe">
+  <div class="AddRecipe col-8">
     <FormRecipe ></FormRecipe>
   </div>
 </template>

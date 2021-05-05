@@ -3,12 +3,17 @@
     <div id="navleft">
       <img alt="HOMEMADE by Lau logo" src="./assets/logo.png">
       <router-link to="/"><translate>Home</translate></router-link> |
-      <router-link to="/workshops"><translate>Workshops</translate></router-link> |
-      <router-link to="/products"><translate>Products</translate></router-link> |
-      <router-link to="/contact"><translate>Contact</translate></router-link>
+      <router-link to="/Workshops"><translate>Workshops</translate></router-link> |
+      <router-link to="/Products"><translate>Products</translate></router-link> |
+      <router-link to="/Contact"><translate>Contact</translate></router-link>
     </div>
     <div id="navright">
-      Profile
+      <div id="searchbar">
+        <input type="text" placeholder="Look for a recipe, a product...">
+        <button><img id="search" alt="Search" src="./assets/loupe.png"></button>
+      </div>
+      sign in | register
+      <img alt="Profile" src="./assets/profil.png">
     </div>
   </div>
   <div class="row">
@@ -56,7 +61,7 @@ img {
   display: block;
   padding: 0px;
   background-color: #FFF6E0;
-  height: 2em;
+  height: 2.8em;
 }
 
 #nav a {
@@ -69,7 +74,7 @@ img {
 }
 
 #nav img {
-  height: 2em;
+  height: 2.7em;
 }
 
 #navleft {
@@ -78,6 +83,33 @@ img {
 
 #navright {
   float:right;
+}
+
+#navright div {
+  display: inline-block;
+}
+
+#searchbar {
+  margin: 5px 10px;
+  border: 1px solid gray;
+  height: calct(1.5em + 2px);
+}
+
+#searchbar img {
+  height: 1em;
+}
+
+#searchbar button {
+  height: calc(1.5em + 5px);
+}
+
+#navright input {
+  height: calc(1.5em - 2px);;
+  width: 20em;
+  border: 0;
+  margin: 0;
+  padding-left: 3px;
+  background-color: #FFF6E0;
 }
 
 #footer {

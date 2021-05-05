@@ -1,17 +1,14 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <Homepage msg="Homemade by Lau"/>
-  </div>.
+  <WIP/>
 </template>
 
 <script>
 // @ is an alias to /src
-import Homepage from '@/components/Homepage.vue'
+import WIP from '@/components/WIP.vue'
 export default {
   name: 'Contact',
   components: {
-    Homepage
+    'WIP'
   }
 }
 </script>
