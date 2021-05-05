@@ -90,10 +90,18 @@ describe('test API /recipe/:id', function () {
     beforeAll(function () {
         server = require('../../Api');
     });
-    it('responds to /api/recipe/:id GET', function testSlash(done) {
+    it('responds to /api/recipe/:id GET exit', function testSlash(done) {
         request(server)
-            .get('/api/recipe/:id')
+            .get('/api/recipe/1')
             .expect(200, done)
+            .expect((res)=>{
+                expect(Array.isArray(res.body)).not.toBeTruthy()
+            })
+    });
+    it('responds to /api/recipe/:id GET not exist', function testSlash(done) {
+        request(server)
+            .get('/api/recipe/0')
+            .expect(204, done)
             .expect((res)=>{
                 expect(Array.isArray(res.body)).not.toBeTruthy()
             })

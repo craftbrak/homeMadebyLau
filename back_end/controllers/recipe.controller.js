@@ -20,14 +20,15 @@ exports.create =(req, res) => {
                         db.Ingredient.findByPk(ingredient.ingId).then( (ingre)=>{
                             recipe.addIngredient( ingre,{through: {quantity: 2, unit: ingredient.IUnit }})})
                     }
-                    for (image in req.body.recipe_images){
-                        db.Recipe_Image.create({
-                            img:image.img,
-                            caption : image.caption
-                        }).then((imag) => {
-                            recipe.addRecipeImage(imag)
-                        });
-                    }
+                    console.log(req.files)
+                    // for (file in req.files){
+                    //     db.Recipe_Image.create({
+                    //         imgpath:image.img,
+                    //         caption : image.caption
+                    //     }).then((imag) => {
+                    //         recipe.addRecipeImage(imag)
+                    //     });
+                    // }
                 }).then((data) => {
                 res.status(201).json(data)
             })
@@ -78,7 +79,14 @@ exports.findOne =async (req, res) => {
     const id = req.params.id;
     Recipe.findByPk(id)
         .then(data => {
-            res.status(200).json(data);
+            if (data === null){
+                res.status(204).send({
+                    message:"Error retrieving Recipe with id=" + id+"does not exist "
+                })
+            }
+            else {
+                res.status(200).json(data);
+            }
         })
         .catch(err => {
             res.status(500).send({
