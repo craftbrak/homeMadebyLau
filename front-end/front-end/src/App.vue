@@ -18,7 +18,7 @@
   </div>
   <div id="footer">
     <div id="networks">Retrouvez-moi sur :
-      <a href="https://www.facebook.com/laurence.dewildecostermans" target="_blank"><img class="network" alt="Facebook" src="./assets/facebook.png"></a>
+      <a href="https://www.facebook.com/homemadebylau" target="_blank"><img class="network" alt="Facebook" src="./assets/facebook.png"></a>
       <a href="http://instagram.com/homemadebylau/" target="_blank"><img class="network" alt="Instagram" src="./assets/instagram.png"></a>
       <a href="https://www.youtube.com/channel/UCnpGlhJ2xADc8dk5wOEtZ8w/videos" target="_blank"><img class="network" alt="YouTube" src="./assets/youtube.png"></a>
       <a href="https://www.guydemarle.com/profil/laurencecostermans-88637" target="_blank"><img class="network" alt="Guy Demarle" src="./assets/guy_demarle.png"></a>
