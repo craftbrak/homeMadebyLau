@@ -16,7 +16,7 @@ exports.create =(req, res) => {
                 cookingTime: req.body.recipe_cookingTime,
             })
                 .then( recipe=>{
-                    for (let ingredient of req.body.recipe_Ingredients){
+                    for (let ingredient of JSON.parse(req.body.recipe_Ingredients) ){
                         db.Ingredient.findByPk(ingredient.ingId).then( (ingre)=>{
                             recipe.addIngredient( ingre,{through: {quantity: 2, unit: ingredient.IUnit }})})
                     }

@@ -85,7 +85,7 @@ export default {
       formData.append('recipe_unfloding', this.Runfolding)
       formData.append('recipe_timeToPrepare', this.Rprepare)
       formData.append('recipe_cookingTime', this.Rcooking)
-      formData.append('recipe_Ingredients', this.Ingredients)
+      formData.append('recipe_Ingredients', JSON.stringify(this.Ingredients))
       for (var i = 0; i < this.$refs.file.files.length; i++) {
         const file = this.$refs.file.files[i]
         formData.append('files[' + i + ']', file)
