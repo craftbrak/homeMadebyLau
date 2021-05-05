@@ -8,7 +8,7 @@
       <router-link to="/contact"><translate>Contact</translate></router-link>
     </div>
     <div id="navright">
-      Shits and giggles
+      Profile
     </div>
   </div>
   <div class="row">
@@ -17,7 +17,13 @@
     <div id="rightColumn" class="column col-2"></div>
   </div>
   <div id="footer">
-    Mentions légales
+    <div id="networks">Retrouvez-moi sur :
+      <a href="https://www.facebook.com/laurence.dewildecostermans" target="_blank"><img class="network" alt="Facebook" src="./assets/facebook.png"></a>
+      <a href="http://instagram.com/homemadebylau/" target="_blank"><img class="network" alt="Instagram" src="./assets/instagram.png"></a>
+      <a href="https://www.youtube.com/channel/UCnpGlhJ2xADc8dk5wOEtZ8w/videos" target="_blank"><img class="network" alt="YouTube" src="./assets/youtube.png"></a>
+      <a href="https://www.guydemarle.com/profil/laurencecostermans-88637" target="_blank"><img class="network" alt="Guy Demarle" src="./assets/guy_demarle.png"></a>
+    </div>
+    <div id="legalMentions">Legal Mentions</div>
   </div>
 </template>
 
@@ -32,14 +38,9 @@
   background-color: white;
 }
 
-#footer {
-  background-color: #E9513C;
-  color: black;
+body {
+  margin: 0px;
 }
-
-body{
-        margin: 0px;
-    }
 
 .column {
   background: #FF5842;
@@ -72,5 +73,26 @@ body{
 
 #navright {
   float:right;
+}
+
+#footer {
+  background-color: #E9513C;
+  color: white;
+  padding: 1em;
+  height: 4em;
+}
+
+#networks {
+  float: left;
+}
+
+.network {
+  height: 2em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#legalMentions {
+  float: right;
 }
 </style>
