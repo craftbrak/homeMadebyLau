@@ -1,12 +1,23 @@
 <template>
   <div id="nav">
-    <router-link to="/"><translate>Home</translate></router-link> |
-    <router-link to="/about"><translate>About</translate></router-link> |
-    <router-link to="/addrecipe"><translate>Add recipe</translate></router-link>
+    <div id="navleft">
+      <img alt="HOMEMADE by Lau logo" src="./assets/logo.png">
+      <router-link to="/"><translate>Home</translate></router-link> |
+      <router-link to="/workshops"><translate>Workshops</translate></router-link> |
+      <router-link to="/products"><translate>Products</translate></router-link> |
+      <router-link to="/contact"><translate>Contact</translate></router-link>
+    </div>
+    <div id="navright">
+      Shits and giggles
+    </div>
   </div>
-  <router-view/>
+  <div class="row">
+    <div id="leftColumn" class="column col-2"></div>
+    <router-view/>
+    <div id="rightColumn" class="column col-2"></div>
+  </div>
   <div id="footer">
-
+    Mentions légales
   </div>
 </template>
 
@@ -18,11 +29,28 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: darkgray;
+  background-color: white;
+}
+
+#footer {
+  background-color: #E9513C;
+  color: black;
+}
+
+body{
+        margin: 0px;
+    }
+
+.column {
+  background: #FF5842;
 }
 
 #nav {
-  padding: 30px;
+  width: 100%;
+  display: block;
+  padding: 0px;
+  background-color: #FFF6E0;
+  height: 2em;
 }
 
 #nav a {
@@ -31,6 +59,18 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #FF5842;
+}
+
+#nav img {
+  height: 2em;
+}
+
+#navleft {
+  float:left;
+}
+
+#navright {
+  float:right;
 }
 </style>

@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "axios": "^0.21.1"
+    "@jshmrtn/vue3-gettext": "^1.0.4",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "gettext": "^0.0.1",
+    "mdb-ui-kit": "^3.5.1",
+    "mdb-vue-ui-kit": "^1.0.0-beta4"
   }
 }

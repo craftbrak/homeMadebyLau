@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="home col-8">
     <RecipeOverview recipeId="1"></RecipeOverview>
-  </div>.
+  </div>
 </template>
 
 <script>
