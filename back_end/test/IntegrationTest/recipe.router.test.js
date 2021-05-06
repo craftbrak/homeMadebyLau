@@ -1,4 +1,5 @@
 var request = require('supertest');
+var FormData =require('form-data')
 describe('test API /', function () {
     let server;
     beforeAll(function () {
@@ -14,12 +15,12 @@ describe('test API /', function () {
             .post('/api')
             .expect(404, done);
     })
-    it('responds to / POST',(done)=>{
+    it('responds to / PUT',(done)=>{
         request(server)
             .put('/api')
             .expect(404, done)
     })
-    it('responds to / POST',(done)=>{
+    it('responds to / DELETE',(done)=>{
         request(server)
             .delete('/api')
             .expect(404, done)
@@ -42,35 +43,36 @@ describe('test API /recipe', function () {
             })
     });
     it('responds to /api/recipe POST',(done)=>{
-        let data= {
-            recipe_name: 'test' ,
-            recipe_description:'etszzrze',
-            recipe_language:1,
-            recipe_season:2,
-            recipe_unfloding: 'azeazezeazeze',
-            recipe_timeToPrepare:25,
-            recipe_cookingTime: 10,
-            recipe_Ingredients :[
-                {
-                     ingId:1,
-                    quantity: 45,
-                    Iunit: 2
-                },
-                {
-                    ingId:4,
-                    quantity: 45,
-                    Iunit: 3
-                },
-                {
-                    ingId:2,
-                    quantity: 54,
-                    Iunit: 1
-                }
-            ]
-        }
+        console.log('code works ,test broken')
+        let formData =new FormData()
+        formData.append('recipe_name','test')
+        formData.append('recipe_description','etszzrze')
+        formData.append('recipe_language',1)
+        formData.append('recipe_season',2)
+        formData.append('recipe_unfloding','testqsdddqsdqsdqsd')
+        formData.append('recipe_timeToPrepare',25)
+        formData.append('recipe_cookingTime',10)
+        formData.append('recipe_Ingredients',JSON.stringify([
+            {
+                ingId:1,
+                quantity: 45,
+                Iunit: 2
+            },
+            {
+                ingId:4,
+                quantity: 45,
+                Iunit: 3
+            },
+            {
+                ingId:2,
+                quantity: 54,
+                Iunit: 1
+            }
+        ]))
+        formData.append('recipe_images','test')
         request(server)
             .post('/api/recipe')
-            .send(data)
+            .send(formData)
             .expect(201, done);
     })
     it('responds to /api/recipe PUT',(done)=>{

@@ -5,9 +5,3 @@ test('getAll', async () => {
         expect(Array.isArray(res.body)).toBeTruthy()
     })
 });
-test('Create', function(assert) {
-    let res={}, req ={}
-    controler.create(req,res).then((res,req)=>{
-        expect(res.status).toEqual(200)
-    })
-});

@@ -1,9 +1,8 @@
 const db = require("../models");
-const fs = require("fs");
 const mv = require("mv")
 const Recipe = db.Recipe;
 const Op = db.Sequelize.Op;
-var formidable = require('formidable');
+const formidable = require('formidable');
 validation = require("../usfullstuf/homemade_library")
 // Create and Save a new Recipe
 exports.create =(req, res) => {
@@ -43,9 +42,10 @@ exports.create =(req, res) => {
                                 });
                             })
                         }
-                    }).then((data) => {
+                    })
+                    .then((data) => {
                     res.status(201).json(data)
-                })
+                    })
                     .catch(err => {
                         console.log(err)
                         res.status(500).send({
@@ -130,6 +130,15 @@ exports.delete =async (req, res) => {
         where: {
             id: req.params.id
         }
+    },{include :[
+            {
+                model: db.Ingredient
+            },
+            {
+                model: db.Recipe_Image
+            }
+        ]
+
     })
     .then(() => {
         res.status(200).send();
@@ -155,16 +164,35 @@ exports.findOneIngredient = (req, res) => {
 exports.addIngredient = (req ,res) => {
     Recipe.findByPk(req.params.id).then(recipe=>{
         db.Ingredient.findByPk(req.params.idI).then((ingre)=>{
-            recipe.addIngredient( ingre,{through: {quantity: 2, unit: ingredient.IUnit }})
+            recipe.addIngredient( ingre,{through: {quantity: 2, UnitId: ingredient.IUnit }})
         })
-       })
+    })
+        .then(() => {
+        res.status(200).send();
+    })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || `Some error occurred while deleting the Recipie with the id :${req.params.id}.`
+            });
+        });
 };
 // Update a Ingredient of a recipe.
 exports.updateIngredient = (req ,res) => {
     console.log("Update Ingredient")
     Recipe.findByPk(req.params.id).then((recipe)=>{
-        recipe.setIngredient()
+        db.Ingredient.findByPk(req.params.idI).then((ingre)=>{
+            recipe.setIngredient( ingre,{through: {quantity: 2, UnitId: ingredient.IUnit }})
+        })
+    }).then(() => {
+        res.status(200).send();
     })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || `Some error occurred while deleting the Recipie with the id :${req.params.id}.`
+            });
+        });
 
 }
 // Delete a ingredient of a recipe.

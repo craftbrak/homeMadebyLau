@@ -1,25 +1,36 @@
 const db = require("../models");
 const Ingredient_Origin = db.Ingredient_Origin;
 const Op = db.Sequelize.Op;
-
+const mv = require("mv")
+const formidable = require('formidable');
 exports.create = (req, res) => {
-    Ingredient_Origin.create({name: "test" ,
-        description:"azeetetst",
-        image_path: "/static/images/ingredient_images/testImage.jpg",
-        address:"Rue joseph boulanmerd 20 4550 belgiqaque",
-        website: "https://www.thispersonedeosnotexist.com",
-        phone_number: "0458987452",
-        email: "test@homemadebylau.be",
-        LanguageId: 1})
-        .then((data) => {
-            res.status(201).json(data)
-        }).catch((err)=>{
-        console.log(err)
-        res.status(500).send({
-            message:
-                err.message || "Some error occurred while retrieving Recipies."
+    let form = new formidable.IncomingForm();
+    form.parse(req,(err,fields,files)=>{
+        Ingredient_Origin.create({
+            name: fields.origin_name ,
+            description:fields.origin_description,
+            image_path: './none',
+            address:fields.origin_address,
+            website: fields.origin_website,
+            phone_number: fields.origin_phone_number,
+            email: fields.origin_email
+            })
+            .then((orign) => {
+                let newpath = `./static/images/origin_images/${orign.id}/${files['origin_image'].name}`
+                mv(files['origin_image'].path,newpath, {mkdirp: true},err=>{
+                    if (err) throw err;
+                    res.status(201).json(orign)
+                    orign.image_path = newpath
+                    orign.save()
+                })
+            }).catch((err)=>{
+            console.log(err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Recipies."
+            });
         });
-    });
+    })
 
 };
 
@@ -61,7 +72,18 @@ exports.update = (req, res) => {
 
 // Delete a Ingredient_Origin with the specified id in the request
 exports.delete = (req, res) => {
-    res.status(666).send({
-        message: "Error retrieving Ingredient_Origin with id=" + id
+    Ingredient_Origin.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(resp=>{
+        console.log(resp)
+        res.sendStatus(200)
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || `Some error occurred while deleting the Recipie with the id :${req.params.id}.`
+        });
     });
 };

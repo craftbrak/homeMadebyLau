@@ -1,27 +1,29 @@
 var request = require('supertest');
-describe('test API /', function () {
+describe('test API /seasons', function () {
+    const test_path='/api/seasons'
     let server;
     beforeAll(function () {
         server = require('../../Api');
     });
     it('responds to / GET', function testSlash(done) {
         request(server)
-            .get('/')
-            .expect(404, done);
+            .get(test_path)
+            .expect(200, done);
     });
     it('responds to / POST',(done)=>{
+        console.log('test broken (formidable)')
         request(server)
-            .post('/')
+            .post(test_path)
             .expect(404, done);
     })
-    it('responds to / POST',(done)=>{
+    it('responds to / PUT',(done)=>{
         request(server)
-            .put('/')
+            .put(test_path)
             .expect(404, done)
     })
-    it('responds to / POST',(done)=>{
+    it('responds to / DELETE',(done)=>{
         request(server)
-            .delete('/')
+            .delete(test_path)
             .expect(404, done)
     })
 

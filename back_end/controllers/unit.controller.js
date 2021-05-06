@@ -4,7 +4,9 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Unit
 exports.create = (req, res) => {
-    Unit.create({full_name: req.body.full_name ,code:req.body.code})
+    Unit.create({full_name: req.body.full_name ,code:req.body.code}).then((resp)=>{
+        res.status(202).send(resp)
+    })
 };
 
 // Retrieve all Recipes from the database.
@@ -42,6 +44,19 @@ exports.update = (req, res) => {
 };
 
 // Delete a Unit with the specified id in the request
-exports.delete = (req, res) => {
-
+exports.delete =async (req, res) => {
+    await Unit.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(() => {
+            res.status(200).send();
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || `Some error occurred while deleting the Recipie with the id :${req.params.id}.`
+            });
+        });
 };

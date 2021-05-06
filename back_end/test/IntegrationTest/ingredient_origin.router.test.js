@@ -12,6 +12,7 @@ describe('test API /ingredient_origin', function () {
             .expect(200, done);
     });
     it('responds to / POST',(done)=>{
+        console.log('test broken (formidable)')
         request(server)
             .post(test_path)
             .expect(201, done);
@@ -29,7 +30,7 @@ describe('test API /ingredient_origin', function () {
 
 });
 describe('test API /ingredient_origin/:id', function () {
-    const test_path='/api/ingredient_origin/:id'
+    const test_path='/api/ingredient_origin/1'
     let server;
     beforeAll(function () {
         server = require('../../Api');
@@ -44,12 +45,12 @@ describe('test API /ingredient_origin/:id', function () {
             .post(test_path)
             .expect(404, done);
     })
-    it('responds to / POST',(done)=>{
+    it('responds to / PUT',(done)=>{
         request(server)
             .put(test_path)
             .expect(200, done)
     })
-    it('responds to / POST',(done)=>{
+    it('responds to / DELETE',(done)=>{
         request(server)
             .delete(test_path)
             .expect(200, done)

@@ -31,22 +31,4 @@ exports.findOne = (req, res) => {
         });
 };
 
-// Update a Season by the id in the request
-exports.update = (req, res) => {
 
-};
-
-// Delete a Season with the specified id in the request
-exports.delete = (req, res) => {
-
-};
-
-// Delete all Season from the database.
-exports.deleteAll = (req, res) => {
-
-};
-
-// Find all published Season
-exports.findAllPublished = (req, res) => {
-
-};

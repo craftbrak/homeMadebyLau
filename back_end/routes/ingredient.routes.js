@@ -18,11 +18,5 @@ module.exports = app => {
     // Delete a Ingredient with id
     router.delete("/:id", ingredients.delete);
 
-    // Find the origin of an Ingredient
-    router.get("/:id/origin", ingredients.findOrigin)
-
-    // Update the origin of an Ingredient
-    router.put("/:id/origin", ingredients.UpdateOrigin)
-
     app.use('/api/ingredient', router);
 };
