@@ -66,7 +66,7 @@ export default {
         for (const unit in responce.data) {
           this.Uoption.push({
             text: responce.data[unit].full_name,
-            value: responce.data[unit].code
+            value: responce.data[unit].id
           })
         }
       })

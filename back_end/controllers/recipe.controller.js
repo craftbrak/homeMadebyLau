@@ -1,54 +1,71 @@
 const db = require("../models");
+const fs = require("fs");
+const mv = require("mv")
 const Recipe = db.Recipe;
 const Op = db.Sequelize.Op;
+var formidable = require('formidable');
 validation = require("../usfullstuf/homemade_library")
 // Create and Save a new Recipe
 exports.create =(req, res) => {
-    if(req || req.body){
-        if (validation.ObjectExistNoNullField(req.body)){
-            Recipe.create({
-                name: req.body.recipe_name ,
-                description:req.body.recipe_description,
-                LanguageId:req.body.recipe_language,
-                SeasonId:req.body.recipe_season,
-                unfolding: req.body.recipe_unfloding,
-                timeToPrepare:req.body.recipe_timeToPrepare,
-                cookingTime: req.body.recipe_cookingTime,
-            })
-                .then( recipe=>{
-                    for (let ingredient of JSON.parse(req.body.recipe_Ingredients) ){
-                        db.Ingredient.findByPk(ingredient.ingId).then( (ingre)=>{
-                            recipe.addIngredient( ingre,{through: {quantity: 2, unit: ingredient.IUnit }})})
-                    }
-                    console.log(req.files)
-                    // for (file in req.files){
-                    //     db.Recipe_Image.create({
-                    //         imgpath:image.img,
-                    //         caption : image.caption
-                    //     }).then((imag) => {
-                    //         recipe.addRecipeImage(imag)
-                    //     });
-                    // }
-                }).then((data) => {
-                res.status(201).json(data)
-            })
-                .catch(err => {
-                    console.log(err)
-                    res.status(500).send({
-                        message:
-                            err.message || "Some error occurred while retrieving Recipies."
+    let form = new formidable.IncomingForm({ multiples: true });
+    form.parse(req,(err, fields,files )=>{
+        if(fields){
+            if (validation.ObjectExistNoNullField(fields)){
+                Recipe.create({
+                    name: fields.recipe_name ,
+                    description:fields.recipe_description,
+                    LanguageId:fields.recipe_language,
+                    SeasonId:fields.recipe_season,
+                    unfolding: fields.recipe_unfloding,
+                    timeToPrepare:fields.recipe_timeToPrepare,
+                    cookingTime: fields.recipe_cookingTime,
+                })
+                    .then( recipe=>{
+                        const ingredients =JSON.parse(fields.recipe_Ingredients)
+                        for (let ingredient of ingredients ){
+                            if (ingredient !==null){
+                                db.Ingredient.findByPk(ingredient.ingId).then( (ingre)=>{
+                                recipe.addIngredient( ingre,{through: {quantity: ingredient.quantity, UnitId: ingredient.IUnit }}).catch(
+                                    err=>{
+                                        console.log(err)
+                                    }
+                                )})}
+
+                        }
+                        for (const filetoupload in files) {
+                            let oldpath = files[filetoupload].path;
+                            let newpath ='./static/images/recipe_images/'+ recipe.id+'/'+ files[filetoupload].name;
+                            mv(oldpath, newpath, {mkdirp: true}, function (err) {
+                                if (err) throw err;
+                                db.Recipe_Image.create({
+                                    imgpath: newpath,
+                                    RecipeId: recipe.id
+                                });
+                            })
+                        }
+                    }).then((data) => {
+                    res.status(201).json(data)
+                })
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).send({
+                            message:
+                                err.message || "Some error occurred while retrieving Recipies."
+                        });
                     });
-                });
+            }
+            else {
+                res.status(500).send(
+                    {
+                        message:
+                            "Some value was not correct"
+                    }
+                )
+            }
         }
-        else {
-            res.status(500).send(
-                {
-                    message:
-                        "Some value was not correct"
-                }
-            )
-        }
-    }
+    })
+
+
 
 };
 // Retrieve all Recipes from the database.
@@ -77,7 +94,16 @@ exports.findAll = async(req, res) => {
 // Find a single Recipe with an id
 exports.findOne =async (req, res) => {
     const id = req.params.id;
-    Recipe.findByPk(id)
+    Recipe.findByPk(id,{include :[
+            {
+                model: db.Ingredient
+            },
+            {
+                model: db.Recipe_Image
+            }
+        ]
+
+    })
         .then(data => {
             if (data === null){
                 res.status(204).send({

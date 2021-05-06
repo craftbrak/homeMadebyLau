@@ -31,12 +31,12 @@ export default {
   beforeCreate () {
     axios.get(process.env.VUE_APP_API_ENDPOINT + '/recipe/' + this.recipeId)
       .then(respons => {
-        if (respons.data.length > 0) {
+        if (Object.keys(respons.data).length > 0) {
           this.recipe = respons.data
+          this.onscreenImage = process.env.VUE_APP_STATIC_ENDPOINT + this.recipe.Recipe_Images[0].imgpath
         } else {
           console.log(`${this.recipeId} does not exit in the database`)
         }
-        // this.onscreenImage = this.recipe.images[0]
       })
   },
   data () {

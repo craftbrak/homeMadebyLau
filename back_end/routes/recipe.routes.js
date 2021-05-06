@@ -1,6 +1,3 @@
-const multer = require('multer');
-const upload = multer();
-let filetype = upload.any()
 module.exports = app => {
     const recipes = require("../controllers/recipe.controller");
 
@@ -9,7 +6,7 @@ module.exports = app => {
     // Retrieve all Recipe
     router.get("/", recipes.findAll);
     // Create a new Recipe
-    router.post("/",filetype, recipes.create);
+    router.post("/", recipes.create);
 
 
     // Retrieve a single Recipe with id

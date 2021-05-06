@@ -9,6 +9,7 @@ const cors = require('cors')
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
+app.use('/static',express.static('static'))
 require('./routes/recipe.routes')(app)
 require('./routes/ingredient.routes')(app)
 require('./routes/unit.routes')(app)
