@@ -54,7 +54,7 @@ exports.findOne = (req, res) => {
     const id = req.params.id;
     Ingredient_Origin.findByPk(id)
         .then(data => {
-            res.send(data);
+            res.status(200).json(data);
         })
         .catch(err => {
             res.status(500).send({

@@ -7,6 +7,7 @@ import translations from '../translations.json'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import 'mdb-vue-ui-kit/css/mdb.min.css'
+import VueCookies from 'vue3-cookies'
 
 const gettext = createGettext({
   availableLanguages: {},
@@ -16,3 +17,4 @@ const gettext = createGettext({
 const app = createApp(App)
 app.use(store).use(router).mount('#app')
 app.use(gettext)
+app.use(VueCookies)

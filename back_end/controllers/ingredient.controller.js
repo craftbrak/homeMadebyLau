@@ -66,7 +66,7 @@ exports.findOne = (req, res) => {
 
     })
         .then(data => {
-            res.status(200).send(data);
+            res.status(200).json(data);
         })
         .catch(err => {
             res.status(500).send({

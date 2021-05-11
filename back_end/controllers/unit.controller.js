@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Unit
 exports.create = (req, res) => {
     Unit.create({full_name: req.body.full_name ,code:req.body.code}).then((resp)=>{
-        res.status(202).send(resp)
+        res.status(202).json(resp)
     })
 };
 
@@ -29,7 +29,7 @@ exports.findOne = (req, res) => {
     const id = req.params.id;
     Unit.findByPk(id)
         .then(data => {
-            res.send(data);
+            res.status(200).json(data);
         })
         .catch(err => {
             res.status(500).send({

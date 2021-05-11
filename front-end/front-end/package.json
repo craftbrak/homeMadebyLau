@@ -24,6 +24,8 @@
     "vue-carousel": "^0.18.0",
     "vue-gettext": "^2.1.12",
     "vue-router": "^4.0.0-0",
+    "vue-simple-password-meter": "^0.0.24",
+    "vue3-cookies": "^1.0.1",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {

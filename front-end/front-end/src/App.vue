@@ -3,16 +3,21 @@
     <div id="navleft">
       <img alt="HOMEMADE by Lau logo" src="./assets/logo.png">
       <router-link to="/"><translate>Home</translate></router-link> |
-      <router-link to="/Workshops"><translate>Workshops</translate></router-link> |
+      <router-link to="/addrecipe"><translate>Workshops</translate></router-link> |
       <router-link to="/Products"><translate>Products</translate></router-link> |
-      <router-link to="/Contact"><translate>Contact</translate></router-link>
+      <router-link to="/Contact"><translate>Contact</translate></router-link> |
+      <router-link to="/addrecipe" v-if="$store.state.user_right === 10 " ><translate>add recipe</translate></router-link>
     </div>
     <div id="navright">
       <div id="searchbar">
         <input type="text" placeholder="Look for a recipe, a product...">
         <button><img id="search" alt="Search" src="./assets/loupe.png"></button>
       </div>
-      sign in | register
+      <router-link to="/user" v-if="$store.state.user_name"><translate>{{ $store.state.user_name }}</translate></router-link>
+      <router-link to="/login" v-if="!$store.state.user_name"><translate>Log in</translate></router-link>
+      |
+      <router-link to="/register" v-if="!$store.state.user_name"><translate>register</translate></router-link>
+      <router-link to="/logout" v-if="$store.state.user_name"><translate>logout</translate></router-link>
       <img alt="Profile" src="./assets/profil.png">
     </div>
   </div>
@@ -31,7 +36,6 @@
     <div id="legalMentions">Legal Mentions</div>
   </div>
 </template>
-
 <style>
 
 #app { font-family: Roboto, Helvetica, Arial, sans-serif; }

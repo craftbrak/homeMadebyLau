@@ -4,18 +4,26 @@ const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const port = 8080;
 const db = require('./models');
-const cors = require('cors')
+const cors = require('cors');
+const session = require('express-session')
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use('/static',express.static('static'))
+app.use(session({
+    secret:db.sessionSecret,
+    resave: false,
+    saveUninitialized: false
+}))
 require('./routes/recipe.routes')(app)
 require('./routes/ingredient.routes')(app)
 require('./routes/unit.routes')(app)
 require('./routes/season.route')(app)
 require('./routes/language.route')(app)
 require('./routes/ingredient_origin.router')(app)
+require('./routes/user.router')(app)
+require('./routes/session.router')(app)
 
 server=http.listen(port,async ()=>{
     try {

@@ -1,13 +1,13 @@
 <template>
-<form-ingredient></form-ingredient>
+<login/>
 </template>
 
 <script>
 
-import FormIngredient from '@/components/FormIngredient'
+import Login from '@/components/loginform'
 export default {
   name: 'test',
-  components: { FormIngredient }
+  components: { Login }
 }
 </script>
 

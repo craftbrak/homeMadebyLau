@@ -7,6 +7,7 @@ const sequelize = new Sequelize({
 });
 
 const db={}
+db.sessionSecret = dbConfig.sessionSecret
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
@@ -18,6 +19,7 @@ db.Recipe_Ingredient = require('./recipe_ingredient.model')(sequelize,DataTypes)
 db.Unit = require('./unit.model')(sequelize,DataTypes)
 db.Season = require('./season.model')(sequelize,DataTypes)
 db.Language = require('./language.model')(sequelize,DataTypes)
+db.User = require('./user.model')(sequelize,DataTypes)
 
 db.Recipe.associate(sequelize.models)
 db.Ingredient.associate(sequelize.models)
@@ -208,6 +210,24 @@ db.initStatic = async ()=>{
             LanguageId: 1,
             SeasonId: 3,
             IngredientOriginId: 2
+        }
+    })
+
+    await  db.User.findOrCreate({
+        where:{
+            user_name: "louis" ,
+            last_name:"louis",
+            first_name: "dewilde",
+            email: "test@test.com",
+            right: 10
+        },
+        defaults: {
+            user_name: "louis" ,
+            last_name:"louis",
+            first_name: "dewilde",
+            email: "test@test.com",
+            password: "test",
+            right: 10
         }
     })
 }

@@ -37,6 +37,7 @@ export default {
         } else {
           console.log(`${this.recipeId} does not exit in the database`)
         }
+        console.log(this.$store.state.user_name, this.$store.state.user_right)
       })
   },
   data () {
