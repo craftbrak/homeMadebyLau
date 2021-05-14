@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'singIn',
   data () {
@@ -33,7 +31,7 @@ export default {
       form.append('first_name', this.first_name)
       form.append('last_name', this.last_name)
 
-      axios.post(process.env.VUE_APP_API_ENDPOINT + '/user', form, {
+      this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/user', form, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -47,7 +45,7 @@ export default {
         })
     },
     verifEmail () {
-      axios.get(process.env.VUE_APP_API_ENDPOINT + '/user/' + this.email)
+      this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/user/' + this.email)
         .then(resp => {
           if (resp.data.message) {
             alert(resp.data.message)

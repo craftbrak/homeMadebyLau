@@ -41,7 +41,6 @@
 
 <script>
 import IngredientOption from './IngredientOption'
-import axios from 'axios'
 export default {
   name: 'FormRecipe',
   data () {
@@ -90,7 +89,7 @@ export default {
         const file = this.$refs.file.files[i]
         formData.append('files[' + i + ']', file)
       }
-      axios.post(process.env.VUE_APP_API_ENDPOINT + '/recipe', formData, {
+      this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/recipe', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -103,7 +102,7 @@ export default {
     }
   },
   beforeCreate () {
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/seasons')
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/seasons')
       .then((responce) => {
         for (const unit in responce.data) {
           this.Soption.push({
@@ -112,7 +111,7 @@ export default {
           })
         }
       })
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/languages')
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/languages')
       .then((responce) => {
         for (const unit in responce.data) {
           this.Loption.push({
@@ -124,7 +123,7 @@ export default {
   },
   created () {
     if (!isNaN(this.recipe_Id)) {
-      axios.get(process.env.VUE_APP_API_ENDPOINT + '/recipe/:' + this.recipe_Id)
+      this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/recipe/:' + this.recipe_Id)
         .then((responce) => {
           console.log(responce.data)
         })

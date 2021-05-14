@@ -21,15 +21,13 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'RecipeOverview',
   props: {
     recipeId: String
   },
   beforeCreate () {
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/recipe/' + this.recipeId)
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/recipe/' + this.recipeId)
       .then(respons => {
         if (Object.keys(respons.data).length > 0) {
           this.recipe = respons.data

@@ -1,5 +1,7 @@
 <template>
-  <loginform></loginform>
+  <div>
+    <loginform></loginform>
+  </div>
 </template>
 
 <script>

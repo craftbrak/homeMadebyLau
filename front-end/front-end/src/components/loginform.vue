@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'login',
   data () {
@@ -23,7 +21,7 @@ export default {
         email: this.email,
         password: this.password
       }
-      axios.post(process.env.VUE_APP_API_ENDPOINT + '/session/login', data)
+      this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/session/login', data)
         .then((res) => {
           this.$store.state.user_name = res.data.user_name
           this.$store.state.user_right = res.data.right

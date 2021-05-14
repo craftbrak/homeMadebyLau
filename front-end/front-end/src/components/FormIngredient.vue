@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'FormIngredient',
   data () {
@@ -43,7 +41,7 @@ export default {
     }
   },
   beforeCreate () {
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/languages')
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/languages')
       .then((response) => {
         for (const languag in response.data) {
           this.Loption.push({
@@ -52,7 +50,7 @@ export default {
           })
         }
       })
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/seasons')
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/seasons')
       .then((response) => {
         for (const season in response.data) {
           this.Soption.push({
@@ -61,7 +59,7 @@ export default {
           })
         }
       })
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/ingredient_origin')
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/ingredient_origin')
       .then((response) => {
         for (const origin in response.data) {
           this.Ooption.push({
@@ -80,7 +78,7 @@ export default {
       form.append('ingre_season', this.Sseason)
       form.append('ingre_origin', this.Sorig)
       form.append('ingre_image', this.$refs.imag.files[0])
-      axios.post(process.env.VUE_APP_API_ENDPOINT + '/ingredient', form, {
+      this.this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/ingredient', form, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

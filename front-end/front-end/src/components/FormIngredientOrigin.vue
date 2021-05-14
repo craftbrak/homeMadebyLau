@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'FormIngredientOrigin',
   data () {
@@ -37,7 +35,7 @@ export default {
       form.append('origin_phone_number', this.r_phone)
       form.append('origin_email', this.r_email)
       form.append('origin_image', this.$refs.imag.files[0])
-      axios.post(process.env.VUE_APP_API_ENDPOINT + '/ingredient_origin', form, {
+      this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/ingredient_origin', form, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

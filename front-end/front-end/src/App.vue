@@ -3,13 +3,13 @@
     <div id="navleft">
       <img alt="HOMEMADE by Lau logo" src="./assets/logo.png">
       <router-link to="/"><translate>Home</translate></router-link> |
-      <router-link to="/addrecipe"><translate>Workshops</translate></router-link> |
-      <router-link to="/Products"><translate>Products</translate></router-link> |
-      <router-link to="/Contact"><translate>Contact</translate></router-link> |
-      <router-link to="/addrecipe" v-if="$store.state.user_right === 10 " ><translate>add recipe</translate></router-link>
+      <router-link to="/Workshop" hidden><translate>Workshops</translate></router-link><span hidden> |</span>
+      <router-link to="/Products" hidden><translate>Products</translate></router-link><span hidden> |</span>
+      <router-link to="/Contact"><translate>Contact</translate></router-link><span hidden> |</span>
+      <router-link to="/addrecipe" v-if="$store.state.user_right === 10 " ><translate> | add recipe</translate></router-link>
     </div>
     <div id="navright">
-      <div id="searchbar">
+      <div id="searchbar" hidden>
         <input type="text" placeholder="Look for a recipe, a product...">
         <button><img id="search" alt="Search" src="./assets/loupe.png"></button>
       </div>

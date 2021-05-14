@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import RecipeOverview from '@/components/RecipeOverview'
-import axios from 'axios'
 export default {
   name: 'recipeOverviewList',
   components: { RecipeOverview },
@@ -27,7 +25,7 @@ export default {
     }
   },
   beforeCreate () {
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/recipe').then(resp => {
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/recipe').then(resp => {
       this.recipes = resp.data
       for (let i = 0; i < this.visibleRecipeNumber; i++) {
         this.visibleRecipe[i] = this.recipes[i]

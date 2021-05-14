@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.STRING,
             allowNull:false,
             defaultValue: () =>{
-                return bcrypt.genSaltSync(64)  ;
+                return bcrypt.genSaltSync(13)  ;
             }
         },
         right : {

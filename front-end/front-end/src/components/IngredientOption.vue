@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import translate from '@jshmrtn/vue3-gettext'
 export default {
   name: 'IngredientOption',
@@ -38,7 +37,7 @@ export default {
       this.$emit('ichange', { ingredient: this.selectedI, quantity: this.IQuantity, IngredientOId: this.ingredientNumber, IngredientUnit: this.selectedU })
     },
     newIngredient () {
-      axios.get(process.env.VUE_APP_API_ENDPOINT + '/ingredient')
+      this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/ingredient')
         .then((response) => {
           this.ingredients = response.data
           for (const ingredient in this.ingredients) {
@@ -51,7 +50,7 @@ export default {
     }
   },
   beforeCreate () {
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/ingredient')
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/ingredient')
       .then((response) => {
         this.ingredients = response.data
         for (const ingredient in this.ingredients) {
@@ -61,7 +60,7 @@ export default {
           })
         }
       })
-    axios.get(process.env.VUE_APP_API_ENDPOINT + '/units')
+    this.axios.get(process.env.VUE_APP_API_ENDPOINT + '/units')
       .then((responce) => {
         for (const unit in responce.data) {
           this.Uoption.push({

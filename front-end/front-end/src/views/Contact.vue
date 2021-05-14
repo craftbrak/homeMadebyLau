@@ -7,8 +7,6 @@
 import WIP from '@/components/WIP.vue'
 export default {
   name: 'Contact',
-  components: {
-    'WIP'
-  }
+  components: { WIP }
 }
 </script>

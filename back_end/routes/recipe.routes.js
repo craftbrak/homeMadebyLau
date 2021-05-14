@@ -7,7 +7,7 @@ module.exports = app => {
     // Retrieve all Recipe
     router.get("/", recipes.findAll);
     // Create a new Recipe
-    router.post("/",verifyAuth, recipes.create);
+    router.post("/",verifyAuth, verifyAdmin, recipes.create);
 
 
     // Retrieve a single Recipe with id

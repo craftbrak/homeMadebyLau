@@ -11,7 +11,7 @@ exports.login = (req, res) => {
                 email : req.body.email
             }
         }).then(async (user)=>{
-            if (await bcrypt.compare(req.body.password,user.password)){
+            if (user && await bcrypt.compare(req.body.password,user.password)){
                 req.session.user_name = user.user_name
                 req.session.right = user.right
                 req.session.email = user.email
@@ -47,8 +47,9 @@ exports.login = (req, res) => {
 // disconnecting a user
 exports.loggout = (req, res) => {
     if (req.session.user_name) {
-        res.session.user_name = null
-        res.session.right=null
+        req.session.user_name = null
+        req.session.right=null
+        req.session.destroy()
         res.status(200).send()
     }
     else {

@@ -12,18 +12,23 @@ exports.ObjectExistNoNullField = obje =>{
     return result
 }
 exports.verifyAuth = (req, res, next) =>{
-    User.findOne({
-        where: {
-            email: req.session.email
-        }
-    }).then(user=>{
-        if(user){
-            next()
-        }
-        else{
-            res.sendStatus(401)
-        }
-    })
+    if (req.session.email){
+        User.findOne({
+            where: {
+                email: req.session.email
+            }
+        }).then(user=>{
+            if(user){
+                next()
+            }
+            else{
+                res.sendStatus(401)
+            }
+        })
+    }
+    else{
+        res.sendStatus(401)
+    }
 }
 
 exports.verifyAdmin = (req, res, next) => {

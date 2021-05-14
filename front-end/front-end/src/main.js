@@ -8,7 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import 'mdb-vue-ui-kit/css/mdb.min.css'
 import VueCookies from 'vue3-cookies'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
+axios.defaults.withCredentials = true
 const gettext = createGettext({
   availableLanguages: {},
   defaultLanguage: 'en_GB',
@@ -18,3 +21,4 @@ const app = createApp(App)
 app.use(store).use(router).mount('#app')
 app.use(gettext)
 app.use(VueCookies)
+app.use(VueAxios, axios)

@@ -7,7 +7,14 @@ const db = require('./models');
 const cors = require('cors');
 const session = require('express-session')
 
-app.use(cors())
+app.use(cors({
+    origin: [
+        'http://localhost:8081',
+        'https://localhost:8081'
+    ],
+    credentials: true,
+    exposedHeaders: ['set-cookie']
+}))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use('/static',express.static('static'))
