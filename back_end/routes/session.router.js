@@ -1,10 +1,11 @@
+const {verifyAuth} = require("../utils/homemade_library");
 module.exports = app => {
     const session = require("../controllers/session.controller");
 
     var router = require("express").Router();
 
     // Retrieve all language
-    router.post("/logout", session.loggout);
+    router.post("/logout",verifyAuth, session.loggout);
 
     // Retrieve a single language with id
     router.post("/login", session.login);

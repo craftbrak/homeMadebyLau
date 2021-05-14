@@ -1,10 +1,12 @@
+
+const {verifyAuth, verifyAdmin} = require("../utils/homemade_library");
 module.exports = app => {
     const ingredients = require("../controllers/ingredient.controller");
 
     var router = require("express").Router();
 
     // Create a new Ingredient
-    router.post("/", ingredients.create);
+    router.post("/",verifyAuth, verifyAdmin, ingredients.create);
 
     // Retrieve all Ingredient
     router.get("/", ingredients.findAll);
@@ -13,10 +15,10 @@ module.exports = app => {
     router.get("/:id", ingredients.findOne);
 
     // Update a Ingredient with id
-    router.put("/:id", ingredients.update);
+    router.put("/:id",verifyAuth, verifyAdmin, ingredients.update);
 
     // Delete a Ingredient with id
-    router.delete("/:id", ingredients.delete);
+    router.delete("/:id",verifyAuth, verifyAdmin, ingredients.delete);
 
     app.use('/api/ingredient', router);
 };
