@@ -37,10 +37,12 @@ exports.login = (req, res) => {
             })
     }
     else {
-        res.status(400).send({
-            message:
-               "User aleready connected"
-        })
+        const data ={
+            email: req.session.email,
+            right: req.session.right,
+            user_name: req.session.user_name
+        }
+        res.status(200).send(data)
     }
 };
 
