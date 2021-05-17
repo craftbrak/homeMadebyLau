@@ -130,6 +130,16 @@ db.initStatic = async ()=>{
             code: 'FA'
         }
     })
+    await db.Season.findOrCreate({
+        where:{
+            full_name: "None",
+            code: 'NO'
+        },
+        defaults: {
+            full_name: "None",
+            code: 'NO'
+        }
+    })
 
     await db.Ingredient_Origin.findOrCreate({
         where:{

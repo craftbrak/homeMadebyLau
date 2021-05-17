@@ -15,8 +15,8 @@ app.use(cors({
     credentials: true,
     exposedHeaders: ['set-cookie']
 }))
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/static',express.static('static'))
 app.use(session({
     secret:db.sessionSecret,

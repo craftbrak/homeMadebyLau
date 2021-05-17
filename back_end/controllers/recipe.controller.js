@@ -55,7 +55,7 @@ exports.create =(req, res) => {
                     });
             }
             else {
-                res.status(500).send(
+                res.status(400).send(
                     {
                         message:
                             "Some value was not correct"
@@ -122,7 +122,42 @@ exports.findOne =async (req, res) => {
 };
 // Update a Recipe by the id in the request
 exports.update =async (req, res) => {
-
+    let form = new formidable.IncomingForm({ multiples: true });
+    form.parse(req,(err, fields,files )=>{
+        if(fields){
+            if (validation.ObjectExistNoNullField(fields)){
+                Recipe.findByPk(req.params.id)
+                    .then(recipe =>{
+                        recipe.name= fields.recipe_name
+                        recipe.description=fields.recipe_description
+                        recipe.LanguageId=fields.recipe_language
+                        recipe.SeasonId=fields.recipe_season
+                        recipe.unfolding= fields.recipe_unfloding
+                        recipe.timeToPrepare=fields.recipe_timeToPrepare
+                        recipe.cookingTime= fields.recipe_cookingTime
+                        recipe.save()
+                        })
+                    .then((data) => {
+                        res.status(201).json(data)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).send({
+                            message:
+                                err.message || "Some error occurred while retrieving Recipies."
+                        });
+                    });
+            }
+            else {
+                res.status(500).send(
+                    {
+                        message:
+                            "Some value was not correct"
+                    }
+                )
+            }
+        }
+    })
 };
 // Delete a Recipe with the specified id in the request
 exports.delete =async (req, res) => {

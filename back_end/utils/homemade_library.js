@@ -3,6 +3,9 @@ const User = db.User;
 exports.ObjectExistNoNullField = obje =>{
     result = true
     nonTrueKeys = []
+    if (Object.keys(obje).length <=0){
+        result = false
+    }
     for (key in obje) {
         if (!obje[key] || obje[key] ===null){
             result=false
