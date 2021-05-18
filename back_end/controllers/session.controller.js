@@ -2,7 +2,7 @@ const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
-
+const jwtoken = require('jsonwebtoken');
 // connecting a user.
 exports.login = (req, res) => {
     if (!req.session.user_name){
@@ -12,15 +12,14 @@ exports.login = (req, res) => {
             }
         }).then(async (user)=>{
             if (user && await bcrypt.compare(req.body.password,user.password)){
-                req.session.user_name = user.user_name
-                req.session.right = user.right
-                req.session.email = user.email
-                const data ={
+                const userData ={
+                    id: user.id,
                     email: user.email,
                     right: user.right,
                     user_name: user.user_name
                 }
-                res.status(200).json(data)
+                const token = jwtoken.sign(userData, db.sessionSecret);
+                res.status(200).json(token)
             }
             else {
                 res.status(401).send({
