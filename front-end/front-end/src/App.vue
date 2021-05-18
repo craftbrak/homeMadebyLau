@@ -23,7 +23,9 @@
   </div>
   <div class="row">
     <div id="leftColumn" class="column col-2"></div>
-    <router-view/>
+    <div class="col-8">
+      <router-view/>
+    </div>
     <div id="rightColumn" class="column col-2"></div>
   </div>
   <div id="footer">

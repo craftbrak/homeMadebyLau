@@ -75,6 +75,14 @@ const routes = [
       requiresAuth: true
     },
     component: () => import('../views/logout.vue')
+  },
+  {
+    path: '/Recipe/:recipeId',
+    name: 'Recipe',
+    meta: {
+      guest: true
+    },
+    component: () => import('../views/Recipe.vue')
   }
 ]
 const router = createRouter({

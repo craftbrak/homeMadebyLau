@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: 'WIP'
+  name: WIP
 }
 </script>

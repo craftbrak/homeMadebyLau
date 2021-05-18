@@ -5,6 +5,8 @@
     "bootstrap": "^4.6.0",
     "gettext": "^0.0.1",
     "mdb-ui-kit": "^3.5.1",
-    "mdb-vue-ui-kit": "^1.0.0-beta4"
+    "mdb-vue-ui-kit": "^1.0.0-beta4",
+    "vue-axios": "^3.2.4",
+    "vue3-cookies": "^1.0.1"
   }
 }
