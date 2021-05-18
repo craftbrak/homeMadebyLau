@@ -19,30 +19,6 @@ exports.create =(req, res) => {
                     timeToPrepare:fields.recipe_timeToPrepare,
                     cookingTime: fields.recipe_cookingTime,
                 })
-                    .then( recipe=>{
-                        const ingredients =JSON.parse(fields.recipe_Ingredients)
-                        for (let ingredient of ingredients ){
-                            if (ingredient !==null){
-                                db.Ingredient.findByPk(ingredient.ingId).then( (ingre)=>{
-                                recipe.addIngredient( ingre,{through: {quantity: ingredient.quantity, UnitId: ingredient.IUnit }}).catch(
-                                    err=>{
-                                        console.log(err)
-                                    }
-                                )})}
-
-                        }
-                        for (const filetoupload in files) {
-                            let oldpath = files[filetoupload].path;
-                            let newpath ='./static/images/recipe_images/'+ recipe.id+'/'+ files[filetoupload].name;
-                            mv(oldpath, newpath, {mkdirp: true}, function (err) {
-                                if (err) throw err;
-                                db.Recipe_Image.create({
-                                    imgpath: newpath,
-                                    RecipeId: recipe.id
-                                });
-                            })
-                        }
-                    })
                     .then((data) => {
                     res.status(201).json(data)
                     })
@@ -149,7 +125,7 @@ exports.update =async (req, res) => {
                     });
             }
             else {
-                res.status(500).send(
+                res.status(400).send(
                     {
                         message:
                             "Some value was not correct"
@@ -236,60 +212,85 @@ exports.findOneIngredient = (req, res) => {
     });
 }
 
-// Add ingredeint to a Recipe
+// Add ingredient to a Recipe
 exports.addIngredient = (req ,res) => {
-    Recipe.findByPk(req.params.id).then(recipe=>{
-        db.Ingredient.findByPk(req.params.idI).then((ingre)=>{
-            recipe.addIngredient( ingre,{through: {quantity: 2, UnitId: ingredient.IUnit }})
+    if (validation.ObjectExistNoNullField(req.body)&& validation.ObjectExistNoNullField(req.params.id)){
+        Recipe.findByPk(req.params.id).then(recipe=>{
+            db.Ingredient.findByPk(req.body.ingredientId).then((ingre)=>{
+                recipe.addIngredient( ingre,{through: {quantity: req.body.quantity, UnitId: req.body.unitId }})
+            })
         })
-    })
-        .then(() => {
-        res.status(200).send();
-    })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || `Some error occurred while deleting the Recipie with the id :${req.params.id}.`
+            .then(() => {
+                res.status(200).send();
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message:
+                        err.message || `Some error occurred while adding an ingredient to the Recipie with the id :${req.params.id}.`
+                });
             });
+    }
+    else {
+        res.status(400).send({
+            message:
+                "Some value was not correct"
         });
+    }
 };
 // Update a Ingredient of a recipe.
 exports.updateIngredient = (req ,res) => {
-    console.log("Update Ingredient")
-    Recipe.findByPk(req.params.id).then((recipe)=>{
-        db.Ingredient.findByPk(req.params.idI).then((ingre)=>{
-            recipe.setIngredient( ingre,{through: {quantity: 2, UnitId: ingredient.IUnit }})
+    if (validation.ObjectExistNoNullField(req.body)&& validation.ObjectExistNoNullField(req.params.id)){
+        db.Recipe_Ingredient.findOne({
+            where: {
+                RecipeId: req.params.id,
+                IngredientId: req.params.idI,
+            }
         })
-    }).then(() => {
-        res.status(200).send();
-    })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || `Some error occurred while updating the ingredient with the id :${req.params.id}.`
+            .then((ingre) => {
+                ingre.quantity = req.body.quantity
+                ingre.UnitId = req.body.UnitId
+                ingre.save()
+                res.status(200).send();
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message:
+                        err.message || `Some error occurred while adding an ingredient to the Recipie with the id :${req.params.id}.`
+                });
             });
+    }
+    else {
+        res.status(400).send({
+            message:
+                "Some value was not correct"
         });
-
+    }
 }
 // Delete a ingredient of a recipe.
 exports.deleteIngredient = (req, res) =>{
-    console.log("Delete Ingredient")
-    recipe.removeIngredient(ingre)
-    db.Recipe_Ingredient.destroy({
-        where:{
-            RecipeId: req.params.id,
-            IngredientId: req.params.idI
-        }
-    })
-        .then(resp=>{
-            res.sendStatus(200)
+    if (validation.ObjectExistNoNullField(req.params)){
+        db.Recipe_Ingredient.destroy({
+            where:{
+                RecipeId: req.params.id,
+                IngredientId: req.params.idI
+            }
         })
-        .catch(err=>{
-            res.status(500).send({
-                message:
-                    err.message || `Some error occurred while deleting the Ingredient with the id :${req.params.id}.`
+            .then(resp=>{
+                res.sendStatus(200)
             })
-        })
+            .catch(err=>{
+                res.status(500).send({
+                    message:
+                        err.message || `Some error occurred while deleting the Ingredient with the id :${req.params.id}.`
+                })
+            })
+    }
+    else {
+        res.status(400).send({
+            message:
+                "Some value was not correct"
+        });
+    }
 }
 
 
@@ -298,12 +299,24 @@ exports.findAllImage = (req, res) => {
     db.Recipe_Image.findAll({
         where: {
             RecipeId: req.params.id
-        }
+        },
+        attributes:["id","imgpath","RecipeId"]
     })
+        .then(recipe=>{
+        res.status(200).json(recipe)
+    })
+        .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while retreiving an image."
+        });
+    });
 }
 // Retrieve one Ingredient of a recipe
 exports.findOneImage = (req, res) => {
-    db.Recipe_Image.findByPk(req.params.idI)
+    db.Recipe_Image.findByPk(req.params.idI,{
+        attributes:["id","imgpath","RecipeId"]
+    })
         .then(resp=>{
             res.status(200).send(resp)
         })
@@ -316,27 +329,81 @@ exports.findOneImage = (req, res) => {
 }
 // Add image to a Recipe
 exports.addImage = (req,res) => {
-    console.log("ADD IMAGES")
+    createImage(req,res)
 }
 // Update a Image of a recipe.
 exports.updateImage = (req ,res) => {
-    console.log("Update image")
+    db.Recipe_Image.findByPk(req.params.idI).then(img =>{
+        fs.unlink(img.image_path, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            db.Recipe_Image.destroy({
+                where: {
+                    id: req.params.id,
+                    RecipeId: req.params.idI
+                }
+            }).then(()=>{
+                createImage(req,res)
+            })
+
+        })
+    })
+
 }
 // Delete a image of a recipe.
 exports.deleteImage =async (req, res) => {
-    db.Recipe_Image.destroy({
-        where:{
-            id : req.params.idI,
-            RecipeId: req.params.id
-        }
-    }).then((recipe)=>{
-
-        res.status(200)
+    db.Recipe_Image.findByPk(req.params.idI).then(img =>{
+        fs.unlink(img.image_path, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            db.Recipe_Image.destroy({
+                where:{
+                    id : req.params.idI,
+                    RecipeId: req.params.id
+                }
+            }).then(()=>{
+                res.sendStatus(200)
+            })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error occurred while deleting an image."
+                    });
+                });
+        })
     })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while deleting an image."
-            });
-        });
 };
+
+const createImage = (req,res) => {
+    let form = new formidable.IncomingForm({ multiples: true });
+    form.parse(req,(err, fields,files)=>{
+        if (fields && validation.ObjectExistNoNullField(files)){
+            let oldpath = files.file.path;
+            let newpath ='./static/images/recipe_images/'+ req.params.id+'/'+ files.file.name;
+            mv(oldpath, newpath, {mkdirp: true}, function (err) {
+                if (err) throw err;
+                db.Recipe_Image.create({
+                    imgpath: newpath,
+                    RecipeId: req.params.id
+                }).then(resp => {
+                    res.status(201).json(resp)
+                }).catch(err =>{
+                    res.status(500).send({
+                        message:
+                            err.message || `Some error occurred while adding an image to the Recipie with the id :${req.params.id}.`
+                    });
+                })
+            })
+        }
+        else {
+            res.status(400).send({
+                message:
+                    "Some value was not correct"
+            });
+        }
+    })
+}

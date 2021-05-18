@@ -4,7 +4,9 @@ const Op = db.Sequelize.Op;
 
 // Retrieve all Recipes from the database.
 exports.findAll = (req, res) => {
-    Season.findAll()
+    Season.findAll({
+        attributes:['id','code','full_name']
+    })
         .then(data=>{
             res.status(200).json(data);
         })
@@ -20,7 +22,9 @@ exports.findAll = (req, res) => {
 // Find a single Season with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    Season.findByPk(id)
+    Season.findByPk(id,{
+        attributes:['id','code','full_name']
+    })
         .then(data => {
             res.status(200).json(data);
         })

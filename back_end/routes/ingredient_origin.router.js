@@ -16,6 +16,9 @@ module.exports = app => {
     // Update a origin with id
     router.put("/:id",verifyAuth, verifyAdmin, origin.update);
 
+    // Update a origin's image with id
+    router.put("/:id/image",verifyAuth, verifyAdmin, origin.changeImage);
+
     // Delete a origin with id
     router.delete("/:id",verifyAuth, verifyAdmin, origin.delete);
 

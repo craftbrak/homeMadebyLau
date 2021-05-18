@@ -6,7 +6,10 @@ const port = 8080;
 const db = require('./models');
 const cors = require('cors');
 const session = require('express-session')
-
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerDocument = require('./swagger.json');
+//
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors({
     origin: [
         'http://localhost:8081',

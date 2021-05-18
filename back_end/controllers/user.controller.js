@@ -95,7 +95,21 @@ exports.create = (req, res) => {
 
 // Find a single User with an id
 exports.update = (req, res) => {
-
+    User.findByPk(req.params.id).then(user=>{
+        user.user_name = req.body.user_name
+        user.last_name = req.body.last_name
+        user.first_name = req.body.first_name
+        user.password = req.body.password
+        user.save()
+        const data = {
+            id : user.id,
+            user_name : user.user_name,
+            last_name : user.last_name,
+            first_name: user.first_name,
+            email : user.email
+        }
+        res.status(201).json(data)
+    })
 };
 
 // Find a single User with an id
