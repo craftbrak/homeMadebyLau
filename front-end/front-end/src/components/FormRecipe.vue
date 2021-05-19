@@ -1,41 +1,45 @@
 <!--This is the component that is used to create and modify a recipe-->
 <template>
-<form class="FormRecipe container" >
-  <fieldset>
-  <label ><translate>Name</translate> :</label>
-  <input type="text" name="RecipeName" v-model="Rname" required>
-  <label ><translate>Description </translate> :</label>
-  <input type="text" name="RecipeDescription" v-model="Rdescription" required>
-  <label ><translate>Language :</translate></label>
+  <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
+  <form class="FormRecipe container">
+    <fieldset>
+      <h3><input type="text" name="RecipeName" placeholder="Recipe name" v-translate v-model="Rname" required></h3>
+      <h5><input type="text" name="RecipeDescription" placeholder="Recipe description" v-translate v-model="Rdescription" required></h5>
+      <label><translate>Language :</translate></label>
 <!--    TO add auto language list generation-->
-  <select name="RecipeLanguage" v-model="Rlanguage">
-    <option value="" selected disabled hidden><translate>Select a language</translate></option>
-    <option v-for="option in Loption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
-  </select>
-    <label ><translate>season</translate> :</label>
-  <select name="RecipeSeason" v-model="Rseason">
-    <option value="" selected disabled hidden><translate>Select a season</translate></option>
-    <option v-for="option in Soption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
-  </select>
-    <label ><translate>Unfolding</translate> :</label>
-  <input type="textarea" name="RecipeUnfolding" v-model="Runfolding" required>
-    <label v-translate>Time to prepare (min)</label>
-  <input type="number" min="0" v-model="Rprepare" required>
-    <label v-translate>Cooking time (min)</label>
-    <input type="number" min="0" v-model="Rcooking" required>
-  <div id="IngredientList" >
-    <label><translate>Ingredient list</translate></label>
-    <IngredientOption :ingredientNumber="iNumber" v-for="(ingredient, index) in IngredientOptions"
-                      :key="index" @ichange="Ingredientchange" />
-  </div>
-
-    <div class="image-list" >
-      <input type="file" ref="file" multiple="multiple" name="recipeImage">
-    </div>
-  <input type="button" value="add Ingredient" @click="addIngredient" v-translate>
-  <input type="button" value="new Ingredient" @click="showCreateIngredient" v-translate>
-  <input type="button" value="create Recipe" @click="addRecipe" v-translate>
-  </fieldset>
+      <select name="RecipeLanguage" v-model="Rlanguage">
+        <option value="" selected disabled hidden><translate>Select a language</translate></option>
+        <option v-for="option in Loption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
+      </select>
+      <div class="image-list">
+        <input id="file" type="file" ref="file" multiple="multiple" name="recipeImage">
+      </div>
+      <div id="descriptionSection">
+        <div><img src="../assets/préparation.png"><label v-translate>Preparing time (min)</label>
+        <input type="number" min="0" v-model="Rprepare" required></div>
+        <div><img src="../assets/cuisson.png"><label v-translate>Cooking time (min)</label>
+        <input type="number" min="0" v-model="Rcooking" required></div>
+        <div><label><translate>Season</translate> :</label>
+        <select name="RecipeSeason" v-model="Rseason">
+          <option value="" selected disabled hidden><translate>Select a season</translate></option>
+          <option v-for="option in Soption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
+        </select></div>
+      </div>
+      <div id="IngredientList" class="container">
+        <div class="solid"><h4><translate>Ingredients</translate> :</h4></div>
+        <div><IngredientOption :ingredientNumber="iNumber" v-for="(ingredient, index) in IngredientOptions"
+                      :key="index" @ichange="Ingredientchange" /></div>
+        <div id="noFlex"><input type="button" value="add Ingredient" @click="addIngredient" v-translate>
+        <input type="button" value="new Ingredient" @click="showCreateIngredient" v-translate></div>
+      </div>
+      <div class="container" id="unfoldingDiv">
+        <div class="solid"><h4><translate>Unfolding</translate> :</h4></div>
+        <input id="recipeUnfolding" type="textarea" name="RecipeUnfolding" v-model="Runfolding" required>
+      </div>
+      <div class="center">
+        <input type="button" value="create Recipe" @click="addRecipe" v-translate>
+      </div>
+    </fieldset>
   </form>
 </template>
 
@@ -133,5 +137,82 @@ export default {
 </script>
 
 <style scoped>
+
+#byLau {
+  font-family: "Brush Script MT";
+  font-style: italic;
+}
+#descriptionSection {
+  display: flex;
+  vertical-align: middle;
+  height: 100%;
+  width: fit-content;
+  margin: 15px 0;
+}
+#file {
+  vertical-align: middle;
+  margin: 60px;
+}
+#ingredientsDiv {
+  margin-bottom: 1em;
+}
+#IngredientList {
+  display: flex;
+  flex-flow: column wrap;
+}
+#noFlex {
+  display: block;
+}
+#recipeUnfolding {
+  width: 90%;
+  min-height: 12em;
+}
+#title {
+  color: #FF322B;
+  text-align: left;
+  width: 100%;
+}
+#unfoldingDiv {
+  width: 90%;
+  padding: 15px;
+}
+
+.container {
+  border: 2px solid #2C3E50;
+  color: #2C3E50;
+  border-radius: 25px;
+  margin: 15px auto;
+  width: fit-content;
+  padding: 15px 10%;
+}
+.cover {
+  margin: 15px;
+}
+.formSpan {
+  display: inline-block;
+  min-width: 8em;
+}
+.image-list {
+  border: 2px solid #2C3E50;
+  border-radius: 25px;
+}
+.ingredient {
+  max-width: fit-content;
+}
+.center {
+  display: block;
+}
+.unfoldingTitle {
+  float: left;
+  text-align: left;
+}
+.solid {
+  width: 100%;
+  text-align: left;
+}
+
+input {
+  margin: 5px 0;
+}
 
 </style>

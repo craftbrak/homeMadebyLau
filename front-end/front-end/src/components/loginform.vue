@@ -1,8 +1,10 @@
 <template>
-  <form @submit.prevent="loginUser">
-    <input type="email" required v-model="email">
-    <input type="password" required v-model="password">
-    <input type="submit">
+  <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
+  <form @submit.prevent="loginUser" class="container">
+    <div id="formTitle"><h4><translate>Log in:</translate></h4></div>
+    <div><translate class="formSpan">Username : </translate><input type="email" required v-model="email"></div>
+    <div><translate class="formSpan">Password : </translate><input type="password" required v-model="password"></div>
+    <input type="submit" value="Log in">
   </form>
 </template>
 
@@ -34,5 +36,27 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  border: 2px solid #2C3E50;
+  color: #2C3E50;
+  border-radius: 25px;
+  margin: 15px auto;
+  width: fit-content;
+  padding: 15px;
+}
+
+input {
+  margin: 5px 0;
+}
+
+#title {
+  text-align: center;
+}
+
+.formSpan {
+  display: inline-block;
+  min-width: 8em;
+}
 
 </style>

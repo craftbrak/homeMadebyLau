@@ -25,7 +25,6 @@ export default {
         if (Object.keys(respons.data).length > 0) {
           this.recipe = respons.data
           this.onscreenImage = process.env.VUE_APP_STATIC_ENDPOINT + this.recipe.Recipe_Images[0].imgpath
-          console.log(process.env.VUE_APP_STATIC_ENDPOINT + this.recipe.Recipe_Images[0].imgpath)
         } else {
           console.log(`${this.recipeId} does not exit in the database`)
         }
@@ -46,10 +45,10 @@ export default {
 .RecipeOverview {
   width: 45%;
   border: 2px solid #2c3e50;
+  color: #2C3E50;
   border-radius: 25px;
   margin: 10px;
   padding: 0;
-  color: #2C3E50;
 }
 .RecipeOverview:hover {
   border-color: #FF5842;

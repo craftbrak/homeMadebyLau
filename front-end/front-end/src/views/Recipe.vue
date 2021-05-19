@@ -18,10 +18,7 @@
     <div id="ingredientsDiv" class="framed">
       <div class="solid"><h4>Ingredients :</h4></div>
       <div v-for="(ingredient, index) in recipe.Ingredients" :key="index">
-        <div class="ingredient">
-          <h5 id="name">{{ingredient.name}}</h5>
-          <span id="name">{{ingredient.Recipe_Ingredient.quantity}} {{ingredient.Recipe_Ingredient.UnitId}}</span>
-        </div>
+        <Ingredient :ingredient="recipe.Ingredients[index]" ></Ingredient>
       </div>
     </div>
     <div id="unfoldingDiv" class="framed">
@@ -32,8 +29,10 @@
 </template>
 
 <script>
+import Ingredient from '@/components/Ingredient.vue'
 export default {
   name: 'Recipe',
+  components: { Ingredient },
   props: {
     recipeId: String
   },
@@ -42,7 +41,6 @@ export default {
       .then(respons => {
         if (Object.keys(respons.data).length > 0) {
           this.recipe = respons.data
-          console.log(this.recipe.Ingredients)
           this.onscreenImage = process.env.VUE_APP_STATIC_ENDPOINT + this.recipe.Recipe_Images[0].imgpath
         } else {
           console.log(`${this.recipeId} does not exit in the database`)

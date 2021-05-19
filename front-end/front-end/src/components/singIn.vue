@@ -1,11 +1,13 @@
 <template>
-  <form @submit.prevent="createUser">
-    <input type="email" required v-model="email" placeholder="email" v-translate @change="verifEmail">
-    <input type="password" id="password" required v-model="password" placeholder="password" v-translate @change="checkpasword">
-    <input type="text" required placeholder="user name" v-model="user_name" v-translate>
-    <input type="text" required placeholder="first name" v-model="first_name" v-translate>
-    <input type="text" required placeholder="last name" v-model="last_name" v-translate>
-    <input type="submit">
+  <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
+  <form @submit.prevent="createUser" class="container">
+    <div id="formTitle"><h4><translate>Sign in:</translate></h4></div>
+    <div><translate class="formSpan">Mail address : </translate><input type="email" required v-model="email" v-translate @change="verifEmail"></div>
+    <div><translate class="formSpan">Password : </translate><input type="password" id="password" required v-model="password" v-translate @change="checkpasword"></div>
+    <div><translate class="formSpan">Username : </translate><input type="text" required v-model="user_name" v-translate></div>
+    <div><translate class="formSpan">First name : </translate><input type="text" required v-model="first_name" v-translate></div>
+    <div><translate class="formSpan">Last name : </translate><input type="text" required v-model="last_name" v-translate></div>
+    <input type="submit" value="Sign in">
   </form>
 </template>
 
@@ -60,5 +62,27 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  border: 2px solid #2C3E50;
+  color: #2C3E50;
+  border-radius: 25px;
+  margin: 15px auto;
+  width: fit-content;
+  padding: 15px;
+}
+
+input {
+  margin: 5px 0;
+}
+
+#title {
+  text-align: center;
+}
+
+.formSpan {
+  display: inline-block;
+  min-width: 8em;
+}
 
 </style>

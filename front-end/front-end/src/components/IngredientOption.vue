@@ -1,15 +1,19 @@
 <template>
-    <label><translate>N °{{ ingredientNumber }}</translate></label>
-    <select class="IngredientOption" v-model="selectedI" @change="Ichange">
-      <option value="" selected disabled hidden><translate>Select a ingredient</translate></option>
-      <option v-for="option in Ioptions" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
-    </select>
-    <label>quantity</label>
-    <input type="number" name="Iquantity" v-model="IQuantity" @change="Ichange" min="0">
-    <select class="IngredientUnit" v-model="selectedU" @change="Ichange">
-      <option value="" selected disabled hidden><translate>Select a unit</translate></option>
-      <option v-for="option in Uoption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
-    </select>
+    <div class="flex">
+      <div>
+        <label><translate>N °{{ ingredientNumber }}&#160;</translate></label>
+        <select class="IngredientOption" v-model="selectedI" @change="Ichange">
+          <option value="" selected disabled hidden><translate>Select an ingredient</translate></option>
+          <option v-for="option in Ioptions" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
+        </select></div>&#160;&#160;&#160;
+        <div><label>Quantity :&#160;</label>
+        <input type="number" name="Iquantity" v-model="IQuantity" @change="Ichange" min="0">&#160;
+        <select class="IngredientUnit" v-model="selectedU" @change="Ichange">
+          <option value="" selected disabled hidden><translate>Select a unit</translate></option>
+          <option v-for="option in Uoption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
+        </select>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -75,5 +79,10 @@ export default {
 </script>
 
 <style scoped>
+
+.flex {
+  width: fit-content;
+  margin: auto;
+}
 
 </style>

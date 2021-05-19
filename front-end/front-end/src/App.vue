@@ -21,7 +21,7 @@
       <img alt="Profile" src="./assets/profil.png">
     </div>
   </div>
-  <div class="row">
+  <div class="row mainBody">
     <div id="leftColumn" class="column col-2"></div>
     <div class="col-8">
       <router-view/>
@@ -38,7 +38,14 @@
     <div id="legalMentions">Legal Mentions</div>
   </div>
 </template>
+
 <style>
+html,body {
+  height: 100%;
+}
+html,body {
+  min-height: 100%;
+}
 
 #app { font-family: Roboto, Helvetica, Arial, sans-serif; }
 #app {
@@ -52,6 +59,10 @@
 
 body {
   margin: 0px;
+}
+
+.mainBody {
+  min-height: 100%;
 }
 
 img {
