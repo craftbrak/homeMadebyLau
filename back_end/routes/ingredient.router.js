@@ -1,4 +1,3 @@
-
 const {verifyAuth, verifyAdmin} = require("../utils/homemade_library");
 module.exports = app => {
     const ingredients = require("../controllers/ingredient.controller");
@@ -9,6 +8,15 @@ module.exports = app => {
     router.post("/",verifyAuth, verifyAdmin, ingredients.create);
 
     // Retrieve all Ingredient
+    /**
+     * @openapi
+     * /:
+     *   get:
+     *     description: Retrieve All available ingredient!
+     *     responses:
+     *       200:
+     *         description: returns a ingredient object.
+     */
     router.get("/", ingredients.findAll);
 
     // Retrieve a single Ingredient with id

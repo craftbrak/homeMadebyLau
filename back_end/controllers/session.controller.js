@@ -19,7 +19,7 @@ exports.login = (req, res) => {
                     user_name: user.user_name
                 }
                 const token = jwtoken.sign(userData, db.sessionSecret);
-                res.status(200).json(token)
+                res.status(201).json({token:token})
             }
             else {
                 res.status(401).send({
@@ -36,12 +36,10 @@ exports.login = (req, res) => {
             })
     }
     else {
-        const data ={
-            email: req.session.email,
-            right: req.session.right,
-            user_name: req.session.user_name
-        }
-        res.status(200).send(data)
+        res.status(400).send({
+            message:
+                 "User aleready connected "
+        })
     }
 };
 

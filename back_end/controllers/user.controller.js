@@ -2,6 +2,7 @@ const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
 const formidable = require('formidable');
+const jwtoken = require('jsonwebtoken');
 //verify if user aleready exsits
 exports.verifyEmail = (req ,res ) =>{
     User.findOne({
@@ -23,10 +24,10 @@ exports.verifyEmail = (req ,res ) =>{
 
 //retreive User
 exports.getUser = (req, res) =>{
-    if (req.session.email){
+    if (req.user.id){
         User.findOne({
             where:{
-                email :req.session.email
+                email :req.user.email
             },
             attributes:["user_name","first_name","email","last_name"]
         }).then(user=>{
@@ -39,7 +40,7 @@ exports.getUser = (req, res) =>{
         })
     }
     else {
-        req.status(401).send({
+        res.status(401).send({
             message:
                 "you need to connect to access your user page"
         })
@@ -70,15 +71,14 @@ exports.create = (req, res) => {
                     password: fields.password
                 })
                     .then((user) => {
-                        req.session.username = user.user_name
-                        req.session.right = user.right
-                        req.session.email = user.email
-                        const data ={
-                            user_name : user.user_name,
+                        const userData ={
+                            id: user.id,
+                            email: user.email,
                             right: user.right,
-                            email: user.email
+                            user_name: user.user_name
                         }
-                        res.status(201).send(data)
+                        const token = jwtoken.sign(userData, db.sessionSecret);
+                        res.status(201).json({token:token})
                     })
                     .catch((err)=>{
                         console.log(err)
@@ -95,37 +95,43 @@ exports.create = (req, res) => {
 
 // Find a single User with an id
 exports.update = (req, res) => {
-    User.findByPk(req.params.id).then(user=>{
-        user.user_name = req.body.user_name
-        user.last_name = req.body.last_name
-        user.first_name = req.body.first_name
-        user.password = req.body.password
-        user.save()
-        const data = {
-            id : user.id,
-            user_name : user.user_name,
-            last_name : user.last_name,
-            first_name: user.first_name,
-            email : user.email
-        }
-        res.status(201).json(data)
-    })
+    if (req.user.id == req.params.id){
+        User.findByPk(req.params.id).then(user=>{
+            user.user_name = req.body.user_name
+            user.last_name = req.body.last_name
+            user.first_name = req.body.first_name
+            user.password = req.body.password
+            user.save()
+            const data = {
+                id : user.id,
+                user_name : user.user_name,
+                last_name : user.last_name,
+                first_name: user.first_name,
+                email : user.email
+            }
+            res.status(201).json(data)
+        }).catch(err=>{
+            res.status(500).send(err)
+        })
+    }
 };
 
 // Find a single User with an id
 exports.delete = (req, res) => {
-    User.destroy({
-        where: {
-            id : req.params.id
-        }
-    })
-        .then(res=>{
-            res.sendStatus(200)
+    if (req.user.id == req.params.id){
+        User.destroy({
+            where: {
+                id : req.params.id
+            }
         })
-        .catch(err=>{
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while deliting the User."
-            });
-        })
+            .then(resp=>{
+                res.status(200).send({message : "deleted"})
+            })
+            .catch(err=>{
+                res.status(500).send({
+                    message:
+                        err.message || "Some error occurred while deliting the User."
+                });
+            })
+    }
 };
