@@ -47,5 +47,13 @@ module.exports = app => {
     //Delete a Image of a recipe
     router.delete("/:id/image/:idI",verifyAuth, verifyAdmin, recipes.deleteImage)
 
+
+    router.get("/:id/comments", recipes.getAllComments)
+    router.get("/:id/comments/:idCom", recipes.getOneComment)
+    router.post("/:id/comments", verifyAuth, recipes.addComment)
+    router.put("/:id/comments/:idCom", verifyAuth, recipes.updateComment)
+    router.delete("/:id/comments/:idCom", verifyAuth, recipes.deleteComment)
+    router.post("/:id/comments/:idCom/response", verifyAuth, recipes.addResponse)
+    router.delete("/:id/comments/:idCom/response/:idResp", verifyAuth, recipes.removeResponse)
     app.use('/api/recipe', router);
 };

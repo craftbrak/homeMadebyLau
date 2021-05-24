@@ -5,13 +5,14 @@ const Op = db.Sequelize.Op;
 const formidable = require('formidable');
 const fs = require("fs");
 const {Sequelize} = require("sequelize");
-validation = require("../utils/homemade_library")
+
+const { ObjectExistNoNullField }= require("../utils/homemade_library");
 // Create and Save a new Recipe
 exports.create =(req, res) => {
     let form = new formidable.IncomingForm({ multiples: true });
     form.parse(req,(err, fields,files )=>{
         if(fields){
-            if (validation.ObjectExistNoNullField(fields)){
+            if (ObjectExistNoNullField(fields)){
                 Recipe.create({
                     name: fields.recipe_name ,
                     description:fields.recipe_description,
@@ -119,7 +120,7 @@ exports.update =async (req, res) => {
     let form = new formidable.IncomingForm({ multiples: true });
     form.parse(req,(err, fields,files )=>{
         if(fields){
-            if (validation.ObjectExistNoNullField(fields)){
+            if (ObjectExistNoNullField(fields)){
                 Recipe.findByPk(req.params.id)
                     .then(recipe =>{
                         recipe.name= fields.recipe_name
@@ -254,7 +255,7 @@ exports.findOneIngredient = (req, res) => {
 
 // Add ingredient to a Recipe
 exports.addIngredient = (req ,res) => {
-    if (validation.ObjectExistNoNullField(req.body)&& validation.ObjectExistNoNullField(req.params.id)){
+    if (ObjectExistNoNullField(req.body)&& ObjectExistNoNullField(req.params.id)){
         Recipe.findByPk(req.params.id).then(recipe=>{
             db.Ingredient.findByPk(req.body.ingredientId).then((ingre)=>{
                 recipe.addIngredient( ingre,{through: {quantity: req.body.quantity, UnitId: req.body.unitId }})
@@ -277,7 +278,7 @@ exports.addIngredient = (req ,res) => {
 };
 // Update a Ingredient of a recipe.
 exports.updateIngredient = (req ,res) => {
-    if (validation.ObjectExistNoNullField(req.body)&& validation.ObjectExistNoNullField(req.params.id)){
+    if (ObjectExistNoNullField(req.body)&& ObjectExistNoNullField(req.params.id)){
         db.Recipe_Ingredient.findOne({
             where: {
                 RecipeId: req.params.id,
@@ -306,7 +307,7 @@ exports.updateIngredient = (req ,res) => {
 }
 // Delete a ingredient of a recipe.
 exports.deleteIngredient = (req, res) =>{
-    if (validation.ObjectExistNoNullField(req.params)){
+    if (ObjectExistNoNullField(req.params)){
         db.Recipe_Ingredient.destroy({
             where:{
                 RecipeId: req.params.id,
@@ -486,6 +487,145 @@ exports.deleteImage =async (req, res) => {
 
     })
 };
+
+exports.addComment  = (req, res) => {
+    if (!ObjectExistNoNullField(req.body)) return req.sendStatus(400)
+    Recipe.findByPk(req.params.id).then(recipe =>{
+        db.Comment.create({
+            text: req.body.comtext,
+            RecipeId: recipe.id,
+            UserId: req.user.id,
+        })
+            .then(com =>{
+                res.status(202).send(com)
+            })
+            .catch(err=>{
+                throw err
+                res.sendStatus(500)
+            })
+
+    })
+        .catch(err=>{
+            throw err
+            res.sendStatus(500)
+        })
+};
+
+exports.updateComment = (req, res) => {
+    if (!ObjectExistNoNullField(req.body)) return req.sendStatus(400)
+    db.Comment.findByPk(req.params.idCom)
+        .then(com =>{
+            if (req.user.id !== com.UserId) return res.sendStatus(403)
+            com.text = req.body.comtext
+            com.save()
+                .then(()=>{
+                    res.status(202).send(com)
+                })
+        })
+        .catch(err=>{
+            throw err
+            res.sendStatus(500)
+        })
+}
+
+exports.getAllComments = (req, res) =>{
+    db.Comment.findAll({
+        where:{
+            RecipeId: req.params.id
+        },
+        include:[ {
+            association:'response',
+            attributes : ['id'],
+            through: {
+                attributes :[]
+            }
+            }]
+    })
+        .then(coms => {
+            res.status(200).send(coms)
+        })
+        .catch(err =>{
+            throw err
+            res.sendStatus(500)
+        })
+}
+
+exports.getOneComment = (req ,res) => {
+    db.Comment.findByPk(req.params.idCom)
+        .then(com =>{
+            res.status(200).send(com)
+        })
+        .catch(err =>{
+            throw err
+            res.sendStatus(500)
+        })
+}
+
+exports.deleteComment = (req, res) => {
+    db.Comment.findByPk(req.params.idCom)
+        .then(com =>{
+            com.destroy()
+            res.status(204).send(com)
+        })
+        .catch(err =>{
+            throw err
+            res.sendStatus(500)
+        })
+}
+
+exports.addResponse = (req, res) => {
+    if (!ObjectExistNoNullField(req.body)) return res.sendStatus(400)
+    Recipe.findByPk(req.params.id).then(recipe =>{
+        db.Comment.create({
+            text: req.body.comtext,
+            RecipeId: recipe.id,
+            UserId: req.user.id,
+        })
+            .then(com =>{
+                if (com.id == req.params.idCom) return res.sendStatus(400)
+                db.sequelize.models.comments_responses.create({
+                    responseId: com.id,
+                    responsingId: req.params.idCom
+                })
+                    .then(reps=>{
+                    res.status(202).send(com)
+                })
+                    .catch(err=>{
+                        throw err
+                        res.sendStatus(500)
+                    })
+
+            })
+            .catch(err =>{
+                throw err
+                res.sendStatus(500)
+            })
+
+    })
+        .catch(err=>{
+            res.sendStatus(500)
+        })
+}
+
+exports.removeResponse = (req, res) => {
+    db.sequelize.models.comments_responses.findOne({
+        where:{
+            responseId: req.params.idResp,
+            responsingId: req.params.idCom
+        }
+    }).then(()=>{
+        db.Comment.findByPk(req.params.idResp)
+            .then(com =>{
+                com.destroy()
+                res.status(204).send(com)
+            })
+            .catch(err =>{
+                throw err
+                res.sendStatus(500)
+            })
+    })
+}
+
 
 const createImage = (req,res) => {
     let form = new formidable.IncomingForm({ multiples: true });
