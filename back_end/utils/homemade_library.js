@@ -1,6 +1,7 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
 const User = db.User;
+const {authSecret, RefreshSecret} = require('../config/auth.config')
 exports.ObjectExistNoNullField = obje =>{
     result = true
     nonTrueKeys = []
@@ -34,7 +35,7 @@ const authenticateJWT = (req, res, next) => {
     if (authHeader) {
         const token = authHeader.split(' ')[1];
 
-        jwt.verify(token, db.sessionSecret, (err, user) => {
+        jwt.verify(token, authSecret, (err, user) => {
             if (err) {
                 return res.sendStatus(403);
             }

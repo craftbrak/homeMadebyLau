@@ -20,6 +20,7 @@ db.Unit = require('./unit.model')(sequelize,DataTypes)
 db.Season = require('./season.model')(sequelize,DataTypes)
 db.Language = require('./language.model')(sequelize,DataTypes)
 db.User = require('./user.model')(sequelize,DataTypes)
+db.RefreshToken = require('./jwtRefreshToken.model')(sequelize, DataTypes)
 
 db.Recipe.associate(sequelize.models)
 db.Ingredient.associate(sequelize.models)
