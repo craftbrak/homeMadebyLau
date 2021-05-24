@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --forceExit --runInBand"
+    "test": "jest --forceExit --runInBand",
+    "start": "nodemon api.js"
   },
   "keywords": [],
   "author": "",
