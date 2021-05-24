@@ -34,7 +34,7 @@
       </div>
       <div class="container" id="unfoldingDiv">
         <div class="solid"><h4><translate>Unfolding</translate> :</h4></div>
-        <input id="recipeUnfolding" type="textarea" name="RecipeUnfolding" v-model="Runfolding" required>
+        <textarea @input="mixin_autoResize_resize" id="recipeUnfolding" name="RecipeUnfolding" v-model="Runfolding" required></textarea>
       </div>
       <div class="center">
         <input type="button" value="create Recipe" @click="addRecipe" v-translate>
@@ -165,7 +165,6 @@ export default {
 }
 #recipeUnfolding {
   width: 90%;
-  min-height: 12em;
 }
 #title {
   color: #FF322B;
@@ -175,6 +174,7 @@ export default {
 #unfoldingDiv {
   width: 90%;
   padding: 15px;
+  min-height: 12em;
 }
 
 .container {

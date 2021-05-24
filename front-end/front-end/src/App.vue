@@ -2,11 +2,11 @@
   <div id="nav">
     <div id="navleft">
       <img alt="HOMEMADE by Lau logo" src="./assets/logo.png">
-      <router-link to="/"><translate>Home</translate></router-link> |
-      <router-link to="/Workshop" hidden><translate>Workshops</translate></router-link><span hidden> |</span>
-      <router-link to="/Products" hidden><translate>Products</translate></router-link><span hidden> |</span>
-      <router-link to="/Contact"><translate>Contact</translate></router-link><span hidden> |</span>
-      <router-link to="/addrecipe" v-if="$store.state.user_right === 10 " ><translate> | add recipe</translate></router-link>
+      <router-link to="/"><translate>Home</translate></router-link>
+      <router-link to="/Workshop" hidden><translate> | Workshops</translate></router-link>
+      <router-link to="/Products" hidden><translate> | Products</translate></router-link>
+      <router-link to="/Contact" hidden><translate> | Contact</translate></router-link>
+      <router-link to="/addrecipe" v-if="$store.state.user_right === 10 " ><translate> | Add recipe</translate></router-link>
     </div>
     <div id="navright">
       <div id="searchbar" hidden>
@@ -21,7 +21,7 @@
       <img alt="Profile" src="./assets/profil.png">
     </div>
   </div>
-  <div class="row mainBody">
+  <div class="row" id="mainBody">
     <div id="leftColumn" class="column col-2"></div>
     <div class="col-8">
       <router-view/>
@@ -39,6 +39,10 @@
   </div>
 </template>
 
+<script>
+
+</script>
+
 <style>
 html,body {
   height: 100%;
@@ -55,14 +59,16 @@ html,body {
   text-align: center;
   color: #2c3e50;
   background-color: white;
+  min-height: 100%;
 }
 
 body {
   margin: 0px;
 }
 
-.mainBody {
-  min-height: 100%;
+#mainBody.row {
+  min-height: calc(100% - 6.8em);
+  height: 100%;
 }
 
 img {
