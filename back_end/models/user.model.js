@@ -50,7 +50,8 @@ module.exports = function(sequelize, DataTypes){
 
     },{timestamps: true})
     User.associate = (models) =>{
-        // User.hasMany(models.Comments)
+        User.hasMany(models.Comment)
+        User.belongsToMany(models.Workshop , {through: 'User_Workshop', as: 'subscriber'})
 
     }
 

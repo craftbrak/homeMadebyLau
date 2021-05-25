@@ -43,6 +43,7 @@ require('./routes/language.router')(app)
 require('./routes/ingredient_origin.router')(app)
 require('./routes/user.router')(app)
 require('./routes/session.router')(app)
+require('./routes/workshop.router')(app)
 
 server=http.listen(port,async ()=>{
     try {
