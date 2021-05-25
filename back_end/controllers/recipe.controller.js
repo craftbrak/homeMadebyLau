@@ -534,11 +534,18 @@ exports.getAllComments = (req, res) =>{
             RecipeId: req.params.id
         },
         include:[ {
-            association:'response',
+            association:'answering',
             attributes : ['id'],
             through: {
                 attributes :[]
             }
+            },
+            {
+                association :'answer',
+                attributes:['id'],
+                through: {
+                    attributes: []
+                }
             }]
     })
         .then(coms => {
@@ -551,7 +558,22 @@ exports.getAllComments = (req, res) =>{
 }
 
 exports.getOneComment = (req ,res) => {
-    db.Comment.findByPk(req.params.idCom)
+    db.Comment.findByPk(req.params.idCom,{
+        include:[ {
+            association:'answering',
+            attributes : ['id'],
+            through: {
+                attributes :[]
+            }
+        },
+            {
+                association :'answer',
+                attributes:['id'],
+                through: {
+                    attributes: []
+                }
+            }]
+    })
         .then(com =>{
             res.status(200).send(com)
         })
