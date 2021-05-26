@@ -139,4 +139,32 @@ exports.delete = (req, res) => {
     }
 };
 
-exports.subscribedWorkshop  = (req ,res )=>{}
+exports.subscribedWorkshop  = (req ,res )=>{
+    db.User_Workshop.findAll({
+        where: {
+            UserId: req.user.id
+        },
+        attributes: ["WorkshopId"]
+    })
+        .then(workshop => {
+            console.log(workshop)
+            res.status(200).json(workshop)
+        })
+}
+exports.sendVerifyAuthEmail = async (req, res, next) =>{
+    const veriftoken =  await jwt.sign(req.user,VerifySecret)
+    let info = await transporter.sendMail({
+        from: "noReply@homemadeByLau.be",
+        to: "louisdewilde2001@gmail.com ", // list of receivers /*req.user.email
+        subject: "HomemadeByLau validation", // Subject line
+        html:`
+            <body>
+                <h1>
+                Verifier votre comte homeMade by lau 
+                </h1>
+                <p>Pour avoir access auw differentes fonctionalitée du site il faut verifier votre email </p>
+                <h2>Pour verifier votre email veiller</h2>
+                <a href=./user/{{req.user.id}}/verify/{{veriftoken}}>ici</a>
+            </body>`,
+    })
+}

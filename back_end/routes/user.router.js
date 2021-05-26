@@ -5,9 +5,13 @@ module.exports = app => {
     var router = require("express").Router();
 
     //is email aleready used
-    router.get('/:email',user.verifyEmail)
+    router.get('/:email',user.verifyEmail);
     //retrieve a user's data
-    router.get('/',verifyAuth,user.getUser)
+    router.get('/', verifyAuth, user.getUser);
+
+    router.get('/:id/workshop', verifyAuth, user.subscribedWorkshop);
+
+    router.post("/verify",verifyAuth,)
     // create a User
     router.post("/", user.create);
 
