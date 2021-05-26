@@ -45,7 +45,16 @@ exports.create = (req, res) => {
 
 // Retrieve all Recipes from the database.
 exports.findAll = (req, res) => {
-    Ingredient_Origin.findAll()
+    let limit = req.query.limit;
+    let offset = req.query.offset;
+    if(!limit) limit = 20
+    if (limit > 20) limit = 20
+    if (limit <= 0 ) limit = 1
+    if (!offset) offset = 0
+    Ingredient_Origin.findAll({
+        limit: limit,
+        offset:offset
+    })
         .then(data=>{
             res.status(200).json(data);
         })

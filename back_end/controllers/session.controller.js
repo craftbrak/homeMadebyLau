@@ -81,7 +81,7 @@ exports.refreshAccessToken = (req, res) => {
         })
 }
 
-function generateAccessToken(user) {
+exports.generateAccessToken = (user) => {
     const userData ={
         id: user.id,
         email: user.email,
@@ -90,7 +90,7 @@ function generateAccessToken(user) {
     }
     return jwtoken.sign(userData ,authSecret,{expiresIn: '5m'})
 }
-function generateRefreshToken(user) {
+exports.generateRefreshToken = (user) => {
     const userData ={
         id: user.id,
         email: user.email,

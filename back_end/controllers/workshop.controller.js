@@ -44,14 +44,30 @@ exports.update = (req ,res )=>{
         })
 }
 exports.getAll = (req ,res )=>{
+    let limit = req.query.limit;
+    let offset = req.query.offset;
+    if(!limit) limit = 20
+    if (limit > 20) limit = 20
+    if (limit <= 0 ) limit = 1
+    if (!offset) offset = 0
+    let include = [{
+        association: "Recipe",
+        attributes:['id'],
+        through:{
+            attributes:[]
+        }
+    }]
+    if (req.user.right === 10) include.push( {
+        association: "subscribed",
+        attributes: ['id'],
+        through: {
+            attributes: []
+        }
+    })
     Workshop.findAll({
-        include: [{
-            association: "Recipe",
-            attributes:['id'],
-            through:{
-                attributes:[]
-            }
-        }]
+        include: include,
+        limit: limit,
+        offset: offset
     })
         .then(workshops => res.status(200).json(workshops))
         .catch(err => {

@@ -8,7 +8,7 @@ module.exports = app => {
     router.post("/",verifyAuth, verifyAdmin, workshop.create);
 
     // Retrieve all workshop
-    router.get("/", workshop.getAll);
+    router.get("/",verifyAuth, workshop.getAll );
 
     // Retrieve a single workshop with id
     router.get("/:id", workshop.getOne);

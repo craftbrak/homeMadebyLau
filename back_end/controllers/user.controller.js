@@ -3,6 +3,8 @@ const User = db.User;
 const Op = db.Sequelize.Op;
 const formidable = require('formidable');
 const jwtoken = require('jsonwebtoken');
+const {authSecret, RefreshSecret} = require('../config/auth.config')
+const {generateAccessToken,generateRefreshToken} = require('./session.controller')
 //verify if user aleready exsits
 exports.verifyEmail = (req ,res ) =>{
     User.findOne({
@@ -77,8 +79,9 @@ exports.create = (req, res) => {
                             right: user.right,
                             user_name: user.user_name
                         }
-                        const token = jwtoken.sign(userData, db.sessionSecret);
-                        res.status(201).json({token:token})
+                        const accessToken = generateAccessToken(user);
+                        const refreshToken = generateRefreshToken(user)
+                        res.status(201).json({accessToken: accessToken, refreshToken: refreshToken})
                     })
                     .catch((err)=>{
                         console.log(err)
