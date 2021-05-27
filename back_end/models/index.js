@@ -234,14 +234,14 @@ db.initStatic = async ()=>{
             user_name: "louis" ,
             last_name:"louis",
             first_name: "dewilde",
-            email: "test@test.com",
+            email: "louisdewilde2001@gmail.com",
             right: 10
         },
         defaults: {
             user_name: "louis" ,
             last_name:"louis",
             first_name: "dewilde",
-            email: "test@test.com",
+            email: "louisdewilde2001@gmail.com",
             password: "test",
             right: 10
         }

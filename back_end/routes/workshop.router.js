@@ -27,5 +27,7 @@ module.exports = app => {
 
     router.get('/:id/totalSubscribed',workshop.getTotalSubs)
 
+    router.post('/:id/verify/', verifyAuth, workshop.sendVerifyWorkshopSubscription)
+    router.get('/:id/verify/:tokken', workshop.validateSubscription)
     app.use('/api/workshop', router);
 };

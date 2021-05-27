@@ -3,8 +3,10 @@ const User = db.User;
 const Op = db.Sequelize.Op;
 const formidable = require('formidable');
 const jwtoken = require('jsonwebtoken');
-const {authSecret, RefreshSecret} = require('../config/auth.config')
+const {authSecret, RefreshSecret, VerifySecret} = require('../config/auth.config')
 const {generateAccessToken,generateRefreshToken} = require('./session.controller')
+const {transporter} = require('../config/mail.config')
+const jwt = require("jsonwebtoken");
 //verify if user aleready exsits
 exports.verifyEmail = (req ,res ) =>{
     User.findOne({
@@ -72,15 +74,18 @@ exports.create = (req, res) => {
                     email: fields.email,
                     password: fields.password
                 })
-                    .then((user) => {
+                    .then(async (user) => {
                         const userData ={
                             id: user.id,
                             email: user.email,
                             right: user.right,
                             user_name: user.user_name
                         }
+                        req.user = userData
+                        await this.sendVerifyAuthEmail(req)
                         const accessToken = generateAccessToken(user);
-                        const refreshToken = generateRefreshToken(user)
+                        const refreshToken = generateRefreshToken(user);
+
                         res.status(201).json({accessToken: accessToken, refreshToken: refreshToken})
                     })
                     .catch((err)=>{
@@ -151,20 +156,44 @@ exports.subscribedWorkshop  = (req ,res )=>{
             res.status(200).json(workshop)
         })
 }
-exports.sendVerifyAuthEmail = async (req, res, next) =>{
-    const veriftoken =  await jwt.sign(req.user,VerifySecret)
+exports.sendVerifyAuthEmail = async (req, res) =>{
+    if (req.user.right >0) return res.sendStatus(403)
+    const user = {
+        id : req.user.id,
+        email: req.user.email,
+        right: req.user.right,
+        user_name: req.user.user_name
+
+    }
+    const veriftoken =  await jwt.sign(user,VerifySecret, {expiresIn: '1h'})
     let info = await transporter.sendMail({
         from: "noReply@homemadeByLau.be",
-        to: "louisdewilde2001@gmail.com ", // list of receivers /*req.user.email
+        to: req.user.email, // list of receivers
         subject: "HomemadeByLau validation", // Subject line
         html:`
             <body>
-                <h1>
-                Verifier votre comte homeMade by lau 
-                </h1>
+                <h1>Verifier votre comte homeMade by lau </h1>
+                <h2>Bonjour ${req.user.user_name}</h2>
                 <p>Pour avoir access auw differentes fonctionalitée du site il faut verifier votre email </p>
-                <h2>Pour verifier votre email veiller</h2>
-                <a href=./user/{{req.user.id}}/verify/{{veriftoken}}>ici</a>
+                <h2>Pour verifier votre inscription veiller cliker sur le lein si desous</h2>
+                <a href="http://localhost:8080/api/user/${req.user.id}/verify/${veriftoken}">ici</a>
+                <p>ce lien n'est valide que 20 minutes</p> 
             </body>`,
+    })
+    if (res) res.status(202).send(info)
+}
+exports.verifyUser = async (req, res) => {
+    if (!req.params.tokken) return res.sendStatus(400)
+    jwt.verify(req.params.tokken, VerifySecret, (err, user) => {
+        if (err) {
+            return res.status(403).send('link expired');
+        }
+        User.findByPk(user.id)
+            .then(user =>{
+                user.right = 1
+                user.save()
+                res.status(200).redirect('http://localhost:8081/')
+            })
+
     })
 }

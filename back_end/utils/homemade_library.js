@@ -1,7 +1,8 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
 const User = db.User;
-const {authSecret, RefreshSecret} = require('../config/auth.config')
+const {authSecret, RefreshSecret, VerifySecret} = require('../config/auth.config')
+const {transporter} = require('../config/mail.config')
 exports.ObjectExistNoNullField = obje =>{
     result = true
     nonTrueKeys = []
@@ -39,7 +40,6 @@ const authenticateJWT = (req, res, next) => {
             if (err) {
                 return res.sendStatus(403);
             }
-
             req.user = user;
             next();
         });
@@ -47,3 +47,4 @@ const authenticateJWT = (req, res, next) => {
         res.sendStatus(401);
     }
 };
+

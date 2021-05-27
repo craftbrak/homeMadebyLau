@@ -11,7 +11,9 @@ module.exports = app => {
 
     router.get('/:id/workshop', verifyAuth, user.subscribedWorkshop);
 
-    router.post("/verify",verifyAuth,)
+    router.get('/:id/verify/:tokken',user.verifyUser)
+
+    router.post("/verify",verifyAuth,user.sendVerifyAuthEmail)
     // create a User
     router.post("/", user.create);
 

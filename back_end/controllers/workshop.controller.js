@@ -2,7 +2,9 @@ const db = require("../models");
 const Workshop = db.Workshop
 const Recipe_Workshop = db.sequelize.models.Recipe_Workshop
 const { ObjectExistNoNullField }= require("../utils/homemade_library");
-
+const {SubscriptionSecret} = require('../config/auth.config');
+const {transporter} = require('../config/mail.config');
+const jwt = require("jsonwebtoken");
 exports.create = (req ,res )=>{
     if (!ObjectExistNoNullField(req.body)) return res.sendStatus(400)
     if (new Date(req.body.date).getTime() < new Date(req.body.subscribeBefore).getTime()) return res.sendStatus(400)
@@ -137,8 +139,9 @@ exports.subscribeUser = (req ,res )=>{
         .then(workshop => {
             if (!workshop) return res.sendStatus(400)
             db.User.findByPk(req.body.UserId)
-                .then(user =>{
+                .then(async user =>{
                     workshop.addSubscribed(user,{through: {validated: false}})
+                    await this.sendVerifyWorkshopSubscription(req)
                     res.status(202).send(workshop)
                 })
         })
@@ -174,4 +177,50 @@ exports.getTotalSubs = (req ,res )=>{
             throw err
             res.sendStatus(500)
         })
+}
+exports.sendVerifyWorkshopSubscription = async (req , res) =>{
+    if (!req.user.right >0) return res.status(401).send('Valided your account first')
+    const user = {
+        id : req.user.id,
+        email: req.user.email,
+        right: req.user.right,
+        user_name: req.user.user_name
+
+    }
+    const veriftoken =  await jwt.sign(user, SubscriptionSecret, {expiresIn: '1h'})
+    let info = await transporter.sendMail({
+        from: "noReply@homemadeByLau.be",
+        to: req.user.email, // list of receivers
+        subject: "Workshop validation", // Subject line
+        html:`
+            <body>
+                <h1>Valider votre inscription a l'atelier homeMade by lau </h1>
+                <h2>Bonjour ${req.user.user_name}</h2>
+                <p>Afin de completer le processus d'inscription a l'atier merci de valider que les heures vous conviennent bien</p>
+                <h2>Pour verifier votre inscription veiller cliker sur le lein si desous</h2>
+                <a href="http://localhost:8080/api/workshop/${req.params.id}/verify/${veriftoken}">ici</a>
+                <p>ce lien n'est valide que 20 minutes</p>
+            </body>`,
+    })
+    if (res) res.status(202).send(info)
+}
+exports.validateSubscription = (req, res) =>{
+    if (!req.params.tokken) return res.sendStatus(400)
+    jwt.verify(req.params.tokken, SubscriptionSecret, (err, user) => {
+        if (err) {
+            return res.status(403).send('link expired');
+        }
+        db.User_Workshop.findOne({
+            where:{
+                UserId:user.id,
+                WorkshopId:req.params.id
+                }
+        })
+            .then(userW =>{
+                userW.validated = true
+                userW.save()
+                res.status(200).redirect('http://localhost:8081/')
+            })
+
+    })
 }

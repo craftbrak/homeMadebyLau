@@ -13,8 +13,8 @@ exports.login = async (req, res) => {
             }
         }).then(async (user)=>{
             if (user && await bcrypt.compare(req.body.password,user.password)){
-                const accessToken = generateAccessToken(user);
-                const refreshToken = generateRefreshToken(user)
+                const accessToken = this.generateAccessToken(user);
+                const refreshToken = this.generateRefreshToken(user)
                 res.status(201).json({accessToken: accessToken, refreshToken: refreshToken})
             }
             else {
@@ -72,12 +72,12 @@ exports.refreshAccessToken = (req, res) => {
                     token.destroy()
                     res.sendStatus(403)
                 }
-                const accessToken = generateAccessToken(user)
+                const accessToken = this.generateAccessToken(user)
                 res.status(201).json({accessToken: accessToken})
             })
         })
         .catch(err =>{
-            res.status(403).send(err)
+            res.status(500).send(err)
         })
 }
 
