@@ -20,6 +20,10 @@ db.Unit = require('./unit.model')(sequelize,DataTypes)
 db.Season = require('./season.model')(sequelize,DataTypes)
 db.Language = require('./language.model')(sequelize,DataTypes)
 db.User = require('./user.model')(sequelize,DataTypes)
+db.RefreshToken = require('./jwtRefreshToken.model')(sequelize, DataTypes)
+db.Comment = require('./comment.model')(sequelize, DataTypes)
+db.User_Workshop = require('./User_Workshop.model')(sequelize, DataTypes)
+db.Workshop = require('./workshop.model')(sequelize, DataTypes)
 
 db.Recipe.associate(sequelize.models)
 db.Ingredient.associate(sequelize.models)
@@ -29,6 +33,8 @@ db.Recipe_Ingredient.associate(sequelize.models)
 db.Unit.associate(sequelize.models)
 db.Season.associate(sequelize.models)
 db.Language.associate(sequelize.models)
+db.Comment.associate(sequelize.models)
+db.Workshop.associate(sequelize.models)
 
 db.initStatic = async ()=>{
     await db.Unit.findOrCreate({
@@ -228,14 +234,14 @@ db.initStatic = async ()=>{
             user_name: "louis" ,
             last_name:"louis",
             first_name: "dewilde",
-            email: "test@test.com",
+            email: "louisdewilde2001@gmail.com",
             right: 10
         },
         defaults: {
             user_name: "louis" ,
             last_name:"louis",
             first_name: "dewilde",
-            email: "test@test.com",
+            email: "louisdewilde2001@gmail.com",
             password: "test",
             right: 10
         }

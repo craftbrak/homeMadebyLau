@@ -6,7 +6,19 @@ const port = 8080;
 const db = require('./models');
 const cors = require('cors');
 const session = require('express-session')
-
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerJsdoc = require('swagger-jsdoc')
+//
+//
+// const swaggerOptions = {
+//     swaggerDefinition: {
+//         title: 'HomeMadeByLau API',
+//         version: '0.1.0'
+//     },
+//     apis: ['./routes/*.router.js']
+// }
+// const swaggerDocs = swaggerJsdoc(swaggerOptions)
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(cors({
     origin: [
         'http://localhost:8081',
@@ -23,14 +35,15 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-require('./routes/recipe.routes')(app)
-require('./routes/ingredient.routes')(app)
-require('./routes/unit.routes')(app)
-require('./routes/season.route')(app)
-require('./routes/language.route')(app)
+require('./routes/recipe.router')(app)
+require('./routes/ingredient.router')(app)
+require('./routes/unit.router')(app)
+require('./routes/season.router')(app)
+require('./routes/language.router')(app)
 require('./routes/ingredient_origin.router')(app)
 require('./routes/user.router')(app)
 require('./routes/session.router')(app)
+require('./routes/workshop.router')(app)
 
 server=http.listen(port,async ()=>{
     try {
