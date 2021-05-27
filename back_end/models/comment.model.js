@@ -4,6 +4,10 @@ module.exports = function(sequelize, DataTypes){
         text:{
             type :DataTypes.STRING,
             allowNull :false
+        },
+        signaled:{
+            type :DataTypes.STRING,
+            allowNull: false
         }
     })
     Comment.associate = (models) =>{

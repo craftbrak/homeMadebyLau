@@ -179,13 +179,15 @@ exports.getTotalSubs = (req ,res )=>{
         })
 }
 exports.sendVerifyWorkshopSubscription = async (req , res) =>{
+    if(!req.params.id) return res.sendStatus(400)
+    const workshop = await Workshop.findByPk(req.params.id)
+    if(!workshop) return res.sendStatus(400)
     if (!req.user.right >0) return res.status(401).send('Valided your account first')
     const user = {
         id : req.user.id,
         email: req.user.email,
         right: req.user.right,
         user_name: req.user.user_name
-
     }
     const veriftoken =  await jwt.sign(user, SubscriptionSecret, {expiresIn: '1h'})
     let info = await transporter.sendMail({
@@ -197,7 +199,8 @@ exports.sendVerifyWorkshopSubscription = async (req , res) =>{
                 <h1>Valider votre inscription a l'atelier homeMade by lau </h1>
                 <h2>Bonjour ${req.user.user_name}</h2>
                 <p>Afin de completer le processus d'inscription a l'atier merci de valider que les heures vous conviennent bien</p>
-                <h2>Pour verifier votre inscription veiller cliker sur le lein si desous</h2>
+                <h2>L'aterlier aura lieux le ${workshop.date}</h2>
+                <h3>Pour verifier votre inscription veiller cliker sur le lein si desous</h3>
                 <a href="http://localhost:8080/api/workshop/${req.params.id}/verify/${veriftoken}">ici</a>
                 <p>ce lien n'est valide que 20 minutes</p>
             </body>`,
