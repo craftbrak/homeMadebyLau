@@ -1,5 +1,7 @@
 <template>
-  <sing-in></sing-in>
+  <div>
+    <sing-in></sing-in>
+  </div>
 </template>
 
 <script>

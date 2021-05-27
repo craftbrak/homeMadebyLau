@@ -21,11 +21,9 @@
       <img alt="Profile" src="./assets/profil.png">
     </div>
   </div>
-  <div class="row" id="mainBody">
+  <div id="mainBody">
     <div id="leftColumn" class="column col-2"></div>
-    <div class="col-8">
-      <router-view/>
-    </div>
+    <router-view class="minheight col-8"/>
     <div id="rightColumn" class="column col-2"></div>
   </div>
   <div id="footer">
@@ -59,16 +57,17 @@ html,body {
   text-align: center;
   color: #2c3e50;
   background-color: white;
-  min-height: 100%;
+  min-height: calc(100vh - 6.8em);
 }
 
 body {
   margin: 0px;
 }
 
-#mainBody.row {
+#mainBody {
   min-height: calc(100% - 6.8em);
   height: 100%;
+  display: flex;
 }
 
 img {
@@ -118,6 +117,11 @@ img {
   height: calct(1.5em + 2px);
 }
 
+.minheight {
+  min-height: calc(100vh - 6.8em);
+  margin: auto;
+}
+
 #searchbar img {
   height: 1em;
 }
@@ -140,6 +144,7 @@ img {
   color: white;
   padding: 1em;
   height: 4em;
+  width: 100;
 }
 
 #networks {
