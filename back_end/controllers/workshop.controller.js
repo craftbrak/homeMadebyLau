@@ -200,7 +200,7 @@ exports.sendVerifyWorkshopSubscription = async (req , res) =>{
                 <h2>Bonjour ${req.user.user_name}</h2>
                 <p>Afin de completer le processus d'inscription a l'atier merci de valider que les heures vous conviennent bien</p>
                 <h2>L'aterlier aura lieux le ${workshop.date}</h2>
-                <h3>Pour verifier votre inscription veiller cliker sur le lein si desous</h3>
+                <h3>Pour verifier votre inscription veiller cliker sur le lien si desous</h3>
                 <a href="http://localhost:8080/api/workshop/${req.params.id}/verify/${veriftoken}">ici</a>
                 <p>ce lien n'est valide que 20 minutes</p>
             </body>`,
