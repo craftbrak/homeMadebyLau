@@ -5,7 +5,7 @@ module.exports = app => {
     var router = require("express").Router();
 
     // Retrieve all language
-    router.delete("/logout",verifyAuth, session.logout);
+    router.post("/logout",verifyAuth, session.logout);
 
     // Retrieve a single language with id
     router.post("/login", session.login);

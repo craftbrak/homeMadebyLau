@@ -11,11 +11,24 @@ import VueCookies from 'vue3-cookies'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { applyAuthTokenInterceptor, clearAuthTokens, setAuthTokens } from 'axios-jwt'
-axios.defaults.withCredentials = true
+
 
 // 1. Create an axios instance that you wish to apply the interceptor to
 const axiosInstance = axios.create()
 
+axiosInstance.interceptors.request.use(
+  config => {
+    let token
+    const tokens =localStorage.getItem('auth-tokens-development')
+    if (tokens) {
+      token = JSON.parse(tokens).accessToken;
+    }
+    const auth = token ? `Bearer ${token}` : '';
+    config.headers.common['Authorization'] = auth;
+    return config;
+  },
+  error => Promise.reject(error),
+);
 // 2. Define token refresh function.
 const requestRefresh = (refresh) => {
   // Notice that this is the global axios instance, not the axiosInstance!  <-- important
@@ -39,7 +52,15 @@ const login = async (params) => {
 }
 
 // 5. Logging out
-const logout = () => clearAuthTokens()
+const logout = async () => {
+  const tokens =localStorage.getItem('auth-tokens-development')
+  let token
+  if (tokens) {
+    token = JSON.parse(tokens).refreshToken;
+  }
+  await axiosInstance.post(process.env.VUE_APP_API_ENDPOINT+"/session/logout",{token :token})
+  clearAuthTokens()
+}
 
 const gettext = createGettext({
   availableLanguages: {},

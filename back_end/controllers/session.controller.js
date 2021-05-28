@@ -77,6 +77,7 @@ exports.refreshAccessToken = (req, res) => {
             })
         })
         .catch(err =>{
+            throw err
             res.status(500).send(err)
         })
 }
