@@ -58,7 +58,7 @@ exports.logout = (req, res) => {
 };
 
 exports.refreshAccessToken = (req, res) => {
-    const refreshToken = req.body.token
+    const refreshToken = req.body.refresh
     if (refreshToken === null) return res.sendStatus(401)
     db.RefreshToken.findOne({
         where : {

@@ -657,10 +657,10 @@ exports.removeResponse = (req, res) => {
 }
 
 
-const createImage = (req,res) => {
+const createImage = (req ,res ) => {
     let form = new formidable.IncomingForm({ multiples: true });
     form.parse(req,(err, fields,files)=>{
-        if (fields && validation.ObjectExistNoNullField(files)){
+        if (ObjectExistNoNullField(files)){
             let oldpath = files.file.path;
             let newpath ='./static/images/recipe_images/'+ req.params.id+'/'+ files.file.name;
             mv(oldpath, newpath, {mkdirp: true}, function (err) {
