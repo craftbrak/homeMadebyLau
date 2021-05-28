@@ -74,6 +74,16 @@ db.initStatic = async ()=>{
             code: "ta"
         }
     })
+    await db.Unit.findOrCreate({
+        where:{
+            full_name: "none",
+            code: "NO"
+        },
+        defaults: {
+            full_name: "none",
+            code: "NO"
+        }
+    })
 
     await db.Language.findOrCreate({
         where:{
