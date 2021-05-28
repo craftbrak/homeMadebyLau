@@ -24,11 +24,12 @@ export default {
       .then(respons => {
         if (Object.keys(respons.data).length > 0) {
           this.recipe = respons.data
-          this.onscreenImage = process.env.VUE_APP_STATIC_ENDPOINT + this.recipe.Recipe_Images[0].imgpath
+          if (this.recipe.Recipe_Images) {
+            this.onscreenImage = process.env.VUE_APP_STATIC_ENDPOINT + this.recipe.Recipe_Images[0].imgpath
+          }
         } else {
           console.log(`${this.recipeId} does not exit in the database`)
         }
-        console.log(this.$store.state.user_name, this.$store.state.user_right)
       })
   },
   data () {

@@ -88,18 +88,45 @@ export default {
       formData.append('recipe_unfloding', this.Runfolding)
       formData.append('recipe_timeToPrepare', this.Rprepare)
       formData.append('recipe_cookingTime', this.Rcooking)
-      formData.append('recipe_Ingredients', JSON.stringify(this.Ingredients))
-      for (var i = 0; i < this.$refs.file.files.length; i++) {
-        const file = this.$refs.file.files[i]
-        formData.append('files[' + i + ']', file)
-      }
+      // formData.append('recipe_Ingredients', JSON.stringify(this.Ingredients))
+      // for (var i = 0; i < this.$refs.file.files.length; i++) {
+      //   const file = this.$refs.file.files[i]
+      //   formData.append('files[' + i + ']', file)
+      // }
       this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/recipe', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
-        .then(recipe => {
-          console.log(recipe)
+        .then(responce => {
+          let recipe = responce.data
+          for (let ingredient of this.Ingredients){
+            console.log(ingredient)
+            const ingr = {
+              ingredientId: ingredient.ingId,
+              quantity : ingredient.quantity,
+              unitId:ingredient.IUnit
+            }
+            this.axios.post(process.env.VUE_APP_API_ENDPOINT+`/recipe/${recipe.id}/ingredient`,ingr)
+              .catch(err => {
+                throw err
+                console.log(err)
+              })
+          }
+          for (let i = 0; i < this.$refs.file.files.length; i++) {
+              const file = this.$refs.file.files[i]
+              const formDatax = new FormData()
+              formDatax.append('file', file)
+              this.axios.post(process.env.VUE_APP_API_ENDPOINT+`/recipe/${recipe.id}/image`,formDatax ,{
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              })
+                .catch(err => {
+                  throw err
+                  console.log(err)
+                })
+            }
         }).catch(err => {
           alert(err)
         })
