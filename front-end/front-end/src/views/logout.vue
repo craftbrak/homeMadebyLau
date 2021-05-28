@@ -6,9 +6,12 @@
 export default {
   name: 'logout',
   beforeCreate () {
-    this.$store.state.user_name = null
-    this.$store.state.user_email = null
-    this.$store.state.user_right = null
+    localStorage.removeItem('user_name')
+    localStorage.removeItem('user_right')
+    localStorage.removeItem('user_email')
+    localStorage.removeItem('user_id')
+    this.$store.commit('login')
+    this.axios.logout()
     this.$router.push('/')
   }
 }

@@ -99,7 +99,7 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       if (to.matched.some(record => record.meta.is_admin)) {
-        if (store.state.user_right === 10) {
+        if (store.state.user_right === '10') {
           next()
         } else {
           next('/')

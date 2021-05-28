@@ -13,9 +13,11 @@
     "@jshmrtn/vue3-gettext": "^1.0.2",
     "@popperjs/core": "^2.9.2",
     "axios": "^0.21.1",
+    "axios-jwt": "^1.7.1",
     "bootstrap": "^5.0.0-beta3",
     "core-js": "^3.6.5",
     "g": "^2.0.1",
+    "jwt-decode": "^3.1.2",
     "mdb-vue-ui-kit": "*",
     "mocha": "^8.3.2",
     "npm": "^7.8.0",
@@ -27,12 +29,12 @@
     "vue-router": "^4.0.0-0",
     "vue-simple-password-meter": "^0.0.24",
     "vue3-cookies": "^1.0.1",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "vuex-persistedstate": "*"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-e2e-cypress": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "^4.5.12",
     "@vue/cli-plugin-vuex": "~4.5.0",

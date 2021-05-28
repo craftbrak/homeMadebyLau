@@ -6,7 +6,7 @@
       <router-link to="/Workshop" hidden><translate> | Workshops</translate></router-link>
       <router-link to="/Products" hidden><translate> | Products</translate></router-link>
       <router-link to="/Contact" hidden><translate> | Contact</translate></router-link>
-      <router-link to="/addrecipe" v-if="$store.state.user_right === 10 " ><translate> | Add recipe</translate></router-link>
+      <router-link to="/addrecipe" v-if="$store.state.user_right == 10 " ><translate> | Add recipe</translate></router-link>
     </div>
     <div id="navright">
       <div id="searchbar" hidden>

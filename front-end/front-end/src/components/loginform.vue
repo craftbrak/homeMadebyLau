@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import jwtDecode from 'jwt-decode'
 export default {
   name: 'login',
   data () {
@@ -18,18 +19,19 @@ export default {
     }
   },
   methods: {
-    loginUser () {
+    async loginUser () {
       const data = {
         email: this.email,
         password: this.password
       }
-      this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/session/login', data)
-        .then((res) => {
-          this.$store.state.user_name = res.data.user_name
-          this.$store.state.user_right = res.data.right
-          this.$store.state.user_email = res.data.email
-          this.$router.push('/')
-        })
+      const resp = await this.axios.login(data)
+      const decoded = jwtDecode(resp.data.accessToken)
+      localStorage.setItem('user_name', decoded.user_name)
+      localStorage.setItem('user_id', decoded.id)
+      localStorage.setItem('user_email', decoded.email)
+      localStorage.setItem('user_right', decoded.right)
+      this.$store.commit('login')
+      await this.$router.push('/')
     }
   }
 }
