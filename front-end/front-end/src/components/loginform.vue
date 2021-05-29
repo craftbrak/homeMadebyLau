@@ -2,8 +2,8 @@
   <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
   <form @submit.prevent="loginUser" class="container">
     <div id="formTitle"><h4><translate>Log in:</translate></h4></div>
-    <div><translate class="formSpan">Username : </translate><input type="email" required v-model="email"></div>
-    <div><translate class="formSpan">Password : </translate><input type="password" required v-model="password"></div>
+    <div><translate class="formSpan">Email : </translate><input type="email" class="em" required v-model="email"></div>
+    <div><translate class="formSpan">Password : </translate><input type="password" class="em" required v-model="password"></div>
     <input type="submit" value="Log in">
   </form>
 </template>
@@ -50,6 +50,10 @@ export default {
 
 input {
   margin: 5px 0;
+}
+
+input.em {
+  width: 18em;
 }
 
 #title {

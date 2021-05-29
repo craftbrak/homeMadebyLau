@@ -1,29 +1,31 @@
 <template>
-  <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
-  <div class="container">
-    <h3>{{recipe.name}}</h3>
-    <h5>{{recipe.description}}</h5>
-    <div id="imageSection">
-      <img class="cover" v-bind:src="onscreenImage">
-    </div>
-    <div id="descricptionSection">
-      <div id="infos">
-        <img src="../assets/préparation.png">
-          {{recipe.timeToPrepare}} min |
-        <img src="../assets/cuisson.png">
-        {{recipe.cookingTime}} min |
-        {{recipe.SeasonId}}
+  <div>
+    <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
+    <div class="container">
+      <h3>{{recipe.name}}</h3>
+      <h5>{{recipe.description}}</h5>
+      <div id="imageSection">
+        <img class="cover" v-bind:src="onscreenImage">
       </div>
-    </div>
-    <div id="ingredientsDiv" class="framed">
-      <div class="solid"><h4>Ingredients :</h4></div>
-      <div v-for="(ingredient, index) in recipe.Ingredients" :key="index">
-        <Ingredient :ingredient="recipe.Ingredients[index]" ></Ingredient>
+      <div id="descricptionSection">
+        <div id="infos">
+          <img src="../assets/préparation.png">
+            {{recipe.timeToPrepare}} min |
+          <img src="../assets/cuisson.png">
+          {{recipe.cookingTime}} min |
+          {{recipe.SeasonId}}
+        </div>
       </div>
-    </div>
-    <div id="unfoldingDiv" class="framed">
-      <h4 id="unfoldingTitle"><translate>Unfolding :</translate></h4>
-      {{recipe.unfolding}}
+      <div id="ingredientsDiv" class="framed">
+        <div class="solid"><h4>Ingredients :</h4></div>
+        <div v-for="(ingredient, index) in recipe.Ingredients" :key="index">
+          <Ingredient :ingredient="recipe.Ingredients[index]" ></Ingredient>
+        </div>
+      </div>
+      <div id="unfoldingDiv" class="framed">
+        <h4 id="unfoldingTitle"><translate>Unfolding :</translate></h4>
+        {{recipe.unfolding}}
+      </div>
     </div>
   </div>
 </template>
