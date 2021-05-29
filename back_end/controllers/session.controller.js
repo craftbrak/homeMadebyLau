@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
         }).then(async (user)=>{
             if (user && await bcrypt.compare(req.body.password,user.password)){
                 const accessToken = this.generateAccessToken(user);
-                const refreshToken = this.generateRefreshToken(user)
+                const refreshToken = this.generateRefreshToken(user);
                 res.status(201).json({accessToken: accessToken, refreshToken: refreshToken})
             }
             else {
@@ -98,7 +98,7 @@ exports.generateRefreshToken = (user) => {
         right: user.right,
         user_name: user.user_name
     }
-    const refreshToken=  jwtoken.sign(userData ,RefreshSecret,{expiresIn: '1h'})
+    const refreshToken=  jwtoken.sign(userData ,RefreshSecret)
     db.RefreshToken.create({token: refreshToken})
         .catch(err=>{
             console.log(err)

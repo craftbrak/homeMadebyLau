@@ -34,6 +34,9 @@ const requestRefresh = (refresh) => {
   // Notice that this is the global axios instance, not the axiosInstance!  <-- important
   return axios.post(`${process.env.VUE_APP_API_ENDPOINT}/session/refresh`, { refresh })
     .then(response => Promise.resolve(response.data.accessToken))
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 // 3. Apply interceptor
