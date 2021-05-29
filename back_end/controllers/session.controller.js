@@ -98,7 +98,7 @@ exports.generateRefreshToken = (user) => {
         right: user.right,
         user_name: user.user_name
     }
-    const refreshToken=  jwtoken.sign(userData ,RefreshSecret)
+    const refreshToken=  jwtoken.sign(userData ,RefreshSecret,{expiresIn: '1h'})
     db.RefreshToken.create({token: refreshToken})
         .catch(err=>{
             console.log(err)

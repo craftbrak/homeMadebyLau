@@ -32,10 +32,12 @@ axiosInstance.interceptors.request.use(
 // 2. Define token refresh function.
 const requestRefresh = (refresh) => {
   // Notice that this is the global axios instance, not the axiosInstance!  <-- important
+  console.log('louis')
   return axios.post(`${process.env.VUE_APP_API_ENDPOINT}/session/refresh`, { refresh })
     .then(response => Promise.resolve(response.data.accessToken))
     .catch(err => {
       console.log(err)
+      clearAuthTokens()
     })
 }
 
