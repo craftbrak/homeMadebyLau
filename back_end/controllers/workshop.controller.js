@@ -9,6 +9,7 @@ exports.create = (req ,res )=>{
     if (!ObjectExistNoNullField(req.body)) return res.sendStatus(400)
     if (new Date(req.body.date).getTime() < new Date(req.body.subscribeBefore).getTime()) return res.sendStatus(400)
     Workshop.create({
+        title: req.body.title,
         date:req.body.date,
         address: req.body.address,
         link: req.body.link,
@@ -31,13 +32,14 @@ exports.update = (req ,res )=>{
     if (new Date(req.body.date).getTime() < new Date(req.body.subscribeBefore).getTime()) return res.sendStatus(400)
     Workshop.findByPk(req.params.id)
         .then(workshop => {
-        workshop.date= req.body.date
-        workshop.address= req.body.address
-        workshop.link= req.body.link
-        workshop.description= req.body.description
-        workshop.subscribeBefore= req.body.subscribeBefore
-        workshop.available= req.body.available
-        workshop.maxSubscription= req.body.maxSubscription
+            workshop.title = req.body.title
+            workshop.date= req.body.date
+            workshop.address= req.body.address
+            workshop.link= req.body.link
+            workshop.description= req.body.description
+            workshop.subscribeBefore= req.body.subscribeBefore
+            workshop.available= req.body.available
+            workshop.maxSubscription= req.body.maxSubscription
         workshop.save().then(res.status(201).json(workshop))
     })
         .catch(err => {

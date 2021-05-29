@@ -1,6 +1,10 @@
 module.exports = function(sequelize, DataTypes){
     const Workshop= sequelize.define('Workshop', {
 
+        title :{
+        type: DataTypes.NUMBER,
+            allowNull: false
+        },
         date:{
             type: DataTypes.DATE,
             allowNull: false
