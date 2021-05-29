@@ -3,8 +3,8 @@
     <div id="navleft">
       <img alt="HOMEMADE by Lau logo" src="./assets/logo.png">
       <router-link to="/"><translate>Home</translate></router-link>
-      <router-link to="/Workshop" hidden><translate> | Workshops</translate></router-link>
-      <router-link to="/Products" hidden><translate> | Products</translate></router-link>
+      <router-link to="/Workshop" v-if="$store.state.user_name"><translate> | Workshops</translate></router-link>
+      <router-link to="/Products" v-if="$store.state.user_right == 10 "><translate> | Products</translate></router-link>
       <router-link to="/Contact" hidden><translate> | Contact</translate></router-link>
       <router-link to="/addrecipe" v-if="$store.state.user_right == 10 " ><translate> | Add recipe</translate></router-link>
     </div>

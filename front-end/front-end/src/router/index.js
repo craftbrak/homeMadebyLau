@@ -53,6 +53,14 @@ const routes = [
     component: () => import('../views/test.vue')
   },
   {
+    path: '/Workshop',
+    name: 'workshop',
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import('../views/WorkshopList.vue')
+  },
+  {
     path: '/login',
     name: 'logIn',
     meta: {
@@ -91,7 +99,6 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log('t')
     if (store.state.user_name === null) {
       next({
         path: '/login',
