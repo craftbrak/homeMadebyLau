@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes){
         available: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: 0
+            defaultValue: 1
         },
         maxSubscription: {
             type: DataTypes.NUMBER,
@@ -40,6 +40,7 @@ module.exports = function(sequelize, DataTypes){
     Workshop.associate = (models) =>{
         Workshop.belongsToMany(models.Recipe, {through: 'Recipe_Workshop',as :"Recipe"})
         Workshop.belongsToMany(models.User,{through: models.User_Workshop, as: 'subscribed'})
+        Workshop.belongsTo(models.Language)
     }
     return Workshop
 }
