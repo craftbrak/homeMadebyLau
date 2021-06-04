@@ -70,7 +70,8 @@ exports.refreshAccessToken = (req, res) => {
             jwtoken.verify(refreshToken, RefreshSecret, (err, user)=>{
                 if (err && err.name === "TokenExpiredError"){
                     token.destroy()
-                    res.sendStatus(403)
+                    res.sendStatus(401)
+                    return
                 }
                 const accessToken = this.generateAccessToken(user)
                 res.status(201).json({accessToken: accessToken})
