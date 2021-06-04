@@ -35,9 +35,11 @@ const requestRefresh = (refresh) => {
   console.log('louis')
   return axios.post(`${process.env.VUE_APP_API_ENDPOINT}/session/refresh`, { refresh })
     .then(response => Promise.resolve(response.data.accessToken))
-    .catch(err => {
+    .catch(async err => {
       console.log(err)
+      alert("your session has expire please log back in")
       clearAuthTokens()
+      await this.$router.push('/logout')
     })
 }
 
