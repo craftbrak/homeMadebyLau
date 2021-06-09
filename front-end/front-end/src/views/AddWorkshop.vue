@@ -1,11 +1,12 @@
 <template>
-  <workshopForm></workshopForm>
-  <workshop-recipe-list></workshop-recipe-list>
+  <WorkshopForm></WorkshopForm>
 </template>
 
 <script>
+import WorkshopForm from "../components/workshop/WorkshopForm"
 export default {
-  name: "AddWorkshop"
+  name: "AddWorkshop",
+  components: {WorkshopForm, WorkshopRecipeList}
 }
 </script>
 

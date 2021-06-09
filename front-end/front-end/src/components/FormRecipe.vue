@@ -49,7 +49,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2><translate>Create an Ingredient</translate></h2>
+          <h2 class="modal-title text-danger"><translate>Create an Ingredient</translate></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <FormIngredient></FormIngredient>
@@ -65,7 +66,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2><translate>Create an Ingredient</translate></h2>
+            <h2 class="modal-title text-danger"><translate>Create an Ingredient Origin</translate></h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <FormIngredientOrigin></FormIngredientOrigin>

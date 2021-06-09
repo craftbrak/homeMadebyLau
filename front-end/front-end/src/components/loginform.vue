@@ -1,11 +1,18 @@
 <template>
   <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
   <form @submit.prevent="loginUser" class="container">
-    <div id="formTitle"><h4 class="form-title"><translate>Log in:</translate></h4></div>
-    <div><translate class="formSpan form-label">Email : </translate><input type="email" class="em form-control" required v-model="email"></div>
-    <div><translate class="formSpan form-label">Password : </translate><input type="password" class="em form-control" required v-model="password"></div>
-    <input type="submit" value="Log in" class="btn btn-primary btn-block">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"><translate>Email address</translate> </label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email">
+      <div id="emailHelp" class="form-text"><translate>We'll never share your email with anyone else.</translate> </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label"><translate>Password</translate></label>
+      <input type="password" class="form-control" id="exampleInputPassword1" required v-model="password">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block"><translate>Login</translate></button>
   </form>
+
 </template>
 
 <script>
@@ -60,9 +67,9 @@ input.em {
   text-align: center;
 }
 
-.formSpan {
-  display: inline-block;
-  min-width: 8em;
-}
+/*.formSpan {*/
+/*  display: inline-block;*/
+/*  min-width: 8em;*/
+/*}*/
 
 </style>

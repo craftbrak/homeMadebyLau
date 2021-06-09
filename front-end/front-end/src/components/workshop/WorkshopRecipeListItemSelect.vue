@@ -5,7 +5,7 @@
         <img :src="process.env.VUE_APP_STATIC_ENDPOINT + this.recipe.Recipe_Images[0].imgpath">
         <p>{{recipe.name}}</p>
       </option>
-      <s-b-button @click="getMoreRecipe">+</s-b-button>
+      <button class="btn" @click="getMoreRecipe">+</button>
     </select>
   </div>
 </template>
@@ -83,12 +83,24 @@ export default {
         })
     },
     async deleteRecipe () {
-      await this.axios.delete(`${process.env.VUE_APP_API_ENDPOINT}/workshop/${this.workshopId}/recipe/${this.CurrentRecipeid}`).catch(err=> throw err)
+      await this.axios.delete(`${process.env.VUE_APP_API_ENDPOINT}/workshop/${this.workshopId}/recipe/${this.CurrentRecipeid}`)
+        .catch(err=> {
+        console.log(err)
+        this.$swal({titleText:err,
+          icon:'error'
+        })
+      })
     },
     async createRecipe () {
       await this.axios.post(`${process.env.VUE_APP_API_ENDPOINT}/workshop/${this.workshopId}/recipe`,{
         "RecipeId":this.selectedRecipeId
-      }).catch(err => throw err)
+      })
+        .catch(err=> {
+        console.log(err)
+        this.$swal({titleText:err,
+          icon:'error'
+        })
+      })
     },
     async setRecipe () {
       if (this.set){

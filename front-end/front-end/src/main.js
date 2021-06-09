@@ -41,6 +41,7 @@ const requestRefresh = (refresh) => {
       console.log(err)
       Swal.fire({titleText:"your session has expire please log back in" ,icon:'error'})
       clearAuthTokens()
+      await logout()
       await this.$router.push('/logout')
     })
 }

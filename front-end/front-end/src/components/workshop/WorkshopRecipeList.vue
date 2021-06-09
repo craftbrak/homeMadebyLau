@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(recipe,index) in RecipeListItem" :key="index">
-      <WorkshopRecipeListItemSelect v-if="$store.state.user_right == 10" :workshop-id="WorkshopId" :language-id="LanguageId" :set="Recipes[index] ? true : false" :recipe-id="Recipes[index] ? Recipes[index] : null" :non-available-recipe-id="Recipes"></WorkshopRecipeListItemSelect>
+      <WorkshopRecipeListItemSelect v-if="$store.state.user_right == 10" :workshop-id="WorkshopId" :language-id="LanguageId" :setprop="Recipes[index] ? true : false" :recipe-id="Recipes[index] ? Recipes[index] : null" :non-available-recipe-id="Recipes"></WorkshopRecipeListItemSelect>
       <workshop-recipe-liste-item v-else :recipe-id="Recipes[index] ? Recipes[index] : null"></workshop-recipe-liste-item>
     </div>
     <div v-if="$store.state.user_right == 10">
@@ -18,7 +18,7 @@ export default {
   components: {WorkshopRecipeListItem, WorkshopRecipeListItemSelect},
   data () {
     return{
-      RecipeListItem,
+      RecipeListItem:[],
     }
   },
   props:{

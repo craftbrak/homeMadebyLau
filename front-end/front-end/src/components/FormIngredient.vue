@@ -22,7 +22,7 @@
         {{option.text}}
       </option>
     </select>
-    <input type="button" class="btn btn-primary" value="create" @click="sendform">
+    <input type="button" class="btn btn-primary btn-block" value="create" @click="sendform">
     </div>
   </form>
 </template>
@@ -100,5 +100,13 @@ export default {
 </script>
 
 <style scoped>
-
+input {
+  margin-top: 1em;
+}
+select{
+  margin-top: 1em;
+}
+input.em {
+  width: 18em;
+}
 </style>

@@ -7,7 +7,7 @@
    <input type="email" placeholder="email" v-model="r_email" class="form-control">
    <input type="url" placeholder="website" v-model="r_url" class="form-control">
    <input type="text" placeholder="phone Number" v-model="r_phone" class="form-control">
-   <input type="button" @click="sendform" value="Create Origin" class="btn btn-primary">
+   <input type="button" @click="sendform" value="Create Origin" class="btn btn-primary btn-block">
  </form>
 </template>
 
@@ -55,5 +55,9 @@ export default {
 </script>
 
 <style scoped>
+input {
+  margin-top: 1em;
+}
+
 
 </style>
