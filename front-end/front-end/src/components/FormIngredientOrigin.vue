@@ -1,13 +1,13 @@
 <template>
  <form>
-   <input type="text" placeholder="name" v-model="r_name" >
-   <input type="text" placeholder="description" v-model="r_desciption">
-   <input type="text" placeholder="address" v-model="r_address">
-   <input type="file" placeholder="image" ref="imag">
-   <input type="email" placeholder="email" v-model="r_email">
-   <input type="url" placeholder="website" v-model="r_url">
-   <input type="text" placeholder="phone Number" v-model="r_phone">
-   <input type="button" @click="sendform" value="Create Origin">
+   <input type="text" placeholder="name" v-model="r_name" class="form-control" >
+   <input type="text" placeholder="description" v-model="r_desciption" class="form-control">
+   <input type="text" placeholder="address" v-model="r_address" class="form-control">
+   <input type="file" placeholder="image" ref="imag" class="form-control">
+   <input type="email" placeholder="email" v-model="r_email" class="form-control">
+   <input type="url" placeholder="website" v-model="r_url" class="form-control">
+   <input type="text" placeholder="phone Number" v-model="r_phone" class="form-control">
+   <input type="button" @click="sendform" value="Create Origin" class="btn btn-primary">
  </form>
 </template>
 
@@ -41,10 +41,14 @@ export default {
         }
       })
         .then(recipe => {
-          console.log(recipe)
+          this.$swal({titleText:`${recipe.data.name} has been created`,
+            icon:'success'
+          })
+          console.log('ok')
+
         }).catch(err => {
-          alert(err)
-        })
+        this.$swal({textTitle:err, icon:'error'  })
+      })
     }
   }
 }

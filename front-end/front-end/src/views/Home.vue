@@ -2,18 +2,7 @@
   <div class="home">
     <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
     <div class="flex">
-      <RecipeOverview recipeId="1"></RecipeOverview>
-      <RecipeOverview recipeId="2"></RecipeOverview>
-      <RecipeOverview recipeId="3"></RecipeOverview>
-      <RecipeOverview recipeId="4"></RecipeOverview>
-      <RecipeOverview recipeId="5"></RecipeOverview>
-      <RecipeOverview recipeId="6"></RecipeOverview>
-      <RecipeOverview recipeId="32"></RecipeOverview>
-      <RecipeOverview recipeId="31"></RecipeOverview>
-      <RecipeOverview recipeId="30"></RecipeOverview>
-      <RecipeOverview recipeId="20"></RecipeOverview>
-      <RecipeOverview recipeId="10"></RecipeOverview>
-      <RecipeOverview recipeId="15"></RecipeOverview>
+      <RecipeOverview :recipeId="recipe.id" v-for="recipe in RecipeList" :key="recipe.id" ></RecipeOverview>
     </div>
   </div>
 </template>
@@ -26,6 +15,19 @@ export default {
   name: 'Home',
   components: {
     RecipeOverview
+  }
+  ,
+  beforeCreate() {
+    this.axios.get(`${process.env.VUE_APP_API_ENDPOINT}/recipe`)
+      .then((recipelist)=>{
+        console.log(recipelist)
+        this.RecipeList = recipelist.data
+      })
+  },
+  data () {
+    return {
+      RecipeList :[]
+    }
   }
 }
 </script>

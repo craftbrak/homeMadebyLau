@@ -2,12 +2,12 @@
   <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
   <form @submit.prevent="createUser" class="container">
     <div id="formTitle"><h4><translate>Sign in:</translate></h4></div>
-    <div><translate class="formSpan">Mail address : </translate><input type="email" class="em" required v-model="email" v-translate @change="verifEmail"></div>
-    <div><translate class="formSpan">Password : </translate><input type="password" class="em" id="password" required v-model="password" v-translate @change="checkpasword"></div>
-    <div><translate class="formSpan">Username : </translate><input type="text" class="em" required v-model="user_name" v-translate></div>
-    <div><translate class="formSpan">First name : </translate><input type="text" class="em" required v-model="first_name" v-translate></div>
-    <div><translate class="formSpan">Last name : </translate><input type="text" class="em" required v-model="last_name" v-translate></div>
-    <input type="submit" value="Sign in">
+    <div><translate class="formSpan from-label">Mail address : </translate><input type="email" class="em form-control" required v-model="email" v-translate @change="verifEmail"></div>
+    <div><translate class="formSpan from-label">Password : </translate><input type="password" class="em form-control" id="password" required v-model="password" v-translate @change="checkpasword"></div>
+    <div><translate class="formSpan from-label">Username : </translate><input type="text" class="em form-control" required v-model="user_name" v-translate></div>
+    <div><translate class="formSpan from-label">First name : </translate><input type="text" class="em form-control" required v-model="first_name" v-translate></div>
+    <div><translate class="formSpan from-label">Last name : </translate><input type="text" class="em form-control" required v-model="last_name" v-translate></div>
+    <input type="submit" value="Sign in" class="btn btn-primary btn-block">
   </form>
 </template>
 

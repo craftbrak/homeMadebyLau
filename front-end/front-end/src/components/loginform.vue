@@ -1,10 +1,10 @@
 <template>
   <div id="title"><h1>HOMEMADE <span id="byLau">by Lau</span></h1></div>
   <form @submit.prevent="loginUser" class="container">
-    <div id="formTitle"><h4><translate>Log in:</translate></h4></div>
-    <div><translate class="formSpan">Email : </translate><input type="email" class="em" required v-model="email"></div>
-    <div><translate class="formSpan">Password : </translate><input type="password" class="em" required v-model="password"></div>
-    <input type="submit" value="Log in">
+    <div id="formTitle"><h4 class="form-title"><translate>Log in:</translate></h4></div>
+    <div><translate class="formSpan form-label">Email : </translate><input type="email" class="em form-control" required v-model="email"></div>
+    <div><translate class="formSpan form-label">Password : </translate><input type="password" class="em form-control" required v-model="password"></div>
+    <input type="submit" value="Log in" class="btn btn-primary btn-block">
   </form>
 </template>
 

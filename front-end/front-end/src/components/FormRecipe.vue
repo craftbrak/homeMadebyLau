@@ -12,7 +12,7 @@
         <option v-for="option in Loption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
       </select>
       <div class="image-list">
-        <input id="file" type="file" ref="file" multiple="multiple" name="recipeImage">
+        <input id="file" type="file" ref="file" multiple="multiple" name="recipeImage" class="form ">
       </div>
       <div id="descriptionSection">
         <div><img src="../assets/préparation.png"><label v-translate>Preparing time (min)</label>
@@ -29,22 +29,62 @@
         <div class="solid"><h4><translate>Ingredients</translate> :</h4></div>
         <div><IngredientOption :ingredientNumber="iNumber" v-for="(ingredient, index) in IngredientOptions"
                       :key="index" @ichange="Ingredientchange" /></div>
-        <div id="noFlex"><input type="button" value="add Ingredient" @click="addIngredient" v-translate>
-        <input type="button" value="new Ingredient" @click="showCreateIngredient" v-translate></div>
+        <div id="noFlex">
+          <input type="button" class="btn btn-rounded btn-block btn-info" value="add Ingredient" @click="addIngredient" v-translate>
+          <input type="button" class="btn btn-block btn-rounded" value="new Ingredient"  data-bs-toggle="modal" data-bs-target="#FormIngredient" v-translate>
+          <input type="button" class="btn btn-block btn-rounded" value="new Ingredient Origin"  data-bs-toggle="modal" data-bs-target="#FormIngredientOrigin" v-translate>
+        </div>
       </div>
       <div class="container" id="unfoldingDiv">
         <div class="solid"><h4><translate>Unfolding</translate> :</h4></div>
         <textarea @input="mixin_autoResize_resize" id="recipeUnfolding" name="RecipeUnfolding" v-model="Runfolding" required></textarea>
       </div>
       <div class="center">
-        <input type="button" value="create Recipe" @click="addRecipe" v-translate>
+        <input type="button" value="create Recipe" @click="addRecipe" v-translate class="btn btn-rounded btn-danger btn-block">
       </div>
     </fieldset>
   </form>
+<!--  Form ingredient Modal-->
+  <div class="modal fade"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="FormIngredient">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><translate>Create an Ingredient</translate></h2>
+        </div>
+        <div class="modal-body">
+          <FormIngredient></FormIngredient>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  Form ingredient origin Modal-->
+  <div class="modal fade"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="FormIngredientOrigin">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><translate>Create an Ingredient</translate></h2>
+        </div>
+        <div class="modal-body">
+          <FormIngredientOrigin></FormIngredientOrigin>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 import IngredientOption from './IngredientOption'
+import FormIngredient from "@/components/FormIngredient";
+import FormIngredientOrigin from "@/components/FormIngredientOrigin";
 export default {
   name: 'FormRecipe',
   data () {
@@ -60,14 +100,14 @@ export default {
       Rcooking: '',
       Rprepare: '',
       Soption: [],
-      Loption: []
-
+      Loption: [],
+      showIngredientForm:false,
     }
   },
   props: {
     recipe_Id: Number
   },
-  components: { IngredientOption },
+  components: {FormIngredientOrigin, FormIngredient, IngredientOption },
   methods: {
     Ingredientchange (Ing) {
       this.Ingredients[Ing.IngredientOId - 1] = { ingId: Ing.ingredient, quantity: Ing.quantity, IUnit: Ing.IngredientUnit }
@@ -75,9 +115,6 @@ export default {
     addIngredient () {
       this.iNumber++
       this.IngredientOptions.push(IngredientOption)
-    },
-    showCreateIngredient () {
-      return false
     },
     addRecipe () {
       const formData = new FormData()
@@ -122,8 +159,10 @@ export default {
                   console.log(err)
                 })
             }
-        }).catch(err => {
-          alert(err)
+        })
+        .then(()=>this.$swal({titleText:"Created" ,icon:"success"}))
+        .catch(err => {
+          this.$swal({titleText: err , icon: 'error'})
         })
     }
   },

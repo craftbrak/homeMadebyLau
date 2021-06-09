@@ -11,6 +11,9 @@ import VueCookies from 'vue3-cookies'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { applyAuthTokenInterceptor, clearAuthTokens, setAuthTokens } from 'axios-jwt'
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+import Swal from 'sweetalert2'
 
 
 // 1. Create an axios instance that you wish to apply the interceptor to
@@ -32,12 +35,11 @@ axiosInstance.interceptors.request.use(
 // 2. Define token refresh function.
 const requestRefresh = (refresh) => {
   // Notice that this is the global axios instance, not the axiosInstance!  <-- important
-  console.log('louis')
   return axios.post(`${process.env.VUE_APP_API_ENDPOINT}/session/refresh`, { refresh })
     .then(response => Promise.resolve(response.data.accessToken))
     .catch(async err => {
       console.log(err)
-      alert("your session has expire please log back in")
+      Swal.fire({titleText:"your session has expire please log back in" ,icon:'error'})
       clearAuthTokens()
       await this.$router.push('/logout')
     })
@@ -81,3 +83,4 @@ app.use(VueCookies)
 app.use(VueAxios, axiosInstance)
 app.axios.logout = logout
 app.axios.login = login
+app.use(VueSweetalert2);

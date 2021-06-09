@@ -24,7 +24,7 @@ export default {
       .then(respons => {
         if (Object.keys(respons.data).length > 0) {
           this.recipe = respons.data
-          if (this.recipe.Recipe_Images) {
+          if (this.recipe.imageNumber > 0) {
             this.onscreenImage = process.env.VUE_APP_STATIC_ENDPOINT + this.recipe.Recipe_Images[0].imgpath
           }
         } else {

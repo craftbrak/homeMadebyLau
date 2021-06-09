@@ -8,7 +8,7 @@
         </select></div>&#160;&#160;&#160;
         <div><label>Quantity :&#160;</label>
         <input type="number" name="Iquantity" v-model="IQuantity" @change="Ichange" min="0">&#160;
-        <select class="IngredientUnit" v-model="selectedU" @change="Ichange">
+        <select class="IngredientUnit" v-model="selectedU" @change="Ichange" >
           <option value="" selected disabled hidden><translate>Select a unit</translate></option>
           <option v-for="option in Uoption" v-bind:key="option.value" v-bind:value="option.value">{{option.text}}</option>
         </select>

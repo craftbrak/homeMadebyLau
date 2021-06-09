@@ -1,27 +1,29 @@
 <template>
   <form>
-    <input type="text" v-model="name" placeholder="name" v-translate>
-    <input type="text" v-model="desc" placeholder="desciption" v-translate>
-    <input type="file" ref="imag">
-    <select v-model="Sseason">
-      <option value="" selected disabled hidden><translate>Select a unit</translate></option>
+    <div class="mb-3">
+    <input type="text" v-model="name" placeholder="name" v-translate class="form-control" >
+    <input type="text" v-model="desc" placeholder="desciption" v-translate class="form-control" >
+    <input type="file" ref="imag" class="form-control" >
+    <select v-model="Sseason" class="form-select" >
+      <option value="" selected disabled hidden><translate>Select a Season</translate></option>
       <option v-for="option in Soption" :value="option.value" :key="option.value">
         {{option.text}}
       </option>
     </select>
-    <select v-model="Sorig">
-      <option value="" selected disabled hidden><translate>Select a unit</translate></option>
+    <select v-model="Sorig" class="form-select" >
+      <option value="" selected disabled hidden><translate>Select a Origin</translate></option>
       <option v-for="option in Ooption" :value="option.value" :key="option.value">
         {{option.text}}
       </option>
     </select>
-    <select v-model="Slang">
-      <option value="" selected disabled hidden><translate>Select a unit</translate></option>
+    <select v-model="Slang" class="form-select" >
+      <option value="" selected disabled hidden><translate>Select a Language</translate></option>
       <option v-for="option in Loption" :value="option.value" :key="option.value">
         {{option.text}}
       </option>
     </select>
-    <input type="button" value="create" @click="sendform">
+    <input type="button" class="btn btn-primary" value="create" @click="sendform">
+    </div>
   </form>
 </template>
 
@@ -37,7 +39,7 @@ export default {
       Slang: '',
       Sorig: '',
       name: '',
-      desc: ''
+      desc: '',
     }
   },
   beforeCreate () {
@@ -78,15 +80,19 @@ export default {
       form.append('ingre_season', this.Sseason)
       form.append('ingre_origin', this.Sorig)
       form.append('ingre_image', this.$refs.imag.files[0])
-      this.this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/ingredient', form, {
+      this.axios.post(process.env.VUE_APP_API_ENDPOINT + '/ingredient', form, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
         .then(recipe => {
-          console.log(recipe)
+          this.$swal({titleText:`${recipe.data.name} has been created`,
+            icon:'success'
+        })
+          console.log('ok')
+
         }).catch(err => {
-          alert(err)
+          this.$swal({textTitle:err, icon:'error'  })
         })
     }
   }

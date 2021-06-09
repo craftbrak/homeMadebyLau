@@ -13,7 +13,7 @@
             {{recipe.timeToPrepare}} min |
           <img src="../assets/cuisson.png">
           {{recipe.cookingTime}} min |
-          {{recipe.SeasonId}}
+          {{season}}
         </div>
       </div>
       <div id="ingredientsDiv" class="framed">
@@ -48,12 +48,20 @@ export default {
           console.log(`${this.recipeId} does not exit in the database`)
         }
         console.log(this.$store.state.user_name, this.$store.state.user_right)
-      })
+      }).then(()=>{
+      this.axios.get(process.env.VUE_APP_API_ENDPOINT+"/seasons/"+this.recipe.SeasonId)
+        .then(resp=>{
+          this.season = resp.data.full_name
+        })
+    })
+
   },
   data () {
     return {
       recipe: {},
-      onscreenImage: null
+      onscreenImage: null,
+      units:null,
+      season: null
     }
   }
 }
