@@ -80,8 +80,18 @@ exports.getAll = (req ,res )=>{
         })
 }
 exports.getOne = (req ,res )=>{
+    let include = [{
+        association: "Recipe",
+        attributes:['id'],
+        through:{
+            attributes:[]
+        }
+    }]
+
     if (!req.params.id) return res.sendStatus(400)
-    Workshop.findByPk(req.params.id)
+    Workshop.findByPk(req.params.id,{
+        include: include
+    })
         .then(workshop => res.status(200).json(workshop))
         .catch(err => {
             throw err
@@ -114,6 +124,7 @@ exports.addRecipe = (req ,res )=>{
         .then(workshop =>{
             db.Recipe.findByPk(req.body.RecipeId)
                 .then(async recipe =>{
+                    if (!recipe) return res.sendStatus(400)
                     await workshop.addRecipe(recipe)
                     res.status(202).send(workshop)
                 })
