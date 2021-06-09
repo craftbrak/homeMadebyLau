@@ -32,4 +32,15 @@ describe('test the validator homemadelibrary',()=>{
        let result=  validation.ObjectExistNoNullField(data)
         expect(result).toBe(true)
     })
+    it ("test authenticateJWT",()=>{
+        let req = {
+            headers :{
+                authorization :""
+            }
+        }
+        let res = {}
+        let user = {}
+        validator.authenticateJWT(req,res,()=>{return false})
+        expect(res.user).toEqual(user)
+    })
 })
