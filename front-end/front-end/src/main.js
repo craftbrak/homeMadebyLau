@@ -52,12 +52,17 @@ applyAuthTokenInterceptor(axiosInstance, { requestRefresh }) // Notice that this
 // 4. Logging in
 const login = async (params) => {
   const response = await axiosInstance.post(process.env.VUE_APP_API_ENDPOINT + '/session/login', params)
+    .catch(err =>{
+      console.log(err)
+      Swal.fire({titleText:"wrong password and email combination" ,icon:'error'})
+    })
 
   // save tokens to storage
   setAuthTokens({
     accessToken: response.data.accessToken,
     refreshToken: response.data.refreshToken
   })
+  Swal.fire({titleText:"Connected" ,icon:'success'})
   return response
 }
 

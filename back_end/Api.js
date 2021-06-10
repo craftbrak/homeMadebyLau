@@ -29,6 +29,7 @@ app.use(cors({
 }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use('/static',express.static('static'))
 app.use(session({
     secret:db.sessionSecret,
@@ -45,6 +46,8 @@ require('./routes/user.router')(app)
 require('./routes/session.router')(app)
 require('./routes/workshop.router')(app)
 
+app.use(express.static(__dirname+'/static/frontEnd'))
+app.get(/.*/,(req, res )=>{ res.sendFile(__dirname+'/static/frontEnd/index.html')})
 server=http.listen(port,async ()=>{
     try {
         await db.sequelize.authenticate();
