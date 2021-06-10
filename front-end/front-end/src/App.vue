@@ -28,8 +28,8 @@
   </div>
   <div id="footer">
     <div id="networks"><translate>You can find me on:</translate>
-      <a href="https://www.facebook.com/homemadebylau" target="_blank"><img class="network" alt="Facebook" src="./assets/facebook.png"></a>
-      <a href="http://instagram.com/homemadebylau/" target="_blank"><img class="network" alt="Instagram" src="./assets/instagram.png"></a>
+      <a href="https://www.facebook.com/homemadebylau" target="_blank"><img class="network" alt="Facebook" src="./assets/facebook.webp"></a>
+      <a href="http://instagram.com/homemadebylau/" target="_blank"><img class="network" alt="Instagram" src="./assets/instagram.webp"></a>
       <a href="https://www.youtube.com/channel/UCnpGlhJ2xADc8dk5wOEtZ8w/videos" target="_blank"><img class="network" alt="YouTube" src="./assets/youtube.png"></a>
       <a href="https://www.guydemarle.com/profil/laurencecostermans-88637" target="_blank"><img class="network" alt="Guy Demarle" src="./assets/guy_demarle.png"></a>
     </div>
@@ -83,7 +83,7 @@ img {
   display: block;
   padding: 0px;
   background-color: #FFF6E0;
-  height: 2.8em;
+  min-height: 2.8em;
 }
 
 #nav a {
