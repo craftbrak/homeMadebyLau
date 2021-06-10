@@ -37,12 +37,12 @@
       </div>
       </div>
     <div class="mb-3">
-      <label :for="WorkshopId+'maxSubscription'" class="form-label"><translate>*The number of place for a workshop </translate></label>
-      <input type="number" class="form-control" :id="WorkshopId+'maxSubscription'" required v-model="maxSubscription">
+      <label :for="workshopId+'maxSubscription'" class="form-label"><translate>*The number of place for a workshop </translate></label>
+      <input type="number" class="form-control" :id="workshopId+'maxSubscription'" required v-model="maxSubscription">
     </div>
     <div class="mb-3">
-      <label :for="WorkshopId+'LanguageId'" class="form-label"><translate>*Language of the workshop </translate></label>
-      <select class="form-select" :id="WorkshopId+'LanguageId'" required  v-model="LanguageId" >
+      <label :for="workshopId+'LanguageId'" class="form-label"><translate>*Language of the workshop </translate></label>
+      <select class="form-select" :id="workshopId+'LanguageId'" required  v-model="LanguageId" >
         <option v-for="option in Loption" v-bind:key="option.value" v-bind:value="option.id" selected>{{option.full_name}} </option>
       </select>
     </div>

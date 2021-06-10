@@ -20,7 +20,6 @@ export default {
   beforeCreate() {
     this.axios.get(`${process.env.VUE_APP_API_ENDPOINT}/recipe`)
       .then((recipelist)=>{
-        console.log(recipelist)
         this.RecipeList = recipelist.data
       })
   },

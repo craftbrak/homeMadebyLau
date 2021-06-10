@@ -1,46 +1,53 @@
 <template>
   <div>
-    <div v-for="(recipe,index) in RecipeListItem" :key="index">
-      <WorkshopRecipeListItemSelect v-if="$store.state.user_right == 10" :workshop-id="WorkshopId" :language-id="LanguageId" :setprop="Recipes[index] ? true : false" :recipe-id="Recipes[index] ? Recipes[index] : null" :non-available-recipe-id="Recipes"></WorkshopRecipeListItemSelect>
-      <workshop-recipe-liste-item v-else :recipe-id="Recipes[index] ? Recipes[index] : null"></workshop-recipe-liste-item>
+    <div v-if="recipesNumber>0 " v-for="recipe in Recipes" :key="recipe">
+      <div>{{ Recipes[1].name }}</div>
+<!--      <WorkshopRecipeListItem :recipe-id="Recipes[recipe]"></WorkshopRecipeListItem>-->
     </div>
     <div v-if="$store.state.user_right == 10">
-      <button @click="addRecipe"><translate>add recipe</translate></button>
+<!--      <select class="form-select">-->
+<!--        <option>see ya</option>-->
+<!--      </select>-->
+<!--      <button class="btn btn-warning btn-rounded" @click="addRecipe"><translate>add recipe</translate></button>-->
     </div>
   </div>
 </template>
 
 <script>
-import WorkshopRecipeListItemSelect from "@/components/workshop/WorkshopRecipeListItemSelect";
 import WorkshopRecipeListItem from "@/components/workshop/WorkshopRecipeListeItem";
 export default {
   name: "WorkshopRecipeList",
-  components: {WorkshopRecipeListItem, WorkshopRecipeListItemSelect},
+  components: {WorkshopRecipeListItem},
   data () {
     return{
       RecipeListItem:[],
+      Recipes:[],
+      LanguageId:null,
+      workshop:null,
+      recipesNumber:null,
+      i:0
     }
   },
   props:{
-    Recipes : {
-      type: Array,
-      default: []
-    },
-    LanguageId:{
-      type: Number,
-      required: true
-    },
     WorkshopId: {
       type: Number,
       required: true
     },
   },
   beforeCreate() {
+    this.axios.get(`${process.env.VUE_APP_API_ENDPOINT}/workshop/${this.WorkshopId}`).then(resp =>{
+      this.workshop = resp.data
+      if (this.workshop.Recipe){
+        this.Recipes =this.workshop.Recipe
+        console.log(this.Recipes)
+        this.recipesNumber = this.workshop.Recipe.length
+      }
+    })
 
   },
   methods: {
     addRecipe () {
-      this.RecipeListItem.push({comp:WorkshopRecipeListItemSelect , recipe:null})
+
     }
   }
 }

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Sqlite" id="Project_49a" database="Sqlite" >
+	<schema name="Default" >
+		<table name="Comments" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="text" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="signaled" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<column name="UserId" type="integer" jt="4" />
+			<column name="RecipeId" type="integer" jt="4" />
+			<index name="pk_Comments" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="Fk_Comments" to_schema="Default" to_table="Recipes" delete_action="setNull" update_action="cascade" >
+				<fk_column name="RecipeId" pk="id" />
+			</fk>
+			<fk name="Fk_Comments" to_schema="Default" to_table="Users" delete_action="setNull" update_action="cascade" >
+				<fk_column name="UserId" pk="id" />
+			</fk>
+		</table>
+		<table name="Ingredient_Origins" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="description" type="text" jt="-1" mandatory="y" />
+			<column name="address" type="varchar" length="255" jt="12" />
+			<column name="website" type="varchar" length="255" jt="12" />
+			<column name="phone_number" type="varchar" length="255" jt="12" />
+			<column name="image_path" type="varchar" length="255" jt="12" />
+			<column name="email" type="varchar" length="255" jt="12" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<column name="LanguageId" type="integer" jt="4" />
+			<index name="pk_Ingredient_Origins" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="Fk_Ingredient_Origins" to_schema="Default" to_table="Languages" delete_action="setNull" update_action="cascade" >
+				<fk_column name="LanguageId" pk="id" />
+			</fk>
+		</table>
+		<table name="Ingredients" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="description" type="text" jt="-1" mandatory="y" />
+			<column name="imagePath" type="varchar" length="255" jt="12" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<column name="IngredientOriginId" type="integer" jt="4" />
+			<column name="LanguageId" type="integer" jt="4" />
+			<column name="SeasonId" type="integer" jt="4" />
+			<index name="pk_Ingredients" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="Fk_Ingredients" to_schema="Default" to_table="Ingredient_Origins" delete_action="setNull" update_action="cascade" >
+				<fk_column name="IngredientOriginId" pk="id" />
+			</fk>
+			<fk name="Fk_Ingredients" to_schema="Default" to_table="Languages" delete_action="setNull" update_action="cascade" >
+				<fk_column name="LanguageId" pk="id" />
+			</fk>
+			<fk name="Fk_Ingredients" to_schema="Default" to_table="Seasons" delete_action="setNull" update_action="cascade" >
+				<fk_column name="SeasonId" pk="id" />
+			</fk>
+		</table>
+		<table name="Languages" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="full_name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="code" type="varchar" length="255" jt="12" mandatory="y" />
+			<index name="pk_Languages" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="Recipe_Images" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="imgpath" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="caption" type="varchar" length="255" jt="12" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<column name="RecipeId" type="integer" jt="4" />
+			<index name="pk_Recipe_Images" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="Fk_Recipe_Images" to_schema="Default" to_table="Recipes" delete_action="setNull" update_action="cascade" >
+				<fk_column name="RecipeId" pk="id" />
+			</fk>
+		</table>
+		<table name="Recipe_Ingredients" >
+			<column name="RecipeId" type="integer" jt="4" mandatory="y" />
+			<column name="IngredientId" type="integer" jt="4" mandatory="y" />
+			<column name="quantity" type="number" jt="6" mandatory="y" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<column name="UnitId" type="integer" jt="4" />
+			<index name="pk_Recipe_Ingredients" unique="PRIMARY_KEY" >
+				<column name="RecipeId" />
+				<column name="IngredientId" />
+			</index>
+			<fk name="Fk_Recipe_Ingredients" to_schema="Default" to_table="Ingredients" delete_action="cascade" update_action="cascade" >
+				<fk_column name="IngredientId" pk="id" />
+			</fk>
+			<fk name="Fk_Recipe_Ingredients" to_schema="Default" to_table="Recipes" delete_action="cascade" update_action="cascade" >
+				<fk_column name="RecipeId" pk="id" />
+			</fk>
+			<fk name="Fk_Recipe_Ingredients" to_schema="Default" to_table="Units" delete_action="setNull" update_action="cascade" >
+				<fk_column name="UnitId" pk="id" />
+			</fk>
+		</table>
+		<table name="Recipe_Workshop" >
+			<column name="RecipeId" type="integer" jt="4" mandatory="y" />
+			<column name="WorkshopId" type="integer" jt="4" mandatory="y" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<index name="pk_Recipe_Workshop" unique="PRIMARY_KEY" >
+				<column name="RecipeId" />
+				<column name="WorkshopId" />
+			</index>
+			<fk name="Fk_Recipe_Workshop" to_schema="Default" to_table="Recipes" delete_action="cascade" update_action="cascade" >
+				<fk_column name="RecipeId" pk="id" />
+			</fk>
+			<fk name="Fk_Recipe_Workshop" to_schema="Default" to_table="Workshops" delete_action="cascade" update_action="cascade" >
+				<fk_column name="WorkshopId" pk="id" />
+			</fk>
+		</table>
+		<table name="Recipes" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="description" type="text" jt="-1" mandatory="y" />
+			<column name="imageNumber" type="number" jt="6" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="unfolding" type="text" jt="-1" mandatory="y" />
+			<column name="timeToPrepare" type="number" jt="6" mandatory="y" />
+			<column name="cookingTime" type="number" jt="6" mandatory="y" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<column name="LanguageId" type="integer" jt="4" />
+			<column name="SeasonId" type="integer" jt="4" />
+			<index name="pk_Recipes" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="Fk_Recipes" to_schema="Default" to_table="Languages" delete_action="setNull" update_action="cascade" >
+				<fk_column name="LanguageId" pk="id" />
+			</fk>
+			<fk name="Fk_Recipes" to_schema="Default" to_table="Seasons" delete_action="setNull" update_action="cascade" >
+				<fk_column name="SeasonId" pk="id" />
+			</fk>
+		</table>
+		<table name="RefreshTokens" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="token" type="varchar" length="255" jt="12" mandatory="y" />
+			<index name="pk_RefreshTokens" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="Seasons" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="full_name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="code" type="varchar" length="255" jt="12" mandatory="y" />
+			<index name="pk_Seasons" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="Units" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="full_name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="code" type="varchar" length="255" jt="12" mandatory="y" />
+			<index name="pk_Units" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="User_Workshops" >
+			<column name="WorkshopId" type="integer" jt="4" mandatory="y" />
+			<column name="UserId" type="integer" jt="4" mandatory="y" />
+			<column name="validated" type="tinyint" length="1" jt="-6" mandatory="y" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<index name="pk_User_Workshops" unique="PRIMARY_KEY" >
+				<column name="WorkshopId" />
+				<column name="UserId" />
+			</index>
+			<fk name="Fk_User_Workshops" to_schema="Default" to_table="Users" delete_action="cascade" update_action="cascade" >
+				<fk_column name="UserId" pk="id" />
+			</fk>
+			<fk name="Fk_User_Workshops" to_schema="Default" to_table="Workshops" delete_action="cascade" update_action="cascade" >
+				<fk_column name="WorkshopId" pk="id" />
+			</fk>
+		</table>
+		<table name="Users" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="user_name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="last_name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="first_name" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="email" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="password" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="salt" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="right" type="number" jt="6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<index name="pk_Users" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="sqlite_autoindex_Users_1" unique="UNIQUE_KEY" >
+				<column name="email" />
+			</index>
+		</table>
+		<table name="Workshops" >
+			<column name="id" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[autoincrement]]></identity>
+			</column>
+			<column name="title" type="number" jt="6" mandatory="y" />
+			<column name="date" type="datetime" jt="93" mandatory="y" />
+			<column name="address" type="varchar" length="255" jt="12" />
+			<column name="link" type="varchar" length="255" jt="12" />
+			<column name="description" type="text" jt="-1" mandatory="y" />
+			<column name="subscribeBefore" type="datetime" jt="93" mandatory="y" />
+			<column name="available" type="tinyint" length="1" jt="-6" mandatory="y" >
+				<defo><![CDATA[1]]></defo>
+			</column>
+			<column name="maxSubscription" type="number" jt="6" mandatory="y" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<column name="LanguageId" type="integer" jt="4" />
+			<index name="pk_Workshops" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="Fk_Workshops" to_schema="Default" to_table="Languages" delete_action="setNull" update_action="cascade" >
+				<fk_column name="LanguageId" pk="id" />
+			</fk>
+		</table>
+		<table name="comments_responses" >
+			<column name="responseId" type="integer" jt="4" mandatory="y" />
+			<column name="responsingId" type="integer" jt="4" mandatory="y" />
+			<column name="createdAt" type="datetime" jt="93" mandatory="y" />
+			<column name="updatedAt" type="datetime" jt="93" mandatory="y" />
+			<index name="pk_comments_responses" unique="PRIMARY_KEY" >
+				<column name="responseId" />
+				<column name="responsingId" />
+			</index>
+			<fk name="Fk_comments_responses" to_schema="Default" to_table="Comments" delete_action="cascade" update_action="cascade" >
+				<fk_column name="responsingId" pk="id" />
+			</fk>
+			<fk name="Fk_comments_responses" to_schema="Default" to_table="Comments" delete_action="cascade" update_action="cascade" >
+				<fk_column name="responseId" pk="id" />
+			</fk>
+		</table>
+	</schema>
+	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.34.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="D:/OneDrive - EPHEC asbl/2T/Progra/GitHub/homeMadebyLau/back_end/homeMadeByLau.sqlite" />
+	<layout name="Layout with Tools" id="Layout_123c" show_column_type="y" show_relation="columns" >
+		<entity schema="Default" name="Comments" color="C7F4BE" x="64" y="64" />
+		<entity schema="Default" name="Ingredient_Origins" color="BED3F4" x="2128" y="64" />
+		<entity schema="Default" name="Ingredients" color="BED3F4" x="1856" y="64" />
+		<entity schema="Default" name="Languages" color="C7F4BE" x="1040" y="112" />
+		<entity schema="Default" name="Recipe_Images" color="BED3F4" x="1360" y="384" />
+		<entity schema="Default" name="Recipe_Ingredients" color="BED3F4" x="1856" y="384" />
+		<entity schema="Default" name="Recipe_Workshop" color="C7F4BE" x="848" y="464" />
+		<entity schema="Default" name="Recipes" color="BED3F4" x="1600" y="64" />
+		<entity schema="Default" name="RefreshTokens" color="3986C1" x="64" y="656" />
+		<entity schema="Default" name="Seasons" color="BED3F4" x="1600" y="384" />
+		<entity schema="Default" name="Units" color="BED3F4" x="2096" y="384" />
+		<entity schema="Default" name="User_Workshops" color="C7F4BE" x="832" y="64" />
+		<entity schema="Default" name="Users" color="C7F4BE" x="576" y="48" />
+		<entity schema="Default" name="Workshops" color="C7F4BE" x="528" y="336" />
+		<entity schema="Default" name="comments_responses" color="C7F4BE" x="48" y="352" />
+		<script name="Sample SQL Editor" id="Editor_f4d" language="SQL" >
+			<string><![CDATA[SELECT id, name, description, imageNumber, unfolding, timeToPrepare, cookingTime, createdAt, updatedAt, LanguageId, SeasonId
+FROM
+	Recipes s;]]></string>
+		</script>
+		<browser id="Browse_1fa2" name="Sample Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="Default" entity="Recipes" x="20" y="20" width="400" height="300" >
+				<browse_table schema="Default" entity="Comments" fk="Fk_Comments" x="440" y="20" width="500" height="350" >
+					<browse_table schema="Default" entity="comments_responses" fk="Fk_comments_responses" x="960" y="20" width="500" height="350" />
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query id="Query_1a87" name="Sample Query Builder" >
+			<query_table schema="Default" name="Recipes" alias="r" x="48" y="48" >
+				<column name="id" />
+				<column name="name" />
+				<column name="description" />
+				<column name="imageNumber" />
+				<column name="unfolding" />
+				<column name="timeToPrepare" />
+				<column name="cookingTime" />
+				<column name="createdAt" />
+				<column name="updatedAt" />
+				<column name="LanguageId" />
+				<column name="SeasonId" />
+				<query_table schema="Default" name="Comments" alias="c" x="240" y="48" fk="Fk_Comments" type="Inner Join" >
+					<column name="id" />
+					<column name="text" />
+					<column name="signaled" />
+					<column name="createdAt" />
+					<column name="updatedAt" />
+					<column name="UserId" />
+					<column name="RecipeId" />
+					<query_table schema="Default" name="comments_responses" alias="cr" x="400" y="48" fk="Fk_comments_responses" type="Inner Join" >
+						<column name="responseId" />
+						<column name="responsingId" />
+						<column name="createdAt" />
+						<column name="updatedAt" />
+					</query_table>
+				</query_table>
+			</query_table>
+		</query>
+		<form name="Sample Report" id="Report_25f9" template="Page" css="container-fluid" view="frame" >
+			<var name="samplePageNumber" type="4" value="0" mandatory="n" />
+			<var name="sampleRecordsPerPage" type="4" value="100" mandatory="n" />
+			<body name="Body" template="Grid" pos="0,0,0,0,f,f" layout="{{-2,-2,-2,-2,-1},{-2,-2,-2}}" scroll="n" html="n" >
+				<cell type="label" name="sample" template="H3" pos="0,0,1,0,l,c" />
+				<tableview name="sample" template="Table" css="table table-striped table-bordered table-sm table-hover" pos="0,1,4,1,f,f" layout="{{-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2},{-2,-2}}" scroll="n" html="n" header_rows="1" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="id" type="4" />
+						<var name="name" />
+						<var name="description" type="-1" />
+						<var name="imageNumber" type="6" />
+						<var name="unfolding" type="-1" />
+						<var name="timeToPrepare" type="6" />
+						<var name="cookingTime" type="6" />
+						<var name="createdAt" type="93" />
+						<var name="updatedAt" type="93" />
+						<var name="LanguageId" type="4" />
+						<var name="SeasonId" type="4" />
+						<script ><![CDATA[SELECT * FROM Recipes]]></script>
+					</form_script>
+					<cell type="label" name="id" pos="0,0,0,0,c,c" />
+					<cell type="label" name="name" pos="1,0,1,0,c,c" />
+					<cell type="label" name="description" pos="2,0,2,0,c,c" />
+					<cell type="label" name="imageNumber" pos="3,0,3,0,c,c" />
+					<cell type="label" name="unfolding" pos="4,0,4,0,c,c" />
+					<cell type="label" name="timeToPrepare" pos="5,0,5,0,c,c" />
+					<cell type="label" name="cookingTime" pos="6,0,6,0,c,c" />
+					<cell type="label" name="createdAt" pos="7,0,7,0,c,c" />
+					<cell type="label" name="updatedAt" pos="8,0,8,0,c,c" />
+					<cell type="label" name="LanguageId" pos="9,0,9,0,c,c" />
+					<cell type="label" name="SeasonId" pos="10,0,10,0,c,c" />
+					<cell type="label" name="${id}" template="Plain" pos="0,1,0,1,l,c" />
+					<cell type="label" name="${name}" template="Plain" pos="1,1,1,1,l,c" />
+					<cell type="label" name="${description}" template="Plain" pos="2,1,2,1,l,c" />
+					<cell type="label" name="${imageNumber}" template="Plain" pos="3,1,3,1,l,c" />
+					<cell type="label" name="${unfolding}" template="Plain" pos="4,1,4,1,l,c" />
+					<cell type="label" name="${timeToPrepare}" template="Plain" pos="5,1,5,1,l,c" />
+					<cell type="label" name="${cookingTime}" template="Plain" pos="6,1,6,1,l,c" />
+					<cell type="label" name="${createdAt}" template="Plain" pos="7,1,7,1,l,c" />
+					<cell type="label" name="${updatedAt}" template="Plain" pos="8,1,8,1,l,c" />
+					<cell type="label" name="${LanguageId}" template="Plain" pos="9,1,9,1,l,c" />
+					<cell type="label" name="${SeasonId}" template="Plain" pos="10,1,10,1,l,c" />
+				</tableview>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="0,2,0,2,l,c" glyph="FA-ANGLE_DOUBLE_LEFT" ref_id="Report_25f9" >
+					<var name="samplePageNumber" value="0" />
+				</cell>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="1,2,1,2,l,c" glyph="FA-ANGLE_LEFT" ref_id="Report_25f9" >
+					<var name="samplePageNumber" value="${Math.max(0,samplePageNumber-1)}" />
+				</cell>
+				<cell type="label" name="Page ${samplePageNumber+1}" pos="2,2,2,2,l,c" />
+				<cell type="href" name="" disabled="${!sampleHasNextPage}" pos="3,2,3,2,l,c" glyph="FA-ANGLE_RIGHT" ref_id="Report_25f9" >
+					<var name="samplePageNumber" value="${( samplePageNumber+1 )}" />
+				</cell>
+			</body>
+		</form>
+	</layout>
+	<layout name="Main Layout" id="Layout_245a" show_relation="columns" >
+		<entity schema="Default" name="Comments" color="C7F4BE" x="48" y="80" />
+		<entity schema="Default" name="Ingredient_Origins" color="BED3F4" x="1728" y="80" />
+		<entity schema="Default" name="Ingredients" color="BED3F4" x="1488" y="80" />
+		<entity schema="Default" name="Languages" color="C7F4BE" x="240" y="80" />
+		<entity schema="Default" name="Recipe_Images" color="BED3F4" x="1088" y="400" />
+		<entity schema="Default" name="Recipe_Ingredients" color="BED3F4" x="1488" y="400" />
+		<entity schema="Default" name="Recipe_Workshop" color="C7F4BE" x="656" y="256" />
+		<entity schema="Default" name="Recipes" color="BED3F4" x="1280" y="80" />
+		<entity schema="Default" name="RefreshTokens" color="3986C1" x="880" y="480" />
+		<entity schema="Default" name="Seasons" color="BED3F4" x="1280" y="400" />
+		<entity schema="Default" name="Units" color="BED3F4" x="1696" y="400" />
+		<entity schema="Default" name="User_Workshops" color="C7F4BE" x="656" y="80" />
+		<entity schema="Default" name="Users" color="C7F4BE" x="864" y="80" />
+		<entity schema="Default" name="Workshops" color="C7F4BE" x="432" y="80" />
+		<entity schema="Default" name="comments_responses" color="C7F4BE" x="48" y="336" />
+		<group name="Comments" color="EEF7EC" >
+			<entity schema="Default" name="Comments" />
+			<entity schema="Default" name="Languages" />
+			<entity schema="Default" name="Workshops" />
+			<entity schema="Default" name="comments_responses" />
+			<entity schema="Default" name="User_Workshops" />
+			<entity schema="Default" name="Users" />
+			<entity schema="Default" name="Recipe_Workshop" />
+		</group>
+		<group name="Recipes" color="ECF0F7" >
+			<entity schema="Default" name="Recipes" />
+			<entity schema="Default" name="Ingredients" />
+			<entity schema="Default" name="Recipe_Ingredients" />
+			<entity schema="Default" name="Seasons" />
+			<entity schema="Default" name="Ingredient_Origins" />
+			<entity schema="Default" name="Recipe_Images" />
+			<entity schema="Default" name="Units" />
+		</group>
+	</layout>
+</project>
