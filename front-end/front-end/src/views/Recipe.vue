@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import Ingredient from '@/components/Ingredient.vue'
+import Ingredient from '@/components/ingredient/Ingredient.vue'
 export default {
   name: 'Recipe',
   components: { Ingredient },

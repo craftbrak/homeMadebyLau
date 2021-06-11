@@ -84,7 +84,7 @@
 <script>
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-import IngredientOption from './IngredientOption'
+import IngredientOption from './ingredient/IngredientOption'
 import FormIngredient from "@/components/FormIngredient";
 import FormIngredientOrigin from "@/components/FormIngredientOrigin";
 export default {

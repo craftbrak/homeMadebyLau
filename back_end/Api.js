@@ -1,8 +1,10 @@
 const app = require('express')();
 const express = require('express')
 const bodyParser = require('body-parser');
-const http = require('http').Server(app);
+const http = require('http').createServer(app);
+const https = require('https').createServer(app);
 const port = 8080;
+const httpsPort = 8443;
 const db = require('./models');
 const cors = require('cors');
 const session = require('express-session')
@@ -60,5 +62,17 @@ server=http.listen(port,async ()=>{
     }
 
 });
+serverHttps = https.listen(httpsPort,async ()=>{
+    try {
+        await db.sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+        await db.sequelize.sync({ force: false });
+        await db.initStatic()
+        console.log("listenig to port " + httpsPort)
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+
+})
 
 module.exports = server
